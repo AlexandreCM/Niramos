@@ -1,0 +1,20 @@
+!!! MAYOR CHANGES: Changed main layout construction methodology.
+!!! VoltageInternalConstruction added to the framework. This class will be present across all base classes of Voltage (VoltageWindow, VoltageEditor, VoltageHelper)
+!!! From now on to code your UI you need to access the Constructor property. All AreaStart(), Field(), Label(),etc. will need to be accessed with Constructor.AreaStart(), Constructor.Field(),Constructor.Label(), Constructor.Etc().
+
+
+- VoltageInternalConstructor: Used to manage Stored and Wild elements more compehensively.
+Use Constructor.StartStoredConstructor(myArea) to change focus to myArea and start constructing its Stored Layout. Use Constructor.EndStoredConstructor to finalize.
+
+- VoltageBuilder changed name to VoltageHelper
+- VoltageHelper: now can call other VoltageHelpers.
+- SplitArea fixed issue with tracking mouse position when inside other areas.
+
+- WeightArea: fixed eventCall for storedElements
+- WeightArea: fixed DrawCall for storedElements
+- StreamArea fixed eventCall for storedElements
+
+- VoltageStyles: VoltageStyles is now deprecated and was replaces by Styles and StyleBundle.
+- Styles: used to manage your bundles. Previous VoltageStyles.GetStyle should be replaced by Styles.GetStyle(styleID). Now you can access other StyleBundles on "Assets/Splime/Voltage Style Bundles/" folder using Styles.GetStyle(bundleName,styleID).
+- StyleBundle: manage different styles and organize them within different bundles. Create a new bundle on the right click "Create" menu on the Project Manager. Place your bundles under "Splime/Voltage Style Bundles" to be able to edit them through the Voltage Style Editor.
+- Style Editor: added functionality to use multiple StyleBundles.

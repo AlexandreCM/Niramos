@@ -1,0 +1,12 @@
+NEW
+- Style Editor: "Duplicate" and "New" option added to list's right click menu. New Bundle and Reload buttons added.
+- Button style: Changed a bit.
+
+
+FIXES
+- Styles: Style Bundles will now load when requested instead of just when the Style Editor is opened.
+- Tab Area: Now EventCalls will be passed to child areas and elements. Before it preveted child elements using Votage event system to respond to mouse and keyboard events.
+- Password: Now properly selecting basic style.
+- Split Area: Will now calculate its size properly.
+- Switch: Will now calculate its size properly.
+- Toggle: Will now calculate its size properly.
