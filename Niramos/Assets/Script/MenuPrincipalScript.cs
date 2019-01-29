@@ -30,6 +30,6 @@ public class MenuPrincipalScript : MonoBehaviour
     }
 
     void actionQuitter(){
-        Debug.Log("Clic sur 'Quitter'");
+        Application.Quit();
     }
 }
