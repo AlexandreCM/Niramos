@@ -34,6 +34,6 @@ public class UI_Time : MonoBehaviour
     }
 
     void updateTimer() {
-        this.timeLabel.text = temps.ToString();
+        this.timeLabel.text = (Mathf.Round(temps * 100.0f) / 100.0f).ToString();
     }
 }
