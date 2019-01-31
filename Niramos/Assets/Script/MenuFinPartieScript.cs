@@ -10,14 +10,17 @@ public class MenuFinPartieScript : MonoBehaviour
     [SerializeField]
     private Button bouttonRetourMenu;
     [SerializeField]
-    private Image imageGagant;
+    private GameObject panelJoueur1;
     [SerializeField]
-    private Text texteFinPartie;
+    private GameObject panelJoueur2;
+    [SerializeField]
+    private GameObject panelJoueur3;
+    [SerializeField]
+    private GameObject panelJoueur4;
 
     private void OnEnable()
     {
-        //imageGagant.sprite; = sprite gagnant
-        //texteFinPartie.text = text gagnant
+       
         bouttonRejouer.onClick.AddListener(rejouer);
         bouttonRetourMenu.onClick.AddListener(retourMenu);
     }
