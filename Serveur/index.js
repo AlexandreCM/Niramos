@@ -6,11 +6,14 @@ var io = require('socket.io').listen(server);
 
 app.set('port', process.env.PORT || 3000);
 
+// Liste de tout les joueurs connectés au serveur
 var clients = [];
 
 //io est une variable de socket.io regroupant des évènements
 io.on("connection", function (socket) {
     var joueurCourant;
+
+    // Quand un joueur se connecte
     socket.on("USER_CONNECT", function () {
         console.log('Un joueur vient de se connecter');
         for (var i = 0; i < clients.length; i++) {
@@ -19,6 +22,7 @@ io.on("connection", function (socket) {
         console.log("Joueur : " + clients[i].nom + " est connecté.")
     });
 
+    // Quand un joueur veut jouer
     socket.on("PLAY", function (data) {
         joueurCourant = {
             nom: data.nom,
@@ -30,6 +34,7 @@ io.on("connection", function (socket) {
         socket.broadcast.emit("USER_CONNECTED", joueurCourant);
     });
 
+    // Quand un utilisateur se déplace
     socket.on("MOVE", function (data) {
         joueurCourant.position = data.position;
         socket.emit("MOVE", joueurCourant);
@@ -37,6 +42,7 @@ io.on("connection", function (socket) {
         console.log(joueurCourant.nom + "se déplace vers " + joueurCourant.position);
     })
 
+    // Quand un utilisateur se déconnecte
     socket.on("disconnect", function () {
         socket.broadcast.emit("USER_DISCONNECTED", joueurCourant);
         for (var i = 0; i < clients.length; i++) {
@@ -49,7 +55,7 @@ io.on("connection", function (socket) {
 });
 
 
-
+// Démarrage du serveur
 server.listen(app.get('port'), function () {
     console.log("=====SERVEUR EN COURS D'EXECUTION=====");
 });
