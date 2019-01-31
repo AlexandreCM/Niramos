@@ -1,0 +1,11 @@
+{
+  "name": "niramos-serveur",
+  "version": "1.0.0",
+  "description": "Serveur de jeu pour le multijoueur de Niramos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Equipe Niramos",
+  "license": "ISC"
+}
