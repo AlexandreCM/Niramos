@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class UI_HUD : MonoBehaviour
+public class UI_Health : MonoBehaviour
 {
 
     [SerializeField]
@@ -22,6 +23,6 @@ public class UI_HUD : MonoBehaviour
 
     // Refresh HP Count
     void updateHealth(Text vie, Text t) {
-        vie.text = t;
+        vie.text = t.text;
     }
 }
