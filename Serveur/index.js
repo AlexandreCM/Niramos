@@ -34,7 +34,7 @@ io.on("connection", function (socket) {
         socket.broadcast.emit("USER_CONNECTED", joueurCourant);
     });
 
-    // Quand un utilisateur se déplace
+    // Quand un joueur se déplace
     socket.on("MOVE", function (data) {
         joueurCourant.position = data.position;
         socket.emit("MOVE", joueurCourant);
@@ -42,7 +42,7 @@ io.on("connection", function (socket) {
         console.log(joueurCourant.nom + "se déplace vers " + joueurCourant.position);
     })
 
-    // Quand un utilisateur se déconnecte
+    // Quand un joueur se déconnecte
     socket.on("disconnect", function () {
         socket.broadcast.emit("USER_DISCONNECTED", joueurCourant);
         for (var i = 0; i < clients.length; i++) {
