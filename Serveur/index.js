@@ -27,7 +27,7 @@ io.on("connection", function (socket) {
     socket.on("PLAY", function (data) {
 
         console.log(data);
-        
+
         joueurCourant = {
             nom: data.nom,
             position: data.position
