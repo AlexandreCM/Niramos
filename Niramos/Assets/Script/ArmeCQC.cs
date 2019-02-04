@@ -4,11 +4,31 @@ using UnityEngine;
 
 public class ArmeCQC : MonoBehaviour
 {
-    private bool estPickup = true;
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    private bool estEnMain = false;
+    private bool enAttaque = false;
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("collision");
+        Debug.Log("collision" + collision.gameObject.name);
+        if (!estEnMain)
+        {
+            attacherAuParent(collision);
+        }
+        else
+        {
+
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetButtonDown("Fire1") || enAttaque)
+        {
+            Debug.Log("Fire1");
+            attaquer();
+            //enAttaque = !enAttaque;
+        }
+    }
+    private void attacherAuParent(Collider2D collision)
+    {
         if (collision.gameObject.layer == this.gameObject.layer)
         {
             GameObject Joueur = collision.gameObject;
@@ -16,9 +36,28 @@ public class ArmeCQC : MonoBehaviour
             this.GetComponents<CapsuleCollider2D>()[1].enabled = false;
             this.transform.parent = Joueur.transform;
             this.GetComponent<Rigidbody2D>().isKinematic = true;
-            this.gameObject.transform.position.Set(5,0,0);
-            Transform transformParent = this.transform.parent.transform;
-            this.gameObject.transform.rotation.Set(transformParent.rotation.x, transformParent.rotation.y, transformParent.rotation.z, transformParent.rotation.w);
+            Vector3 position = new Vector3(3.5f, 3.2f, 0);
+            this.gameObject.transform.localPosition = position;
+            this.gameObject.transform.rotation = this.transform.parent.transform.rotation;
+            estEnMain = true;
+        }
+    }
+    private void attaquer()
+    {
+        this.GetComponent<BoxCollider2D>().enabled = !this.GetComponent<BoxCollider2D>().enabled;
+        this.enabled = false;
+        this.enabled = true;
+    }
+    private void FaireDegat(Collision2D collision)
+    {
+        VieJoueur joueur = null;
+        if (collision.gameObject.layer == this.gameObject.layer)
+        {
+            joueur = collision.gameObject.GetComponent<VieJoueur>();
+            if (joueur != null)
+            {
+                Debug.Log("hit");
+            }
         }
     }
 }
