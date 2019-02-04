@@ -18,12 +18,16 @@ io.on("connection", function (socket) {
         console.log('Un joueur vient de se connecter');
         for (var i = 0; i < clients.length; i++) {
             socket.emit("USER_CONNECTED", { nom: clients[i].nom, position: clients[i].position });
+
+            console.log("Joueur : " + clients[i].nom + " est connecté.");
         }
-        console.log("Joueur : " + clients[i].nom + " est connecté.")
     });
 
     // Quand un joueur veut jouer
     socket.on("PLAY", function (data) {
+
+        console.log(data);
+        
         joueurCourant = {
             nom: data.nom,
             position: data.position
