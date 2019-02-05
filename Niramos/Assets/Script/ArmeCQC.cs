@@ -9,6 +9,10 @@ public class ArmeCQC : MonoBehaviour
     public float degats;
     private bool estEnMain = false;
     private bool enAttaque = false;
+    [SerializeField]
+    private float quantitierKnockBackx = 200;
+    private float quantitierKnockBacky = 200;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("collision" + collision.gameObject.name);
@@ -50,6 +54,9 @@ public class ArmeCQC : MonoBehaviour
             {
                 Debug.Log("hit");
                 joueur.faireDegat(degats);
+                if (this.gameObject.transform.parent.transform.position.x > hit.rigidbody.gameObject.transform.position.x) quantitierKnockBackx *= -1;
+                Vector2 force = new Vector2(quantitierKnockBackx, quantitierKnockBacky);
+                hit.rigidbody.AddForce(force);
             }
         }
         
