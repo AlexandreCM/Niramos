@@ -730,6 +730,8 @@ GameObject:
   - component: {fileID: 187250833038871258}
   - component: {fileID: 187250833038871259}
   - component: {fileID: 187250833038871252}
+  - component: {fileID: 6811921502987901150}
+  - component: {fileID: 4757770519657564601}
   m_Layer: 5
   m_Name: CanvasHUDJeu
   m_TagString: Untagged
@@ -821,3 +823,37 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6811921502987901150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187250833038871253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abc77137b096aa444a665d2538e8eb3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  temps: 0
+  timeLabel: {fileID: 0}
+--- !u!114 &4757770519657564601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187250833038871253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a3785245643a144698c7d6c34847821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vie_1: {fileID: 187250831718758723}
+  vie_2: {fileID: 187250832405369343}
+  vie_3: {fileID: 187250831165531813}
+  vie_4: {fileID: 187250831345787650}
+  joueur1: {fileID: 0}
+  joueur2: {fileID: 0}
+  joueur3: {fileID: 0}
+  joueur4: {fileID: 0}

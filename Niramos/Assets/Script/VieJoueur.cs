@@ -4,21 +4,30 @@ using UnityEngine;
 
 public class VieJoueur : MonoBehaviour
 {
-    public float vie = 100;
-    public float vieMax = 100;
+    [SerializeField]
+    private float vie = 100;
+    [SerializeField]
+    private float vieMax = 100;
 
-    public void reduireVie(int quantiter)
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Debug.Log("hit " + collision.gameObject.name);
+    }
+    public void faireDegat(float quantiter)
     {
         vie -= quantiter;
         GestionnaireEvenement.declancherEvenement("vieChanger");
-        if (vie <= 0)
-        {
-            GestionnaireEvenement.declancherEvenement("joueurMort");
-        }
+        if (vie <= 0) vie = 0;
         Debug.Log(vie);
+        //Debug.Log(this.gameObject.name + " " + vie);
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void regenererVie(float quantiter)
     {
-        Debug.Log("hit " + collision.gameObject.name);
+        vie += quantiter;
+        if (vie > 100) vie = 100;
+    }
+    public float getVie()
+    {
+        return vie;
     }
 }
