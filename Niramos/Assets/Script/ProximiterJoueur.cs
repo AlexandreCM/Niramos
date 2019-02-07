@@ -7,6 +7,7 @@ public class ProximiterJoueur : MonoBehaviour
     private List<ProximiterJoueur> listeJoueur = new List<ProximiterJoueur>();
     [SerializeField]
     private float quantiterPousse = 1;
+    private int compteur = 0;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,10 +25,16 @@ public class ProximiterJoueur : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        foreach(ProximiterJoueur joueur in listeJoueur)
+        compteur++;
+        if (compteur == 5)
         {
-            if (this.gameObject.transform.position.x > joueur.gameObject.transform.position.x) quantiterPousse *= -1;
-            joueur.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(quantiterPousse, 0));
+            compteur = 0;
+            foreach (ProximiterJoueur joueur in listeJoueur)
+            {
+                if (this.gameObject.transform.position.x > joueur.gameObject.transform.position.x) quantiterPousse *= -1;
+                joueur.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(quantiterPousse, 0));
+                this.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(quantiterPousse * -1, 0));
+            }
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ArmeCQC : MonoBehaviour
-{
+{   
     [SerializeField]
     LayerMask HitLayers;
     public float degats;
@@ -44,7 +44,9 @@ public class ArmeCQC : MonoBehaviour
     }
     private void attaquer()
     {
-        RaycastHit2D[] toucher = Physics2D.RaycastAll(this.transform.position, this.transform.forward, 5, HitLayers);
+        Vector3 departRay = new Vector3(this.transform.position.x - 0.2f, this.transform.position.y, this.transform.position.z);
+        RaycastHit2D[] toucher = Physics2D.RaycastAll(departRay, new Vector3(90, 0, 0), 0.5f, HitLayers);
+        Debug.DrawRay(departRay, new Vector3(90, 0, 0), Color.red, 5);
         foreach (RaycastHit2D hit in toucher)
         {
             Debug.Log(hit.rigidbody.gameObject.name);
@@ -55,8 +57,7 @@ public class ArmeCQC : MonoBehaviour
                 Debug.Log("hit");
                 joueur.faireDegat(degats);
                 if (this.gameObject.transform.parent.transform.position.x > hit.rigidbody.gameObject.transform.position.x) quantitierKnockBackx *= -1;
-                Vector2 force = new Vector2(quantitierKnockBackx, quantitierKnockBacky);
-                hit.rigidbody.AddForce(force);
+                hit.rigidbody.AddForce(new Vector2(quantitierKnockBackx, quantitierKnockBacky));
             }
         }
         
