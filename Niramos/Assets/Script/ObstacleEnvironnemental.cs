@@ -18,7 +18,7 @@ public class ObstacleEnvironnemental : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision) {
         VieJoueur vieJ = collision.gameObject.GetComponent<VieJoueur>();
-        if (vieJ) {
+        if (vieJ != null) {
             vieJ.faireDegat(1.0f);
         }
     }
