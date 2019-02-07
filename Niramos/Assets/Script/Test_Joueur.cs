@@ -5,6 +5,9 @@ using System.Collections;
 
 public class Test_Joueur : MonoBehaviour {
 
+    [SerializeField]
+    public int vie;
+
     public float speed;             //Floating point variable to store the player's movement speed.
 
     private Rigidbody2D rb2d;       //Store a reference to the Rigidbody2D component required to use 2D Physics.
@@ -31,4 +34,10 @@ public class Test_Joueur : MonoBehaviour {
         //Call the AddForce function of our Rigidbody2D rb2d supplying movement multiplied by speed to move our player.
         rb2d.AddForce (movement * speed);
     }
+
+    void hurt(int v) {
+        // Hurts the player by the amount of damage given in input.
+        vie -= v;
+    }
+
 }
