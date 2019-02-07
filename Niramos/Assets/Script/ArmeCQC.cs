@@ -15,8 +15,10 @@ public class ArmeCQC : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("collision" + collision.gameObject.name);
-        attacherAuParent(collision);
+        //Debug.Log("collision" + collision.gameObject.name);
+        VieJoueur joueur = null;
+        joueur = collision.gameObject.GetComponent<VieJoueur>();
+        if (joueur != null) attacherAuParent(collision);
     }
     private void Update()
     {
@@ -39,6 +41,8 @@ public class ArmeCQC : MonoBehaviour
             Vector3 position = new Vector3(3.5f, 3.2f, 0);
             this.gameObject.transform.localPosition = position;
             this.gameObject.transform.rotation = this.transform.parent.transform.rotation;
+            this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             estEnMain = true;
         }
     }
