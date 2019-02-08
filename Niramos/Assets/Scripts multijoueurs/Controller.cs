@@ -27,11 +27,11 @@ public class Controller : MonoBehaviour
         joystick.OnCommandMove += OnCommandMove;
     }
 
-    void OnCommandMove(string nom, Vector3 vec3)
+    void OnCommandMove(Vector3 vec3)
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
         Vector3 position = new Vector3(vec3.x, vec3.y, vec3.z);
-        data["nom"] = nom;
+        data["name"] = JoueurGameObject.JoueurName;
         data["position"] = position.x + "," + position.y + "," + position.z;
         socket.Emit("MOVE", new JSONObject(data));
     }
@@ -88,8 +88,10 @@ public class Controller : MonoBehaviour
             Debug.Log("OnClickPlayBtn : if");
             Dictionary<string, string> data = new Dictionary<string, string>();
             data["name"] = loginPanel.inputField.text;
+            JoueurGameObject.JoueurName = loginPanel.inputField.text;
             Vector3 position = new Vector3(0, 0, 0);
             data["position"] = position.x + "," + position.y + "," + position.z;
+            JoueurGameObject.position = position;
             socket.Emit("PLAY", new JSONObject(data));
         }
         else

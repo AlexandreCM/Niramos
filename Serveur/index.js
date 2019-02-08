@@ -15,7 +15,7 @@ io.on("connection", function (socket) {
 
     // Quand un joueur se connecte
     socket.on("USER_CONNECT", function () {
-        console.log('Un joueur vient de se connecter');
+        console.log('Un joueur vient de se connecter au serveur mais n\'est pas encore identifié.');
         for (var i = 0; i < clients.length; i++) {
             socket.emit("USER_CONNECTED", { nom: clients[i].nom, position: clients[i].position });
 
@@ -26,12 +26,12 @@ io.on("connection", function (socket) {
     // Quand un joueur veut jouer
     socket.on("PLAY", function (data) {
 
-        console.log(data);
-
         joueurCourant = {
-            nom: data.nom,
+            nom: data.name,
             position: data.position
         }
+
+        console.log(joueurCourant.nom + " s'est identifié, il peut maintenant jouer.");
 
         clients.push(joueurCourant);
         socket.emit("PLAY", joueurCourant);
@@ -42,16 +42,17 @@ io.on("connection", function (socket) {
     socket.on("MOVE", function (data) {
 
         joueurCourant = {
-            nom: data.nom,
+            nom: data.name,
             position: data.position
         }
+
         socket.emit("MOVE", joueurCourant);
         socket.broadcast.emit("MOVE", joueurCourant);
         console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);
     })
 
     // Quand un joueur se déconnecte
-    socket.on("disconnect", function () {
+    socket.on("disconnect", function (data) {
         socket.broadcast.emit("USER_DISCONNECTED", joueurCourant);
         for (var i = 0; i < clients.length; i++) {
             if (clients[i].nom == joueurCourant.nom) {
