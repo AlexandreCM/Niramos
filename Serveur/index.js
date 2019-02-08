@@ -40,7 +40,11 @@ io.on("connection", function (socket) {
 
     // Quand un joueur se déplace
     socket.on("MOVE", function (data) {
-        joueurCourant.position = data.position;
+
+        joueurCourant = {
+            nom: data.nom,
+            position: data.position
+        }
         socket.emit("MOVE", joueurCourant);
         socket.broadcast.emit("MOVE", joueurCourant);
         console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);

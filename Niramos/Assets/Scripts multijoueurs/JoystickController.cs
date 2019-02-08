@@ -5,7 +5,7 @@ using UnityEngine;
 public class JoystickController : MonoBehaviour
 {
 
-    public delegate void OnMove(Vector3 vec3);
+    public delegate void OnMove(string nom, Vector3 vec3);
     public event OnMove OnCommandMove;
 
     public WatchButton Left;
@@ -85,7 +85,7 @@ public class JoystickController : MonoBehaviour
             JoueurObject.transform.position = new Vector3(tranf.position.x - (2f * Time.deltaTime), tranf.position.x, tranf.position.z);
            if (OnCommandMove != null)
             {
-                OnCommandMove(JoueurObject.transform.position);
+                OnCommandMove("test", JoueurObject.transform.position);
             }
         }
 
@@ -95,7 +95,7 @@ public class JoystickController : MonoBehaviour
             JoueurObject.transform.position = new Vector3(tranf.position.x + (2f * Time.deltaTime), tranf.position.x, tranf.position.z);
             if (OnCommandMove != null)
             {
-                OnCommandMove(JoueurObject.transform.position);
+                OnCommandMove("test", JoueurObject.transform.position);
             }
         }
 
@@ -105,7 +105,7 @@ public class JoystickController : MonoBehaviour
             JoueurObject.transform.position = new Vector3(tranf.position.x, tranf.position.x, tranf.position.z - (2f * Time.deltaTime));
             if (OnCommandMove != null)
             {
-                OnCommandMove(JoueurObject.transform.position);
+                OnCommandMove("test", JoueurObject.transform.position);
             }
         }
 
@@ -115,7 +115,7 @@ public class JoystickController : MonoBehaviour
             JoueurObject.transform.position = new Vector3(tranf.position.x, tranf.position.x, tranf.position.z + (2f * Time.deltaTime));
             if (OnCommandMove != null)
             {
-                OnCommandMove(JoueurObject.transform.position);
+                OnCommandMove("test", JoueurObject.transform.position);
             }
         }
     }

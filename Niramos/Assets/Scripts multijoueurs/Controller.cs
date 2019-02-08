@@ -27,10 +27,11 @@ public class Controller : MonoBehaviour
         joystick.OnCommandMove += OnCommandMove;
     }
 
-    void OnCommandMove(Vector3 vec3)
+    void OnCommandMove(string nom, Vector3 vec3)
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
         Vector3 position = new Vector3(vec3.x, vec3.y, vec3.z);
+        data["nom"] = nom;
         data["position"] = position.x + "," + position.y + "," + position.z;
         socket.Emit("MOVE", new JSONObject(data));
     }
