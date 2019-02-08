@@ -33,21 +33,21 @@ public class JoystickController : MonoBehaviour
     {
         switch (unit.name)
         {
-            case "Left":
+            case "btnGauche":
                 LeftMove(state);
                 break;
-            case "Right":
+            case "btnDroite":
                 RightMove(state);
                 break;
-            case "Backward":
+            case "btnReculer":
                 BackMove(state);
                 break;
-            case "Forward":
+            case "btnAvancer":
                 FrontMove(state);
                 break;
         }
 
-        Debug.Log(unit.name);
+        Debug.Log("OnPress JoystickController "+ unit.name+" "+state.ToString());
     }
 
     private void LeftMove(bool state)

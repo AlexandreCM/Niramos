@@ -14,7 +14,7 @@ public class WatchButton : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(this.gameObject.name);
+        Debug.Log("WatchButton Start: "+this.gameObject.name);
         eventTrigger = this.gameObject.GetComponent<EventTrigger>();
         AddEventTrigger(OnPointDown, EventTriggerType.PointerDown);
         AddEventTrigger(OnPointUp, EventTriggerType.PointerUp);
