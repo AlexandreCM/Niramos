@@ -11,6 +11,7 @@ public class WatchButton : MonoBehaviour
     public delegate void onActionPress(GameObject unit, bool state);
     public event onActionPress onPress;
     EventTrigger eventTrigger;
+
     void Start()
     {
         Debug.Log(this.gameObject.name);
