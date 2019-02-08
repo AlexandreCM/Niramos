@@ -62,11 +62,11 @@ public class Controller : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        Dictionary<string, string> data = new Dictionary<string, string>();
+        /* Dictionary<string, string> data = new Dictionary<string, string>();
         data["name"] = "NomDeTest";
         Vector3 position = new Vector3(0, 0, 0);
         data["position"] = position.x + "," + position.y + "," + position.z;
-        socket.Emit("PLAY", new JSONObject(data));
+        socket.Emit("PLAY", new JSONObject(data)); */
     }
 
     private void OnUserConnected(SocketIOEvent evt)
@@ -81,8 +81,10 @@ public class Controller : MonoBehaviour
 
     void OnClickPlayBtn()
     {
+        Debug.Log("onClickPlayBtn");
         if (loginPanel.inputField.text != "")
         {
+            Debug.Log("OnClickPlayBtn : if");
             Dictionary<string, string> data = new Dictionary<string, string>();
             data["name"] = loginPanel.inputField.text;
             Vector3 position = new Vector3(0, 0, 0);
@@ -91,6 +93,7 @@ public class Controller : MonoBehaviour
         }
         else
         {
+            Debug.Log("OnClickPlayBtn : else");
             loginPanel.inputField.text = "Entrez un nom !";
         }
     }
