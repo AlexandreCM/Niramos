@@ -43,7 +43,7 @@ io.on("connection", function (socket) {
         joueurCourant.position = data.position;
         socket.emit("MOVE", joueurCourant);
         socket.broadcast.emit("MOVE", joueurCourant);
-        console.log(joueurCourant.nom + "se déplace vers " + joueurCourant.position);
+        console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);
     })
 
     // Quand un joueur se déconnecte

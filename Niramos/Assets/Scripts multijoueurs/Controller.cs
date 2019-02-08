@@ -63,7 +63,7 @@ public class Controller : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         Dictionary<string, string> data = new Dictionary<string, string>();
-        data["name"] = "Arthur";
+        data["name"] = "NomDeTest";
         Vector3 position = new Vector3(0, 0, 0);
         data["position"] = position.x + "," + position.y + "," + position.z;
         socket.Emit("PLAY", new JSONObject(data));
