@@ -7,7 +7,11 @@ public class Arc : MonoBehaviour
     private bool estEnMain = false;
     [SerializeField]
     private GameObject fleche;
-
+    private bool DirectionDroite = true;
+    private void OnEnable()
+    {
+        GestionnaireEvenement.ajouterEvenement("changerDirection", changerDirection);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("collision" + collision.gameObject.name);
@@ -40,6 +44,11 @@ public class Arc : MonoBehaviour
     {
         Vector3 position = new Vector3(this.gameObject.transform.position.x + 0.3f, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
         GameObject lancer = Instantiate(fleche, position, this.gameObject.transform.rotation);
-        lancer.GetComponent<Fleche>().lancer(true);
+        lancer.GetComponent<Fleche>().lancer(DirectionDroite);
+    }
+    private void changerDirection()
+    {
+        DirectionDroite = false;
+        Debug.Log(DirectionDroite);
     }
 }

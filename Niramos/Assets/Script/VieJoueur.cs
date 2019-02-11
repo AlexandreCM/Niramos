@@ -25,6 +25,7 @@ public class VieJoueur : MonoBehaviour
         Debug.Log(vie);
         //Debug.Log(this.gameObject.name + " " + vie);
     }
+
     public void regenererVie(float quantiter)
     {
         vie += quantiter;
