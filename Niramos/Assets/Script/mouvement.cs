@@ -13,6 +13,9 @@ public class mouvement : MonoBehaviour
     public int forceFracasse = -10;
     bool stickDownLast;
 
+    enum Direction {Droite, Gauche};
+    Direction etatCourant = Direction.Droite;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +34,27 @@ public class mouvement : MonoBehaviour
 
         // Mouvement du joueur
         var move = new Vector3(Input.GetAxis("Horizontal"), 0);
+        
+
+        if(Input.GetAxis("Horizontal") < 0) {
+            transform.eulerAngles = new Vector3(0, 180, 0);
+            if(etatCourant != Direction.Gauche) {
+                etatCourant = Direction.Gauche;
+                GestionnaireEvenement.declancherEvenement("directionChanger");
+            }
+
+            Debug.Log("gauche");
+        }
+        else if(Input.GetAxis("Horizontal") > 0) {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+            if(etatCourant != Direction.Droite) {
+                etatCourant = Direction.Droite;
+                GestionnaireEvenement.declancherEvenement("directionChanger");
+            }
+
+            Debug.Log("droite");
+        }
+        
         transform.position += move * vitesse * Time.deltaTime;
         
 
