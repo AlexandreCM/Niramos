@@ -17,7 +17,11 @@ public class VieJoueur : MonoBehaviour
     {
         vie -= quantiter;
         GestionnaireEvenement.declancherEvenement("vieChanger");
-        if (vie <= 0) vie = 0;
+        if (vie <= 0) {
+            vie = 0;
+            GestionnaireMort.getEvent().Invoke(this);
+        }
+
         Debug.Log(vie);
         //Debug.Log(this.gameObject.name + " " + vie);
     }

@@ -27,11 +27,13 @@ public class UI_Health : MonoBehaviour
     private void OnEnable()
     {
         GestionnaireEvenement.ajouterEvenement("vieChanger", vieJoueur);
+        GestionnaireMort.init();
     }
 
     // Disabled
     void onDisable() {
         GestionnaireEvenement.retirerEvenement("vieChanger", vieJoueur);
+        GestionnaireMort.remove();
     }
 
     private void vieJoueur(){
