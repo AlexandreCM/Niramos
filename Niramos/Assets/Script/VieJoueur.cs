@@ -9,6 +9,10 @@ public class VieJoueur : MonoBehaviour
     [SerializeField]
     private float vieMax = 100;
 
+    private void OnEnable()
+    {
+        
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //Debug.Log("hit " + collision.gameObject.name);
@@ -20,7 +24,6 @@ public class VieJoueur : MonoBehaviour
             GestionnaireMort.getEvent().Invoke(this);
         }
         GestionnaireEvenement.declancherEvenement("vieChanger");
-
         Debug.Log(vie);
         //Debug.Log(this.gameObject.name + " " + vie);
     }

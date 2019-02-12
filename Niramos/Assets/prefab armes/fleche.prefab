@@ -141,7 +141,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1f0bfa297b2764995af7e957b3bd38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceLancement: 500
+  forceLancementx: 500
+  forceLancementy: 125
   layerJoueur:
     serializedVersion: 2
     m_Bits: 512
+  degat: 10
+  timerDestruction: 500

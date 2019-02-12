@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using System.Text.RegularExpressions;
 using SocketIO;
@@ -22,22 +23,26 @@ public class Controller : MonoBehaviour
         socket.On("PLAY", OnUserPlay);
         socket.On("MOVE", onUserMove);
         socket.On("USER_DISCONNECTED", onUserDisconnected);
+        socket.On("AUCUNE_SESSION_DISPO", onAucuneSessionDispo);
         joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
         joystick.OnCommandMove += OnCommandMove;
     }
 
-    void OnCommandMove(Vector3 vec3)
+    void OnCommandMove(Vector3 vec3) // Cette méthod va servir à envoyer au serveur les nouvelles coordonnées du joueur.
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
         Vector3 position = new Vector3(vec3.x, vec3.y, vec3.z);
         data["name"] = JoueurGameObject.JoueurName;
-        data["position"] = position.x + "," + position.y + "," + position.z;
+        data["position"] = position.x + "/" + position.y + "/" + position.z;
         socket.Emit("MOVE", new JSONObject(data));
     }
 
     void onUserMove(SocketIOEvent obj)
     {
+        Debug.Log(JsonToString(obj.data.GetField("nom").ToString(), "\"") + " se déplace vers "+JsonToVector3(obj.data.GetField("position").ToString()));
+        Vector3 vecteur = JsonToVector3(obj.data.GetField("position").ToString());
+
         GameObject Joueur = GameObject.Find(JsonToString(obj.data.GetField("name").ToString(), "\"")) as GameObject;
         Joueur.transform.position = JsonToVector3(JsonToString(obj.data.GetField("position").ToString(), "\""));
     }
@@ -50,10 +55,14 @@ public class Controller : MonoBehaviour
 
     Vector3 JsonToVector3(string target)
     {
-        Vector3 newVector;
-        string[] newString = Regex.Split(target, ",");
-        newVector = new Vector3(float.Parse(newString[0]), float.Parse(newString[1]), float.Parse(newString[2]));
-        return newVector;
+        StringBuilder sb = new StringBuilder(target);
+        sb.Remove(0, 1);
+        sb.Remove(sb.Length - 1, 1);
+        target = sb.ToString();
+
+        char[] delimiterChars = { '/' };
+        string[] newString = target.Split(delimiterChars);
+        return new Vector3(float.Parse(newString[0]), float.Parse(newString[1]), float.Parse(newString[2]));
     }
 
     IEnumerator ConnectToServer()
@@ -82,10 +91,8 @@ public class Controller : MonoBehaviour
 
     void OnClickPlayBtn()
     {
-        Debug.Log("onClickPlayBtn");
         if (loginPanel.inputField.text != "")
         {
-            Debug.Log("OnClickPlayBtn : if");
             Dictionary<string, string> data = new Dictionary<string, string>();
             data["name"] = loginPanel.inputField.text;
             JoueurGameObject.JoueurName = loginPanel.inputField.text;
@@ -96,7 +103,6 @@ public class Controller : MonoBehaviour
         }
         else
         {
-            Debug.Log("OnClickPlayBtn : else");
             loginPanel.inputField.text = "Entrez un nom !";
         }
     }
@@ -122,6 +128,10 @@ public class Controller : MonoBehaviour
         JoueurCom.transform.position = JsonToVector3(JsonToString(evt.data.GetField("position").ToString(), "\""));
         JoueurCom.id = JsonToString(evt.data.GetField("id").ToString(), "\"");
         joystick.JoueurObject = Joueur;
+    }
+
+    void onAucuneSessionDispo(SocketIOEvent obj){
+        Debug.Log("Aucune session dispo");
     }
 
 
