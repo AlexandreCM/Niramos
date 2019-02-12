@@ -18,7 +18,6 @@ public class DeathEdge : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Dead.");
         //Detecting the Grid Position of Player
         if (collision.gameObject.name == "TestPlayer")
         {        
