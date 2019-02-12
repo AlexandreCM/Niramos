@@ -9,6 +9,11 @@ app.set('port', process.env.PORT || 3000);
 // Liste de tout les joueurs connectés au serveur
 var clients = [];
 
+var session1 = [];
+var session2 = [];
+var session3 = [];
+var session4 = [];
+
 //io est une variable de socket.io regroupant des évènements
 io.on("connection", function (socket) {
     var joueurCourant;
@@ -28,7 +33,8 @@ io.on("connection", function (socket) {
 
         joueurCourant = {
             nom: data.name,
-            position: data.position
+            position: data.position,
+            vie : 100
         }
 
         console.log(joueurCourant.nom + " s'est identifié, il peut maintenant jouer.");
@@ -49,7 +55,16 @@ io.on("connection", function (socket) {
         socket.emit("MOVE", joueurCourant);
         socket.broadcast.emit("MOVE", joueurCourant);
         console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);
-    })
+    });
+
+    // Sert à afficher les sessions disponibles au joueur
+    // socket.on("SHOW_SESSIONS", function (data) {
+        
+
+    //     socket.emit("MOVE", joueurCourant);
+    //     socket.broadcast.emit("MOVE", joueurCourant);
+    //     console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);
+    // });
 
     // Quand un joueur se déconnecte
     socket.on("disconnect", function (data) {
@@ -60,7 +75,7 @@ io.on("connection", function (socket) {
                 clients.splice(i, 1);
             }
         }
-    })
+    });
 });
 
 

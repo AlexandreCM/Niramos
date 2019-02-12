@@ -46,28 +46,22 @@ public class JoystickController : MonoBehaviour
                 FrontMove(state);
                 break;
         }
-
-        Debug.Log("OnPress JoystickController "+ unit.name+" "+state.ToString());
     }
 
     private void LeftMove(bool state)
     {
-        Debug.Log("LeftMove");
         leftMove = state;
     }
     private void RightMove(bool state)
     {
-        Debug.Log("RightMove");
         rightMove = state;
     }
     private void BackMove(bool state)
     {
-        Debug.Log("BackMove");
         backMove = state;
     }
     private void FrontMove(bool state)
     {
-        Debug.Log("FrontMove");
         frontMove = state;
     }
 
@@ -81,7 +75,6 @@ public class JoystickController : MonoBehaviour
         
         if (leftMove)
         {
-            Debug.Log("LeftMove TRUE");
             JoueurObject.transform.position = new Vector3(tranf.position.x - (2f * Time.deltaTime), tranf.position.x, tranf.position.z);
            if (OnCommandMove != null)
             {
@@ -91,7 +84,6 @@ public class JoystickController : MonoBehaviour
 
         if (rightMove)
         {
-            Debug.Log("RightMove TRUE");
             JoueurObject.transform.position = new Vector3(tranf.position.x + (2f * Time.deltaTime), tranf.position.x, tranf.position.z);
             if (OnCommandMove != null)
             {
@@ -101,7 +93,6 @@ public class JoystickController : MonoBehaviour
 
         if (backMove)
         {
-            Debug.Log("BackMove TRUE");
             JoueurObject.transform.position = new Vector3(tranf.position.x, tranf.position.x, tranf.position.z - (2f * Time.deltaTime));
             if (OnCommandMove != null)
             {
@@ -111,7 +102,6 @@ public class JoystickController : MonoBehaviour
 
         if (frontMove)
         {
-            Debug.Log("Frontmove TRUE");
             JoueurObject.transform.position = new Vector3(tranf.position.x, tranf.position.x, tranf.position.z + (2f * Time.deltaTime));
             if (OnCommandMove != null)
             {
