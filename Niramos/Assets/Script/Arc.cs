@@ -7,11 +7,9 @@ public class Arc : MonoBehaviour
     private bool estEnMain = false;
     [SerializeField]
     private GameObject fleche;
-    private bool DirectionDroite = true;
-    private void OnEnable()
-    {
-        GestionnaireEvenement.ajouterEvenement("changerDirection", changerDirection);
-    }
+    private bool directionDroite = true;
+    private float positionxFleche = 0.3f;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("collision" + collision.gameObject.name);
@@ -27,28 +25,36 @@ public class Arc : MonoBehaviour
     {
         if (collision.gameObject.layer == this.gameObject.layer)
         {
-            GameObject Joueur = collision.gameObject;
-            this.GetComponents<CapsuleCollider2D>()[0].enabled = false;
-            this.GetComponents<CapsuleCollider2D>()[1].enabled = false;
-            this.transform.parent = Joueur.transform;
-            this.GetComponent<Rigidbody2D>().isKinematic = true;
-            Vector3 position = new Vector3(3.5f, 3.2f, 0);
-            this.gameObject.transform.localPosition = position;
-            this.gameObject.transform.rotation = this.transform.parent.transform.rotation;
-            this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-            this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            estEnMain = true;
+            if (collision.gameObject.GetComponent<ManagerJoueur>().objetEnMain == null)
+            {
+                GameObject Joueur = collision.gameObject;
+                this.GetComponents<CapsuleCollider2D>()[0].enabled = false;
+                this.GetComponents<CapsuleCollider2D>()[1].enabled = false;
+                this.transform.parent = Joueur.transform;
+                this.GetComponent<Rigidbody2D>().isKinematic = true;
+                Vector3 position = new Vector3(3.5f, 3.2f, 0);
+                this.gameObject.transform.localPosition = position;
+                this.gameObject.transform.rotation = this.transform.parent.transform.rotation;
+                this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                estEnMain = true;
+
+                this.transform.parent.GetComponent<ManagerJoueur>().objetEnMain = this.gameObject;
+                if (!this.transform.parent.GetComponent<ManagerJoueur>().getDirectionVerDroite())
+                    changerDirection();
+            }
         }
     }
     private void tirer()
     {
-        Vector3 position = new Vector3(this.gameObject.transform.position.x + 0.3f, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+        Vector3 position = new Vector3(this.gameObject.transform.position.x + positionxFleche, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
         GameObject lancer = Instantiate(fleche, position, this.gameObject.transform.rotation);
-        lancer.GetComponent<Fleche>().lancer(DirectionDroite);
+        lancer.GetComponent<Fleche>().lancer(directionDroite);
     }
-    private void changerDirection()
+    public void changerDirection()
     {
-        DirectionDroite = false;
-        Debug.Log(DirectionDroite);
+        directionDroite = !directionDroite;
+        positionxFleche = positionxFleche * -1;
+        //Debug.Log(directionDroite);
     }
 }

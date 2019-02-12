@@ -6,7 +6,9 @@ using System.Timers;
 public class Fleche : MonoBehaviour
 {
     [SerializeField]
-    private float forceLancement = 500;
+    private float forceLancementx = 500;
+    [SerializeField]
+    private float forceLancementy = 125;
     [SerializeField]
     private LayerMask layerJoueur;
     [SerializeField]
@@ -18,10 +20,10 @@ public class Fleche : MonoBehaviour
     {
         if (!directionDroite)
         {
-            forceLancement *= -1;
-            this.gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            forceLancementx = -1 * forceLancementx;
+            this.gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
-        this.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceLancement, forceLancement / 4));
+        this.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceLancementx, forceLancementy));
     }
     private void FixedUpdate()
     {
