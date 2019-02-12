@@ -22,45 +22,37 @@ public class mouvement : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // au sol ?
-        auSol = Physics2D.OverlapArea(
-            new Vector2(transform.position.x -0.5f, transform.position.y - 0.5f), 
-            new Vector2(transform.position.x, transform.position.y), 
-            terrain
-        );
-
+    void FixedUpdate() {
         // Mouvement du joueur
         var move = new Vector3(Input.GetAxis("Horizontal"), 0);
         
-
+        // deplacerGauche
         if(Input.GetAxis("Horizontal") < 0) {
             transform.eulerAngles = new Vector3(0, 180, 0);
             if(etatCourant != Direction.Gauche) {
                 etatCourant = Direction.Gauche;
                 GestionnaireEvenement.declancherEvenement("directionChanger");
             }
-
-            Debug.Log("gauche");
         }
+        // deplacerDroite
         else if(Input.GetAxis("Horizontal") > 0) {
             transform.eulerAngles = new Vector3(0, 0, 0);
             if(etatCourant != Direction.Droite) {
                 etatCourant = Direction.Droite;
                 GestionnaireEvenement.declancherEvenement("directionChanger");
             }
-
-            Debug.Log("droite");
         }
         
         transform.position += move * vitesse * Time.deltaTime;
-        
 
-        if (Input.GetButtonDown("Jump") && auSol)  //makes player jump
-
-        {
+        // au sol ?
+        auSol = Physics2D.OverlapArea(
+            new Vector2(transform.position.x -0.5f, transform.position.y - 0.5f), 
+            new Vector2(transform.position.x, transform.position.y), 
+            terrain
+        );
+        // saut joueur
+        if (Input.GetButtonDown("Jump") && auSol) {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, forceSaut), ForceMode2D.Impulse);
             return;
         }
