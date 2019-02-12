@@ -18,7 +18,6 @@ public class VieJoueur : MonoBehaviour
         vie -= quantiter;
         if (vie <= 0) {
             GestionnaireMort.getEvent().Invoke(this);
-            vie = vieMax;
         }
         GestionnaireEvenement.declancherEvenement("vieChanger");
 
@@ -30,22 +29,14 @@ public class VieJoueur : MonoBehaviour
     {
         vie += quantiter;
         if (vie > vieMax) vie = vieMax;
+        GestionnaireEvenement.declancherEvenement("vieChanger");
     }
     public float getVie()
     {
         return vie;
     }
 
-    public void clignoterJoueur() {
-        StartCoroutine(flashPlayer());
-    }
-
-    private IEnumerator flashPlayer() {
-        for (int i = 0; i < 5; i++) {
-            this.GetComponent<SpriteRenderer>().material.color = Color.red;
-            yield return new WaitForSeconds(0.10f);
-            this.GetComponent<SpriteRenderer>().material.color = Color.white;
-            yield return new WaitForSeconds(0.10f);
-        }
+    public float getVieMaximale() {
+        return this.vieMax;
     }
 }
