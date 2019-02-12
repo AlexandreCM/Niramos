@@ -14,6 +14,8 @@ var session2 = [];
 var session3 = [];
 var session4 = [];
 
+const MAX_JOUEURS_PAR_SESSION = 4;
+
 //io est une variable de socket.io regroupant des évènements
 io.on("connection", function (socket) {
     var joueurCourant;
@@ -34,7 +36,12 @@ io.on("connection", function (socket) {
         joueurCourant = {
             nom: data.name,
             position: data.position,
-            vie : 100
+            vie: 100
+        }
+
+        // On attribu le joueur à une session, si aucun session n'est disponible on lui indique.
+        if(!attributionSessionAJoueur(joueurCourant)){
+            socket.emit("AUCUNE_SESSION_DISPO");
         }
 
         console.log(joueurCourant.nom + " s'est identifié, il peut maintenant jouer.");
@@ -57,9 +64,9 @@ io.on("connection", function (socket) {
         console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);
     });
 
-    // Sert à afficher les sessions disponibles au joueur
+    //Sert à afficher les sessions disponibles au joueur
     // socket.on("SHOW_SESSIONS", function (data) {
-        
+
 
     //     socket.emit("MOVE", joueurCourant);
     //     socket.broadcast.emit("MOVE", joueurCourant);
@@ -77,6 +84,22 @@ io.on("connection", function (socket) {
         }
     });
 });
+
+function attributionSessionAJoueur(joueurCourant) {
+    if (session1.length < MAX_JOUEURS_PAR_SESSION) {
+        session1.push(joueurCourant);
+    } else if (session2.length < MAX_JOUEURS_PAR_SESSION) {
+        session2.push(joueurCourant);
+    }
+    else if (session3.length < MAX_JOUEURS_PAR_SESSION) {
+        session3.push(joueurCourant);
+    } else if (session4.length < MAX_JOUEURS_PAR_SESSION) {
+        session4.push(joueurCourant);
+    } else {
+        return false;
+    }
+    return true;
+}
 
 
 // Démarrage du serveur

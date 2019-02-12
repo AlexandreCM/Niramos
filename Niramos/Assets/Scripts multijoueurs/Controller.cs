@@ -23,6 +23,7 @@ public class Controller : MonoBehaviour
         socket.On("PLAY", OnUserPlay);
         socket.On("MOVE", onUserMove);
         socket.On("USER_DISCONNECTED", onUserDisconnected);
+        socket.On("AUCUNE_SESSION_DISPO", onAucuneSessionDispo);
         joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
         joystick.OnCommandMove += OnCommandMove;
@@ -127,6 +128,10 @@ public class Controller : MonoBehaviour
         JoueurCom.transform.position = JsonToVector3(JsonToString(evt.data.GetField("position").ToString(), "\""));
         JoueurCom.id = JsonToString(evt.data.GetField("id").ToString(), "\"");
         joystick.JoueurObject = Joueur;
+    }
+
+    void onAucuneSessionDispo(SocketIOEvent obj){
+        Debug.Log("Aucune session dispo");
     }
 
 
