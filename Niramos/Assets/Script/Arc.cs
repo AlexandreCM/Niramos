@@ -2,48 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arc : MonoBehaviour
+public class Arc : ObjetRamasable
 {
-    private bool estEnMain = false;
+
     [SerializeField]
     private GameObject fleche;
     private bool directionDroite = true;
     private float positionxFleche = 0.3f;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnEnable()
     {
-        //Debug.Log("collision" + collision.gameObject.name);
-        VieJoueur joueur = null;
-        joueur = collision.gameObject.GetComponent<VieJoueur>();
-        if(joueur != null && estEnMain != true) attacherAuParent(collision);
+        position = new Vector3(3.5f, 3.2f, 0);
     }
     public void Update()
     {
         if (Input.GetButtonDown("Fire1")) tirer();
-    }
-    private void attacherAuParent(Collider2D collision)
-    {
-        if (collision.gameObject.layer == this.gameObject.layer)
-        {
-            if (collision.gameObject.GetComponent<ManagerJoueur>().objetEnMain == null)
-            {
-                GameObject Joueur = collision.gameObject;
-                this.GetComponents<CapsuleCollider2D>()[0].enabled = false;
-                this.GetComponents<CapsuleCollider2D>()[1].enabled = false;
-                this.transform.parent = Joueur.transform;
-                this.GetComponent<Rigidbody2D>().isKinematic = true;
-                Vector3 position = new Vector3(3.5f, 3.2f, 0);
-                this.gameObject.transform.localPosition = position;
-                this.gameObject.transform.rotation = this.transform.parent.transform.rotation;
-                this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-                this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-                estEnMain = true;
-
-                this.transform.parent.GetComponent<ManagerJoueur>().objetEnMain = this.gameObject;
-                if (!this.transform.parent.GetComponent<ManagerJoueur>().getDirectionVerDroite())
-                    changerDirection();
-            }
-        }
     }
     private void tirer()
     {
@@ -51,6 +24,8 @@ public class Arc : MonoBehaviour
         GameObject lancer = Instantiate(fleche, position, this.gameObject.transform.rotation);
         lancer.GetComponent<Fleche>().lancer(directionDroite);
     }
+
+    override
     public void changerDirection()
     {
         directionDroite = !directionDroite;

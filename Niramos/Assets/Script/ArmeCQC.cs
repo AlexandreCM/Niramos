@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArmeCQC : MonoBehaviour
+public class ArmeCQC : ObjetRamasable
 {   
     [SerializeField]
     LayerMask HitLayers;
@@ -15,14 +15,12 @@ public class ArmeCQC : MonoBehaviour
     private float directionRay = 90;
     private float positionBaseRay = -0.2f;
     private float distanceRay = 0.5f;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    
+    private void OnEnable()
     {
-        //Debug.Log("collision" + collision.gameObject.name);
-        VieJoueur joueur = null;
-        joueur = collision.gameObject.GetComponent<VieJoueur>();
-        if (joueur != null) attacherAuParent(collision);
+        position = new Vector3(3.7f, 3.2f, 0);
     }
+
     private void Update()
     {
         if (Input.GetButtonDown("Fire1") || enAttaque)
@@ -30,30 +28,6 @@ public class ArmeCQC : MonoBehaviour
             //Debug.Log("Fire1");
             attaquer();
             //enAttaque = !enAttaque;
-        }
-    }
-    private void attacherAuParent(Collider2D collision)
-    {
-        if (collision.gameObject.layer == this.gameObject.layer)
-        {
-            if (collision.gameObject.GetComponent<ManagerJoueur>().objetEnMain == null)
-            {
-                GameObject Joueur = collision.gameObject;
-                this.GetComponents<CapsuleCollider2D>()[0].enabled = false;
-                this.GetComponents<CapsuleCollider2D>()[1].enabled = false;
-                this.transform.parent = Joueur.transform;
-                this.GetComponent<Rigidbody2D>().isKinematic = true;
-                Vector3 position = new Vector3(3.7f, 3.2f, 0);
-                this.gameObject.transform.localPosition = position;
-                this.gameObject.transform.rotation = this.transform.parent.transform.rotation;
-                this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-                this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-                estEnMain = true;
-
-                this.transform.parent.GetComponent<ManagerJoueur>().objetEnMain = this.gameObject;
-                if (!this.transform.parent.GetComponent<ManagerJoueur>().getDirectionVerDroite())
-                    changerDirection();
-            }
         }
     }
     private void attaquer()
@@ -79,6 +53,8 @@ public class ArmeCQC : MonoBehaviour
             }
         }
     }
+
+    override
     public void changerDirection()
     {
         Debug.Log("changer direction epee");
