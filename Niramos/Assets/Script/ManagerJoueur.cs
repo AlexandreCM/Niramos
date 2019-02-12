@@ -42,4 +42,8 @@ public class ManagerJoueur : MonoBehaviour
         if (arc != null) arc.changerDirection();
         if (arme != null) arme.changerDirection();
     }
+    public void setPosition(Vector3 position)
+    {
+        this.transform.position = position;
+    }
 }
