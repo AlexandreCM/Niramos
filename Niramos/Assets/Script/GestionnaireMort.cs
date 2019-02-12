@@ -28,6 +28,7 @@ public class GestionnaireMort : MonoBehaviour
 
     private static void killPlayer(VieJoueur joueur) {
         Debug.Log("Dead. Entity: " + joueur.gameObject.name);
+        joueur.clignoterJoueur();
         joueur.gameObject.transform.position = new Vector3(-1.38f, 0.0f, 0.0f);
     }
 }
