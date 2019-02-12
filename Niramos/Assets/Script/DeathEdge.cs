@@ -18,10 +18,10 @@ public class DeathEdge : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //Detecting the Grid Position of Player
-        if (collision.gameObject.name == "TestPlayer")
+        VieJoueur vieJ = collision.gameObject.GetComponent<VieJoueur>();
+        if (vieJ)
         {        
-            collision.gameObject.transform.position = new Vector3(-1.38f, 0.0f, 0.0f);
+            GestionnaireMort.getEvent().Invoke(vieJ);
         }
  
     }
