@@ -29,7 +29,7 @@ public class VieJoueur : MonoBehaviour
     public void regenererVie(float quantiter)
     {
         vie += quantiter;
-        if (vie > 100) vie = 100;
+        if (vie > vieMax) vie = vieMax;
     }
     public float getVie()
     {
