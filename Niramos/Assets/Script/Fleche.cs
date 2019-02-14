@@ -47,7 +47,7 @@ public class Fleche : MonoBehaviour
                 joueur.faireDegat(degat);
                 areterFleche(collision);
             }
-            else
+            else if(collision.gameObject.GetComponent<ObjetRamasable>() == null)
             {
                 areterFleche(collision);
             }
