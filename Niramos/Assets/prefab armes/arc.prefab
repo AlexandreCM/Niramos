@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6454929171900237825}
   - component: {fileID: 6454929171900237826}
   - component: {fileID: 6454929171900237827}
-  - component: {fileID: 6454929171900237852}
   - component: {fileID: 6454929171900237853}
   - component: {fileID: 1892257179025645842}
+  - component: {fileID: 3295828260988077993}
   m_Layer: 9
   m_Name: arc
   m_TagString: Untagged
@@ -104,22 +104,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &6454929171900237852
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6454929171900237854}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.23, y: 0.91}
-  m_Direction: 0
 --- !u!70 &6454929171900237853
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -149,3 +133,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fleche: {fileID: 9061158700624204931, guid: 96985400f0cddf8439af0856d30d46f5, type: 3}
+--- !u!60 &3295828260988077993
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6454929171900237854}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.23, y: 0.91}
+    newSize: {x: 0.23, y: 0.91}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.114999995, y: 0.21499999}
+      - {x: 0.085, y: 0.295}
+      - {x: -0.044999998, y: 0.45499998}
+      - {x: -0.114999995, y: 0.45499998}
+      - {x: -0.114999995, y: -0.45499998}
+      - {x: -0.065, y: -0.45499998}
+      - {x: 0.095, y: -0.315}
+      - {x: 0.114999995, y: -0.185}
+    - - {x: -0.065, y: 0.225}
+      - {x: -0.055, y: -0.225}

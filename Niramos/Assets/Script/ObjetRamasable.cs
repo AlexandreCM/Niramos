@@ -8,6 +8,10 @@ public abstract class ObjetRamasable : MonoBehaviour
     private bool estEnMain = false;
     protected Vector3 position;
     protected bool apartienAuJoueur1 = false;
+    private bool estEnDrop = false;
+    private int delaisDrop = 0;
+    private int delaiDropBase = 50;
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,8 +27,8 @@ public abstract class ObjetRamasable : MonoBehaviour
             if (collision.gameObject.GetComponent<ManagerJoueur>().objetEnMain == null)
             {
                 GameObject Joueur = collision.gameObject;
-                this.GetComponents<CapsuleCollider2D>()[0].enabled = false;
-                this.GetComponents<CapsuleCollider2D>()[1].enabled = false;
+                this.GetComponent<CapsuleCollider2D>().enabled = false;
+                this.GetComponent<PolygonCollider2D>().enabled = false;
                 this.transform.parent = Joueur.transform;
                 this.GetComponent<Rigidbody2D>().isKinematic = true;
                 this.gameObject.transform.localPosition = position;
@@ -42,5 +46,21 @@ public abstract class ObjetRamasable : MonoBehaviour
             }
         }
     }
+    public void lancer()
+    {
+        delaisDrop = delaiDropBase;
+        estEnDrop = true;
+    }
+    protected void Update()
+    {
+        delaisDrop--;
+        if(estEnDrop && delaisDrop < 0)
+        {
+            estEnDrop = false;
+            estEnMain = false;
+        }
+            
+    }
+   
     public abstract void changerDirection();
 }

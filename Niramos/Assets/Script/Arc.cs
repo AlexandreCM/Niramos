@@ -16,6 +16,7 @@ public class Arc : ObjetRamasable
     }
     public void Update()
     {
+        base.Update();
         if (Input.GetButtonDown("Fire1")) tirer(true);
     }
     public void tirer(bool tireInterne)

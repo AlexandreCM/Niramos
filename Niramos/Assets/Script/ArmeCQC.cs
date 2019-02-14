@@ -21,6 +21,7 @@ public class ArmeCQC : ObjetRamasable
 
     private void Update()
     {
+        base.Update();
         if (Input.GetButtonDown("Fire1") || enAttaque)
         {
             //Debug.Log("Fire1");
@@ -58,7 +59,7 @@ public class ArmeCQC : ObjetRamasable
     override
     public void changerDirection()
     {
-        Debug.Log("changer direction epee");
+        //Debug.Log("changer direction epee");
         distanceRay = distanceRay * -1;
         positionBaseRay = positionBaseRay * -1;
     }
