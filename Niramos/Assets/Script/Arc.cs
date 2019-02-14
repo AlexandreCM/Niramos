@@ -16,13 +16,16 @@ public class Arc : ObjetRamasable
     }
     public void Update()
     {
-        if (Input.GetButtonDown("Fire1")) tirer();
+        if (Input.GetButtonDown("Fire1")) tirer(true);
     }
-    private void tirer()
+    public void tirer(bool tireInterne)
     {
-        Vector3 position = new Vector3(this.gameObject.transform.position.x + positionxFleche, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-        GameObject lancer = Instantiate(fleche, position, this.gameObject.transform.rotation);
-        lancer.GetComponent<Fleche>().lancer(directionDroite);
+        if (apartienAuJoueur1 || tireInterne == false)
+        {
+            Vector3 position = new Vector3(this.gameObject.transform.position.x + positionxFleche, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+            GameObject lancer = Instantiate(fleche, position, this.gameObject.transform.rotation);
+            lancer.GetComponent<Fleche>().lancer(directionDroite);
+        }
     }
 
     override

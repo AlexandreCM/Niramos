@@ -7,6 +7,7 @@ public abstract class ObjetRamasable : MonoBehaviour
 
     private bool estEnMain = false;
     protected Vector3 position;
+    protected bool apartienAuJoueur1 = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -35,6 +36,9 @@ public abstract class ObjetRamasable : MonoBehaviour
                 this.transform.parent.GetComponent<ManagerJoueur>().objetEnMain = this.gameObject;
                 if (!this.transform.parent.GetComponent<ManagerJoueur>().getDirectionVerDroite())
                     changerDirection();
+
+                if (collision.gameObject.GetComponent<mouvement>() != null)
+                    apartienAuJoueur1 = true;
             }
         }
     }

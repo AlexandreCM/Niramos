@@ -46,4 +46,11 @@ public class ManagerJoueur : MonoBehaviour
     {
         this.transform.position = position;
     }
+    public void Attaquer()
+    {
+        if (objetEnMain != null && objetEnMain.GetComponent<ArmeCQC>() != null)
+            objetEnMain.GetComponent<ArmeCQC>().attaquer(true);
+        else
+            objetEnMain.GetComponent<Arc>().tirer(true);
+    }
 }
