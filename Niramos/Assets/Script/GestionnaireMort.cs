@@ -42,13 +42,4 @@ public class GestionnaireMort : MonoBehaviour
         
         
     }
-
-    public static IEnumerator flashPlayer(Test_Joueur joueur) {
-        for (int i = 0; i < 5; i++) {
-            joueur.GetComponent<SpriteRenderer>().material.color = Color.red;
-            yield return new WaitForSeconds(0.10f);
-            joueur.GetComponent<SpriteRenderer>().material.color = Color.white;
-            yield return new WaitForSeconds(0.10f);
-        }
-    }
 }

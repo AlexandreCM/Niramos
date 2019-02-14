@@ -11,6 +11,7 @@ public class Test_Joueur : MonoBehaviour {
     void Start()
     {
         this.phys = this.gameObject.GetComponent<Rigidbody2D>();
+        GestionnaireEvenement.ajouterEvenement("vieChanger", affichageDegats);
     }
 
     //FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
@@ -19,10 +20,24 @@ public class Test_Joueur : MonoBehaviour {
     }
 
     public void clignoterJoueur() {
-        StartCoroutine(GestionnaireMort.flashPlayer(this));
+        StartCoroutine(this.flashRed(5, 0.10f));
     }
 
     public void repousserJoueur(Vector2 force2d, float multiplier) {
         this.phys.AddForce(force2d * multiplier);
     }
+
+    public void affichageDegats() {
+        StartCoroutine(this.flashRed(1, 0.10f));
+    }
+
+    private IEnumerator flashRed(int fois, float blink_time) {
+        for (int i = 0; i < fois; i++) {
+            this.gameObject.GetComponent<SpriteRenderer>().material.color = Color.red;
+            yield return new WaitForSeconds(blink_time);
+            this.gameObject.GetComponent<SpriteRenderer>().material.color = Color.white;
+            yield return new WaitForSeconds(blink_time);
+        }
+    }
+
 }
