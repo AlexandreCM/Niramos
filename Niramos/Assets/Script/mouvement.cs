@@ -6,35 +6,50 @@ public class mouvement : MonoBehaviour
 {
     public float vitesse = 5;
 
+    IsAuSol auSol;
     public int forceSaut = 5;
-    public bool auSol;
-    public LayerMask terrain;
 
-    public int forceFracasse = -10;
     bool stickDownLast;
+    SuperAttaque superAttaque;
 
     enum Direction {Droite, Gauche};
     Direction etatCourant = Direction.Droite;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Awake(){
+        superAttaque = gameObject.GetComponent<SuperAttaque>();
+        auSol = gameObject.GetComponent<IsAuSol>();
     }
 
     void FixedUpdate() {
-        // Mouvement du joueur
-        var move = new Vector3(Input.GetAxis("Horizontal"), 0);
         
-        // deplacerGauche
+        Deplacer();
+        
+        Saut();
+
+        // SuperAttaque
+        if(Input.GetAxis("Vertical") < 0 && !auSol) {
+            if(!stickDownLast) {
+                superAttaque.attaque(GetComponent<Rigidbody2D>());
+            }
+            stickDownLast = true;
+        } 
+        else if(auSol) {
+            stickDownLast = false; 
+        }
+    }
+
+    private void Deplacer()
+    {
+        // deplacerGauche ?
         if(Input.GetAxis("Horizontal") < 0) {
             transform.eulerAngles = new Vector3(0, 180, 0);
+
             if(etatCourant != Direction.Gauche) {
                 etatCourant = Direction.Gauche;
                 GestionnaireEvenement.declancherEvenement("directionChanger");
             }
         }
-        // deplacerDroite
+        // deplacerDroite ?
         else if(Input.GetAxis("Horizontal") > 0) {
             transform.eulerAngles = new Vector3(0, 0, 0);
             if(etatCourant != Direction.Droite) {
@@ -42,30 +57,18 @@ public class mouvement : MonoBehaviour
                 GestionnaireEvenement.declancherEvenement("directionChanger");
             }
         }
-        
-        transform.position += move * vitesse * Time.deltaTime;
 
-        // au sol ?
-        auSol = Physics2D.OverlapArea(
-            new Vector2(transform.position.x -0.5f, transform.position.y - 0.5f), 
-            new Vector2(transform.position.x, transform.position.y), 
-            terrain
-        );
-        // saut joueur
+        // Mouvement du joueur
+        var move = new Vector3(Input.GetAxis("Horizontal"), 0);
+        transform.position += move * vitesse * Time.deltaTime;
+    }
+
+    private void Saut()
+    {
         if (Input.GetButtonDown("Jump") && auSol) {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, forceSaut), ForceMode2D.Impulse);
             return;
         }
-
-        // Attaque vers le bas
-        if(Input.GetAxis("Vertical") < 0) {
-            if(!stickDownLast) {
-                GetComponent<Rigidbody2D>().AddForce(new Vector2(0, forceFracasse), ForceMode2D.Impulse);
-            }
-            stickDownLast = true;
-        } 
-        else {
-            stickDownLast = false; 
-        }
     }
+
 }
