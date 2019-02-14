@@ -55,7 +55,7 @@ public class ManagerJoueur : MonoBehaviour
         if (Input.GetButtonDown("Fire2") && objetEnMain != null && this.gameObject.GetComponent<mouvement>() != null)
             lancerObjet();
     }
-    private void lancerObjet()
+    public void lancerObjet()
     {
         Debug.Log("lancer objet");
         objetEnMain.GetComponent<PolygonCollider2D>().enabled = true;
