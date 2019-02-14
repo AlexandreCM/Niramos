@@ -31,6 +31,11 @@ public class Test_Joueur : MonoBehaviour {
         StartCoroutine(this.flashRed(1, 0.10f));
     }
 
+    public void reinitialiserMouvement() {
+        this.phys.velocity = Vector2.zero;
+        this.phys.angularVelocity = 0.0f;
+    }
+
     private IEnumerator flashRed(int fois, float blink_time) {
         for (int i = 0; i < fois; i++) {
             this.gameObject.GetComponent<SpriteRenderer>().material.color = Color.red;
