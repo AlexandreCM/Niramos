@@ -27,7 +27,7 @@ public class mouvement : MonoBehaviour
         Saut();
 
         // SuperAttaque
-        if(Input.GetAxis("Vertical") < 0 && !auSol) {
+        if(Input.GetAxis("Vertical") < 0 && !auSol.isAuSol()) {
             if(!stickDownLast) {
                 superAttaque.attaque(GetComponent<Rigidbody2D>());
             }
@@ -65,7 +65,7 @@ public class mouvement : MonoBehaviour
 
     private void Saut()
     {
-        if (Input.GetButtonDown("Jump") && auSol) {
+        if (Input.GetButtonDown("Jump") && auSol.isAuSol()) {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, forceSaut), ForceMode2D.Impulse);
             return;
         }
