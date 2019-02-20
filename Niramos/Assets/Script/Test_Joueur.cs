@@ -7,6 +7,7 @@ using System.Linq;
 public class Test_Joueur : MonoBehaviour {
 
     private Rigidbody2D phys; // The RigidBody2D of our GameObject.
+    private bool isAlive = true;
 
     // Use this for initialization
     void Start()
@@ -29,7 +30,9 @@ public class Test_Joueur : MonoBehaviour {
     }
 
     public void affichageDegats() {
-        StartCoroutine(this.flashRed(1, 0.10f));
+        if (this.isAlive) {
+            StartCoroutine(this.flashRed(1, 0.10f));
+        }
     }
 
     public void reinitialiserMouvement() {
@@ -39,6 +42,10 @@ public class Test_Joueur : MonoBehaviour {
 
     public void tuerJoueur(VieJoueur vie, List<GameObject> respawnPoints) {
         StartCoroutine(this.playerDeath(vie, respawnPoints));
+    }
+
+    public void setSiJoueurVivant(bool condition) {
+        this.isAlive = condition;
     }
 
     private IEnumerator playerDeath(VieJoueur vie, List<GameObject> respawnPoints) {
@@ -59,6 +66,7 @@ public class Test_Joueur : MonoBehaviour {
         if (playerMovement) {
             playerMovement.setStatut(true);
         }
+        this.isAlive = true;
     }
 
     private void afficherSpriteMort() {
