@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class Test_Joueur : MonoBehaviour {
 
@@ -36,13 +37,50 @@ public class Test_Joueur : MonoBehaviour {
         this.phys.angularVelocity = 0.0f;
     }
 
+    public void tuerJoueur(VieJoueur vie, List<GameObject> respawnPoints) {
+        StartCoroutine(this.playerDeath(vie, respawnPoints));
+    }
+
+    private IEnumerator playerDeath(VieJoueur vie, List<GameObject> respawnPoints) {
+        this.changeSpriteColor(Color.red);
+        yield return new WaitForSeconds(2);
+        this.gameObject.transform.position = this.selectSpawnPoint(respawnPoints);
+        vie.regenererVie(vie.getVieMaximale());
+        GestionnaireEvenement.declancherEvenement("vieChanger");
+        this.clignoterJoueur();
+        this.reinitialiserMouvement();
+    }
+
+    private void afficherSpriteMort() {
+        this.changeSpriteColor(Color.red);
+    }
+
+    private void reinitialiserSprite() {
+        this.changeSpriteColor(Color.white);
+    }
+
     private IEnumerator flashRed(int fois, float blink_time) {
         for (int i = 0; i < fois; i++) {
-            this.gameObject.GetComponent<SpriteRenderer>().material.color = Color.red;
+            this.changeSpriteColor(Color.red);
             yield return new WaitForSeconds(blink_time);
-            this.gameObject.GetComponent<SpriteRenderer>().material.color = Color.white;
+            this.changeSpriteColor(Color.white);
             yield return new WaitForSeconds(blink_time);
         }
     }
 
+    private void changeSpriteColor(Color color) {
+        this.gameObject.GetComponent<SpriteRenderer>().material.color = color;
+    }
+
+    private Vector3 selectSpawnPoint(List<GameObject> respawnPoints) {
+        if (respawnPoints.Any()) {
+            var random = new System.Random();
+            int select = random.Next(respawnPoints.Count);
+            return respawnPoints[select].transform.position;
+        }
+        else {
+            Debug.LogWarning("WARN    Test_Joueur:selectSpawnPoint(): No spawn point configured. Respawning at origin (0, 0, 0).");
+            return new Vector3(0.0f, 0.0f, 0.0f);
+        }
+    }
 }
