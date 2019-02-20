@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System.Linq;
 
 [System.Serializable]
 public class DeathEvent : UnityEvent<VieJoueur>

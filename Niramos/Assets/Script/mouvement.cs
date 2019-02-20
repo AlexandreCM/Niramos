@@ -15,6 +15,8 @@ public class mouvement : MonoBehaviour
     enum Direction {Droite, Gauche};
     Direction etatCourant = Direction.Droite;
 
+    private bool vivant = true;
+
     void Awake(){
         superAttaque = gameObject.GetComponent<SuperAttaque>();
         auSol = gameObject.GetComponent<IsAuSol>();
@@ -22,20 +24,26 @@ public class mouvement : MonoBehaviour
 
     void FixedUpdate() {
         
-        Deplacer();
+        if (vivant) { 
+            Deplacer();
         
-        Saut();
+            Saut();
 
-        // SuperAttaque
-        if(Input.GetAxis("Vertical") < 0 && !auSol.isAuSol()) {
-            if(!stickDownLast) {
-                superAttaque.attaque(GetComponent<Rigidbody2D>());
+            // SuperAttaque
+            if(Input.GetAxis("Vertical") < 0 && !auSol.isAuSol()) {
+                if(!stickDownLast) {
+                    superAttaque.attaque(GetComponent<Rigidbody2D>());
+                }
+                stickDownLast = true;
             }
-            stickDownLast = true;
-        } 
-        else if(auSol) {
-            stickDownLast = false; 
+            else if(auSol) {
+                stickDownLast = false; 
+            }
         }
+    }
+
+    public void setStatut(bool statut) {
+        this.vivant = statut;
     }
 
     private void Deplacer()

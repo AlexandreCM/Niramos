@@ -42,6 +42,13 @@ public class Test_Joueur : MonoBehaviour {
     }
 
     private IEnumerator playerDeath(VieJoueur vie, List<GameObject> respawnPoints) {
+        mouvement playerMovement = this.gameObject.GetComponent<mouvement>();
+        if (playerMovement) {
+            playerMovement.setStatut(false);
+        }
+        else {
+            Debug.LogWarning("WARN    Test_Joueur:playerDeath(vie, respawnPoints): Failed to freeze player movement (missing 'movement' component).");
+        }
         this.changeSpriteColor(Color.red);
         yield return new WaitForSeconds(2);
         this.gameObject.transform.position = this.selectSpawnPoint(respawnPoints);
@@ -49,6 +56,9 @@ public class Test_Joueur : MonoBehaviour {
         GestionnaireEvenement.declancherEvenement("vieChanger");
         this.clignoterJoueur();
         this.reinitialiserMouvement();
+        if (playerMovement) {
+            playerMovement.setStatut(true);
+        }
     }
 
     private void afficherSpriteMort() {
