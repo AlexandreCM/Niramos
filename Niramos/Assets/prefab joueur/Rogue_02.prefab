@@ -761,7 +761,7 @@ GameObject:
   - component: {fileID: 6418843880371043493}
   m_Layer: 9
   m_Name: Rogue_02
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -912,6 +912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c1c5516130d04d4893abdb445bf3ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objetEnMain: {fileID: 0}
 --- !u!1 &1005293110
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,8 +5,8 @@ using UnityEngine;
 public class JoystickController : MonoBehaviour
 {
 
-    public delegate void OnMove(Vector3 vec3);
-    public event OnMove OnCommandMove;
+    //public delegate void OnMove(Vector3 vec3);
+    //public event OnMove OnCommandMove;
 
     public WatchButton Left;
     public WatchButton Right;
@@ -69,7 +69,7 @@ public class JoystickController : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         Transform tranf = JoueurObject.transform;
         
@@ -108,5 +108,5 @@ public class JoystickController : MonoBehaviour
                 OnCommandMove(JoueurObject.transform.position);
             }
         }
-    }
+    }*/
 }

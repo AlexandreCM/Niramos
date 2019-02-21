@@ -26,7 +26,7 @@ public class Controller : MonoBehaviour
         socket.On("AUCUNE_SESSION_DISPO", onAucuneSessionDispo);
         joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
-        joystick.OnCommandMove += OnCommandMove;
+        //joystick.OnCommandMove += OnCommandMove;
     }
 
     void OnCommandMove(Vector3 vec3) // Cette méthod va servir à envoyer au serveur les nouvelles coordonnées du joueur.
@@ -118,8 +118,20 @@ public class Controller : MonoBehaviour
 
         //cacher le panel de connexion
         loginPanel.gameObject.SetActive(false);
-        joystick.gameObject.SetActive(true);
-        joystick.ActionJoystick();
+        //joystick.gameObject.SetActive(true);
+        GameObject[] listeObjetsJoueur = GameObject.FindGameObjectsWithTag("Player");
+        GameObject joueur = null;
+        foreach(GameObject joueurtemp in listeObjetsJoueur)
+        {
+            if(joueurtemp.GetComponent<mouvement>() != null)
+            {
+                joueurtemp.AddComponent<DeplacementMultijoueur>();
+                joueur = joueurtemp;
+                break;
+            }
+        }
+        joueur.GetComponent<DeplacementMultijoueur>().OnCommandMove += OnCommandMove;
+        //joystick.ActionJoystick();
 
         GameObject Joueur = GameObject.Instantiate(JoueurGameObject.gameObject, JoueurGameObject.position, Quaternion.identity) as GameObject;
         Joueur JoueurCom = Joueur.GetComponent<Joueur>();
