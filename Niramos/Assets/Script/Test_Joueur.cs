@@ -26,6 +26,7 @@ public class Test_Joueur : MonoBehaviour {
     }
 
     public void repousserJoueur(Vector2 force2d, float multiplier) {
+        this.reinitialiserMouvement();
         this.phys.AddForce(force2d * multiplier);
     }
 
