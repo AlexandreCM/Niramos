@@ -11,8 +11,8 @@ public class Controller : MonoBehaviour
     public LoginController loginPanel;
     public JoystickController joystick;
     public SocketIOComponent socket;
-    public Joueur JoueurGameObject;
-
+    private Joueur JoueurGameObject;
+    public GameObject prefabJoueur;
 
     // Start is called before the first frame update
     void Start()
@@ -82,9 +82,11 @@ public class Controller : MonoBehaviour
     private void OnUserConnected(SocketIOEvent evt)
     {
         Debug.Log("Get the message from server is: " + evt.data + " - onUserConnected");
-        GameObject otherJoueur = GameObject.Instantiate(JoueurGameObject.gameObject, JoueurGameObject.position, Quaternion.identity) as GameObject;
-        Joueur otherJoueurCom = otherJoueur.GetComponent<Joueur>();
+        GameObject otherJoueur = (GameObject)Instantiate(prefabJoueur);
+        //SceneManager.MoveGameObjectToScene(m_MyGameObject, SceneManager.GetSceneByName(m_Scene));
+        Joueur otherJoueurCom = otherJoueur.AddComponent<Joueur>();
         otherJoueurCom.JoueurName = JsonToString(evt.data.GetField("name").ToString(), "\"");
+        otherJoueur.name = JsonToString(evt.data.GetField("name").ToString(), "\""); ;
         otherJoueur.transform.position = JsonToVector3(JsonToString(evt.data.GetField("position").ToString(), "\""));
         otherJoueurCom.id = JsonToString(evt.data.GetField("id").ToString(), "\"");
     }
@@ -95,10 +97,9 @@ public class Controller : MonoBehaviour
         {
             Dictionary<string, string> data = new Dictionary<string, string>();
             data["name"] = loginPanel.inputField.text;
-            JoueurGameObject.JoueurName = loginPanel.inputField.text;
+            
             Vector3 position = new Vector3(0, 0, 0);
             data["position"] = position.x + "," + position.y + "," + position.z;
-            JoueurGameObject.position = position;
             socket.Emit("PLAY", new JSONObject(data));
         }
         else
@@ -132,14 +133,12 @@ public class Controller : MonoBehaviour
         }
         joueur.GetComponent<DeplacementMultijoueur>().OnCommandMove += OnCommandMove;
         //joystick.ActionJoystick();
-
-        GameObject Joueur = GameObject.Instantiate(JoueurGameObject.gameObject, JoueurGameObject.position, Quaternion.identity) as GameObject;
-        Joueur JoueurCom = Joueur.GetComponent<Joueur>();
-
-        JoueurCom.JoueurName = JsonToString(evt.data.GetField("name").ToString(), "\"");
-        JoueurCom.transform.position = JsonToVector3(JsonToString(evt.data.GetField("position").ToString(), "\""));
-        JoueurCom.id = JsonToString(evt.data.GetField("id").ToString(), "\"");
-        joystick.JoueurObject = Joueur;
+        JoueurGameObject =  joueur.AddComponent<Joueur>();
+        JoueurGameObject.JoueurName = loginPanel.inputField.text;
+        joueur.name = loginPanel.inputField.text;
+        JoueurGameObject.transform.position = JsonToVector3(JsonToString(evt.data.GetField("position").ToString(), "\""));
+        JoueurGameObject.id = JsonToString(evt.data.GetField("id").ToString(), "\"");
+        joystick.JoueurObject = joueur;
     }
 
     void onAucuneSessionDispo(SocketIOEvent obj){

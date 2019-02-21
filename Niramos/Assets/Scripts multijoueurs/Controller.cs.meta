@@ -3,7 +3,12 @@ guid: b4c82de2d49524d45b92530dbc86d1ae
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - loginPanel: {instanceID: 0}
+  - joystick: {instanceID: 0}
+  - socket: {instanceID: 0}
+  - JoueurGameObject: {instanceID: 0}
+  - prefabJoueur: {fileID: 976854832, guid: 672323f9eb6c07b43b6ca21930ba4fc9, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
