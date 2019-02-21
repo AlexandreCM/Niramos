@@ -26,7 +26,7 @@ public class ObstacleEnvironnemental : MonoBehaviour
         if (vieJ && testJ) {
             Vector3 force3d = collision.gameObject.transform.position - this.gameObject.transform.position;
             Vector2 force2d = new Vector2(force3d.x, force3d.y);
-            testJ.repousserJoueur(force2d, this.dmg * 128.0f);
+            testJ.repousserJoueur(force2d, this.dmg * 32.0f);
             vieJ.faireDegat(this.dmg);
         }
         else {

@@ -45,11 +45,16 @@ public class Test_Joueur : MonoBehaviour {
         StartCoroutine(this.playerDeath(vie, respawnPoints));
     }
 
+    public bool getSiJoueurVivant() {
+        return this.isAlive;
+    }
+
     public void setSiJoueurVivant(bool condition) {
         this.isAlive = condition;
     }
 
     private IEnumerator playerDeath(VieJoueur vie, List<GameObject> respawnPoints) {
+        this.isAlive = false;
         mouvement playerMovement = this.gameObject.GetComponent<mouvement>();
         if (playerMovement) {
             playerMovement.setStatut(false);
@@ -60,7 +65,7 @@ public class Test_Joueur : MonoBehaviour {
         this.changeSpriteColor(Color.red);
         yield return new WaitForSeconds(2);
         this.gameObject.transform.position = this.selectSpawnPoint(respawnPoints);
-        vie.regenererVie(vie.getVieMaximale());
+        vie.setVieAuMaximum();
         GestionnaireEvenement.declancherEvenement("vieChanger");
         this.clignoterJoueur();
         this.reinitialiserMouvement();

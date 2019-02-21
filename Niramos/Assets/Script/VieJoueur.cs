@@ -34,6 +34,11 @@ public class VieJoueur : MonoBehaviour
         if (vie > vieMax) vie = vieMax;
         GestionnaireEvenement.declancherEvenement("vieChanger");
     }
+
+    public void setVieAuMaximum() {
+        this.vie = this.vieMax;
+    }
+
     public float getVie()
     {
         return vie;

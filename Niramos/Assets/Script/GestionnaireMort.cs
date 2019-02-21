@@ -42,9 +42,14 @@ public class GestionnaireMort : MonoBehaviour
         
         Test_Joueur test_joueur = joueur.gameObject.GetComponent<Test_Joueur>();
         if (test_joueur) {
-            Debug.Log("INFO    Player " + joueur.gameObject.name + " died.");
-            test_joueur.setSiJoueurVivant(false);
-            test_joueur.tuerJoueur(joueur, respawnPoints);
+            if (test_joueur.getSiJoueurVivant()) {
+                Debug.Log("INFO    Player " + joueur.gameObject.name + " died.");
+                test_joueur.tuerJoueur(joueur, respawnPoints);
+            }
+            else {
+                Debug.Log("INFO    Player " + joueur.gameObject.name + " died, but is already dead.");
+            }
+            
         }
         else {
             Debug.LogWarning("WARN    GestionnaireMort:killPlayer(" + joueur.gameObject.name + "): Event called on an invalid Player entity.");
