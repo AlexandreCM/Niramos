@@ -24,7 +24,7 @@ public class VieJoueur : MonoBehaviour
             GestionnaireMort.getEvent().Invoke(this);
         }
         GestionnaireEvenement.declancherEvenement("vieChanger");
-        Debug.Log(vie);
+        this.playDamageSound();
         //Debug.Log(this.gameObject.name + " " + vie);
     }
 
@@ -41,5 +41,21 @@ public class VieJoueur : MonoBehaviour
 
     public float getVieMaximale() {
         return this.vieMax;
+    }
+
+    private void playDamageSound() {
+        AudioScript aScript = this.gameObject.GetComponent<AudioScript>();
+        if(aScript) {
+            AudioSource dmgSound = aScript.getFirstSound();
+            if (dmgSound) {
+                dmgSound.Play();
+            }
+            else {
+                Debug.LogWarning("WARN    VieJoueur:playDamageSound(): Sound not found.");
+            }
+        }
+        else {
+            Debug.LogWarning("WARN    VieJoueur:playDamageSound(): No AudioScript found for this player.");
+        }
     }
 }
