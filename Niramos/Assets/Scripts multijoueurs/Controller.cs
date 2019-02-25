@@ -33,7 +33,7 @@ public class Controller : MonoBehaviour
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
         Vector3 position = new Vector3(vec3.x, vec3.y, vec3.z);
-        data["name"] = JoueurGameObject.JoueurName;
+        data["nom"] = JoueurGameObject.JoueurName;
         data["position"] = position.x + "/" + position.y + "/" + position.z;
         socket.Emit("MOVE", new JSONObject(data));
     }
@@ -43,8 +43,8 @@ public class Controller : MonoBehaviour
         Debug.Log(JsonToString(obj.data.GetField("nom").ToString(), "\"") + " se déplace vers "+JsonToVector3(obj.data.GetField("position").ToString()));
         Vector3 vecteur = JsonToVector3(obj.data.GetField("position").ToString());
 
-        GameObject Joueur = GameObject.Find(JsonToString(obj.data.GetField("name").ToString(), "\"")) as GameObject;
-        Joueur.transform.position = JsonToVector3(JsonToString(obj.data.GetField("position").ToString(), "\""));
+        GameObject Joueur = GameObject.Find(JsonToString(obj.data.GetField("nom").ToString(), "\"")) as GameObject;
+        Joueur.GetComponent<ManagerJoueur>().setPosition(JsonToVector3(JsonToString(obj.data.GetField("position").ToString(), "\"")));
     }
 
     string JsonToString(string target, string s)
@@ -85,8 +85,8 @@ public class Controller : MonoBehaviour
         GameObject otherJoueur = (GameObject)Instantiate(prefabJoueur);
         //SceneManager.MoveGameObjectToScene(m_MyGameObject, SceneManager.GetSceneByName(m_Scene));
         Joueur otherJoueurCom = otherJoueur.AddComponent<Joueur>();
-        otherJoueurCom.JoueurName = JsonToString(evt.data.GetField("name").ToString(), "\"");
-        otherJoueur.name = JsonToString(evt.data.GetField("name").ToString(), "\""); ;
+        otherJoueurCom.JoueurName = JsonToString(evt.data.GetField("nom").ToString(), "\"");
+        otherJoueur.gameObject.name = JsonToString(evt.data.GetField("nom").ToString(), "\"");
         otherJoueur.transform.position = JsonToVector3(JsonToString(evt.data.GetField("position").ToString(), "\""));
         otherJoueurCom.id = JsonToString(evt.data.GetField("id").ToString(), "\"");
     }
@@ -96,7 +96,7 @@ public class Controller : MonoBehaviour
         if (loginPanel.inputField.text != "")
         {
             Dictionary<string, string> data = new Dictionary<string, string>();
-            data["name"] = loginPanel.inputField.text;
+            data["nom"] = loginPanel.inputField.text;
             
             Vector3 position = new Vector3(0, 0, 0);
             data["position"] = position.x + "," + position.y + "," + position.z;
@@ -110,7 +110,7 @@ public class Controller : MonoBehaviour
 
     void onUserDisconnected(SocketIOEvent obj)
     {
-        Destroy(GameObject.Find(JsonToString(obj.data.GetField("name").ToString(), "\"")));
+        Destroy(GameObject.Find(JsonToString(obj.data.GetField("nom").ToString(), "\"")));
     }
 
     private void OnUserPlay(SocketIOEvent evt)
