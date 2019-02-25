@@ -11,7 +11,7 @@ public abstract class ObjetRamasable : MonoBehaviour
     private bool estEnDrop = false;
     private int delaisDrop = 0;
     private int delaiDropBase = 50;
-
+    private int idServeur;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -61,6 +61,14 @@ public abstract class ObjetRamasable : MonoBehaviour
         }
             
     }
-   
+    
+    private void setIdServeur(int id)
+    {
+        idServeur = id;
+    }
+    private int getIdServeur()
+    {
+        return idServeur;
+    }
     public abstract void changerDirection();
 }
