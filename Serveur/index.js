@@ -34,7 +34,7 @@ io.on("connection", function (socket) {
     socket.on("PLAY", function (data) {
 
         joueurCourant = {
-            nom: data.name,
+            nom: data.nom,
             position: data.position,
             vie: 100
         }
@@ -55,7 +55,7 @@ io.on("connection", function (socket) {
     socket.on("MOVE", function (data) {
 
         joueurCourant = {
-            nom: data.name,
+            nom: data.nom,
             position: data.position
         }
 
