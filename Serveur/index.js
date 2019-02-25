@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+require("Objet.js");
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
@@ -16,9 +17,12 @@ var session4 = [];
 
 const MAX_JOUEURS_PAR_SESSION = 4;
 
+var listeObjets = [];
+
 //io est une variable de socket.io regroupant des évènements
 io.on("connection", function (socket) {
     var joueurCourant;
+    var objetCourant;
 
     // Quand un joueur se connecte
     socket.on("USER_CONNECT", function () {
@@ -40,7 +44,7 @@ io.on("connection", function (socket) {
         }
 
         // On attribu le joueur à une session, si aucun session n'est disponible on lui indique.
-        if(!attributionSessionAJoueur(joueurCourant)){
+        if (!attributionSessionAJoueur(joueurCourant)) {
             socket.emit("AUCUNE_SESSION_DISPO");
         }
 
@@ -63,6 +67,19 @@ io.on("connection", function (socket) {
         socket.broadcast.emit("MOVE", joueurCourant);
         console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);
     });
+
+    socket.on("ITEM_PICKUP"), function (data) {
+        for (var i = 0; i < listeObjets.length; i++) {
+            if (listeObjets[i].idObjet == data.idObjet)
+                if (liseObjet[i].dispo) {
+                    console.log("L'objet est disponible");
+                }
+                else
+                    console.log("L'objet n'est pas disponible");
+        }
+
+
+    }
 
     //Sert à afficher les sessions disponibles au joueur
     // socket.on("SHOW_SESSIONS", function (data) {
