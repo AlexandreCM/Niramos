@@ -25,20 +25,30 @@ public class mouvement : MonoBehaviour
     void FixedUpdate() {
         
         if (vivant) { 
+
             Deplacer();
         
             Saut();
 
             // SuperAttaque
-            if(Input.GetAxis("Vertical") < 0 && !auSol.isAuSol()) {
-                if(!stickDownLast) {
-                    superAttaque.attaque(GetComponent<Rigidbody2D>());
+            if(Input.GetAxis("Vertical") < 0 && !auSol.isAuSol())
+            {
+                if(!stickDownLast)
+                {
+                    superAttaque.elan(GetComponent<Rigidbody2D>());
                 }
                 stickDownLast = true;
             }
-            else if(auSol) {
+            else if(auSol && stickDownLast)
+            {
                 stickDownLast = false; 
+                superAttaque.attaqueLancer(GetComponent<Rigidbody2D>());
             }
+            else if (Input.GetAxis("Vertical") < 0 && Input.GetButtonDown("Jump"))
+            {
+                stickDownLast = true; 
+            }
+
         }
     }
 
