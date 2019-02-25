@@ -41,10 +41,15 @@ public class Controller : MonoBehaviour
     void onUserMove(SocketIOEvent obj)
     {
         Debug.Log(JsonToString(obj.data.GetField("nom").ToString(), "\"") + " se déplace vers "+JsonToVector3(obj.data.GetField("position").ToString()));
-        Vector3 vecteur = JsonToVector3(obj.data.GetField("position").ToString());
+        Vector3 position = JsonToVector3(obj.data.GetField("position").ToString());
 
-        GameObject Joueur = GameObject.Find(JsonToString(obj.data.GetField("nom").ToString(), "\"")) as GameObject;
-        Joueur.GetComponent<ManagerJoueur>().setPosition(JsonToVector3(JsonToString(obj.data.GetField("position").ToString(), "\"")));
+        
+        GameObject joueur = GameObject.Find(JsonToString(obj.data.GetField("nom").ToString(), "\"")) as GameObject;
+        if (joueur.GetComponent<mouvement>() == null)
+        {
+            Debug.Log(joueur.transform.position);
+            joueur.GetComponent<ManagerJoueur>().setPosition(position);
+        }
     }
 
     string JsonToString(string target, string s)
