@@ -48,7 +48,7 @@ public class ManagerJoueur : MonoBehaviour
     }
     public void setPosition(Vector3 position)
     {
-        this.transform.position = position;
+        this.transform.position = Vector3.Lerp(this.transform.position, position, Time.deltaTime * 5);
     }
     private void Update()
     {
