@@ -22,11 +22,13 @@ public class VieJoueur : MonoBehaviour
     public void faireDegat(float quantiter)
     {
         vie -= quantiter;
-        if (vie <= 0 && this.getIfAlive()) {
-            GestionnaireMort.getEvent().Invoke(this);
+        if (this.getIfAlive()) {
+            this.playDamageSound();
+            if (vie <= 0) {
+                GestionnaireMort.getEvent().Invoke(this);
+            }
         }
         GestionnaireEvenement.declancherEvenement("vieChanger");
-        this.playDamageSound();
         //Debug.Log(this.gameObject.name + " " + vie);
     }
 
