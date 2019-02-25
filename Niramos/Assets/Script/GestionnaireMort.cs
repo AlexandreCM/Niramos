@@ -42,12 +42,12 @@ public class GestionnaireMort : MonoBehaviour
         
         Test_Joueur test_joueur = joueur.gameObject.GetComponent<Test_Joueur>();
         if (test_joueur) {
-            if (test_joueur.getSiJoueurVivant()) {
+            if (joueur.getIfAlive()) {
                 Debug.Log("INFO    Player " + joueur.gameObject.name + " died.");
-                test_joueur.tuerJoueur(joueur, respawnPoints);
+                test_joueur.tuerJoueur(respawnPoints);
             }
             else {
-                Debug.Log("INFO    Player " + joueur.gameObject.name + " died, but is already dead.");
+                Debug.LogWarning("WARN    GestionnaireMort:killPlayer(" + joueur.gameObject.name + "): Death event called on a dead player!!!");
             }
             
         }

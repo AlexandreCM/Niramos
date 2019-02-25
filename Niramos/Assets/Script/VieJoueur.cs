@@ -8,10 +8,12 @@ public class VieJoueur : MonoBehaviour
     private float vie = 100;
     [SerializeField]
     private float vieMax = 100;
+    [SerializeField]
+    private bool isAlive;
 
     private void OnEnable()
     {
-        
+        this.setIfAlive(true);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -20,7 +22,7 @@ public class VieJoueur : MonoBehaviour
     public void faireDegat(float quantiter)
     {
         vie -= quantiter;
-        if (vie <= 0) {
+        if (vie <= 0 && this.getIfAlive()) {
             GestionnaireMort.getEvent().Invoke(this);
         }
         GestionnaireEvenement.declancherEvenement("vieChanger");
@@ -46,6 +48,14 @@ public class VieJoueur : MonoBehaviour
 
     public float getVieMaximale() {
         return this.vieMax;
+    }
+
+    public bool getIfAlive() {
+        return this.isAlive;
+    }
+
+    public void setIfAlive(bool isLiving) {
+        this.isAlive = isLiving;
     }
 
     private void playDamageSound() {

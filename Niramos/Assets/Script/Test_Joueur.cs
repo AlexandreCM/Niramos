@@ -7,13 +7,19 @@ using System.Linq;
 public class Test_Joueur : MonoBehaviour {
 
     private Rigidbody2D phys; // The RigidBody2D of our GameObject.
-    private bool isAlive = true;
+    private VieJoueur vie;
 
     // Use this for initialization
     void Start()
     {
         this.phys = this.gameObject.GetComponent<Rigidbody2D>();
-        GestionnaireEvenement.ajouterEvenement("vieChanger", affichageDegats);
+        this.vie = this.gameObject.GetComponent<VieJoueur>();
+        if (!(this.phys && this.vie)) {
+            Debug.LogError("ERRR    Test_Joueur:Start(): Test_Joueur attached on invalid player entity.");
+        }
+        else {
+            GestionnaireEvenement.ajouterEvenement("vieChanger", affichageDegats);
+        }
     }
 
     //FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
@@ -31,7 +37,7 @@ public class Test_Joueur : MonoBehaviour {
     }
 
     public void affichageDegats() {
-        if (this.isAlive) {
+        if (this.vie.getIfAlive()) {
             StartCoroutine(this.flashRed(1, 0.10f));
         }
     }
@@ -41,20 +47,12 @@ public class Test_Joueur : MonoBehaviour {
         this.phys.angularVelocity = 0.0f;
     }
 
-    public void tuerJoueur(VieJoueur vie, List<GameObject> respawnPoints) {
-        StartCoroutine(this.playerDeath(vie, respawnPoints));
+    public void tuerJoueur(List<GameObject> respawnPoints) {
+        StartCoroutine(this.playerDeath(respawnPoints));
     }
 
-    public bool getSiJoueurVivant() {
-        return this.isAlive;
-    }
-
-    public void setSiJoueurVivant(bool condition) {
-        this.isAlive = condition;
-    }
-
-    private IEnumerator playerDeath(VieJoueur vie, List<GameObject> respawnPoints) {
-        this.isAlive = false;
+    private IEnumerator playerDeath(List<GameObject> respawnPoints) {
+        this.vie.setIfAlive(false);
         mouvement playerMovement = this.gameObject.GetComponent<mouvement>();
         if (playerMovement) {
             playerMovement.setStatut(false);
@@ -72,7 +70,7 @@ public class Test_Joueur : MonoBehaviour {
         if (playerMovement) {
             playerMovement.setStatut(true);
         }
-        this.isAlive = true;
+        this.vie.setIfAlive(true);
     }
 
     private void afficherSpriteMort() {

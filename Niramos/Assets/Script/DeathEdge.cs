@@ -20,8 +20,10 @@ public class DeathEdge : MonoBehaviour
     {
         VieJoueur vieJ = collision.gameObject.GetComponent<VieJoueur>();
         if (vieJ)
-        {        
-            GestionnaireMort.getEvent().Invoke(vieJ);
+        {
+            if (vieJ.getIfAlive()) {
+                vieJ.faireDegat(vieJ.getVieMaximale());
+            }        
         }
  
     }
