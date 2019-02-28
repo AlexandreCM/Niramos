@@ -5,15 +5,20 @@ using UnityEngine;
 public class SuperAttaque : MonoBehaviour
 {
     public int forceFracasse = -10;
+    public ZoneDetectionSuperAttaque listeJoueurZone;
+
+    public int knockbackHaut = 3;
+    public int knockbackDirection = 3;
+
 
     // public int delaiBase = 500;
     // public int delai;
 
-    
+
 
     void Awake()
     {
-        
+        listeJoueurZone = gameObject.GetComponent<ZoneDetectionSuperAttaque>();
     }
 
     public void elan(Rigidbody2D joueur)
@@ -21,22 +26,12 @@ public class SuperAttaque : MonoBehaviour
         joueur.AddForce(new Vector2(0, forceFracasse), ForceMode2D.Impulse);
     }
 
-    private bool proche(Rigidbody2D joueur)
+    public void attaqueLancer()
     {
-        joueur.GetComponentInParent<GameObject>();
-        return false;
-    }
-
-    
-
-    public void attaqueLancer(Rigidbody2D joueur)
-    {
-        Debug.Log("test");
-        
-        /*if (proche())
+        foreach (GameObject joueur in listeJoueurZone.getListeJoueur())
         {
-            degat();
-        }*/
+            joueur.GetComponent<Rigidbody2D>().AddForce(new Vector2(knockbackDirection, knockbackHaut), ForceMode2D.Impulse);
+        }
     }
     
     

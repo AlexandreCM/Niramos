@@ -73,6 +73,7 @@ io.on("connection", function (socket) {
             if (listeObjets[i].id == data.idObjet)
                 if (listeObjets[i].dispo) {
                     console.log("L'objet est disponible");
+                    listeObjets[i].dispo = false;
                     reponse = { idObjet: data.idObjet, disponible: "true" }
                 }
                 else {
