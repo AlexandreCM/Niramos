@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3295828260988077993}
   m_Layer: 9
   m_Name: arc
-  m_TagString: Untagged
+  m_TagString: rammasable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

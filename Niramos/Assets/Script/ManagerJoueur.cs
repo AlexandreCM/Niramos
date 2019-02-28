@@ -7,13 +7,30 @@ public class ManagerJoueur : MonoBehaviour
     public GameObject objetEnMain = null;
     private bool directionVerDroite = true;
     private float forceLancer = 300;
+    private string tagRammasable = "rammasable";
 
     private void OnEnable()
     {
         if (this.gameObject.GetComponent<mouvement>() != null)
             GestionnaireEvenement.ajouterEvenement("directionChanger", changerDirection);
     }
+    public void ramasserObjet(int idObjet)
+    {
+        GameObject[] liseRammasable = GameObject.FindGameObjectsWithTag(tagRammasable);
 
+        foreach(GameObject objet in liseRammasable)
+        {
+            ObjetRamasable rammasable = objet.GetComponent<ObjetRamasable>();
+            if(rammasable != null)
+            {
+                if(rammasable.getId() == idObjet)
+                {
+                    rammasable.attacherAuParent(this.gameObject);
+                    return;
+                }
+            }
+        }
+    }
     public bool getDirectionVerDroite()
     {
         return directionVerDroite;

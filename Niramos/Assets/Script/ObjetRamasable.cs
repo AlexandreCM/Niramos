@@ -11,25 +11,28 @@ public abstract class ObjetRamasable : MonoBehaviour
     private bool estEnDrop = false;
     private int delaisDrop = 0;
     private int delaiDropBase = 50;
-    private int idServeur;
+    private int id;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("collision" + collision.gameObject.name);
-        VieJoueur joueur = null;
-        joueur = collision.gameObject.GetComponent<VieJoueur>();
-        if (joueur != null && estEnMain != true) attacherAuParent(collision);
+        mouvement joueur = null;
+        joueur = collision.gameObject.GetComponent<mouvement>();
+        if (joueur != null && estEnMain != true) demanderSiRamassable(collision.gameObject.name);
     }
-    private void attacherAuParent(Collider2D collision)
+    private void demanderSiRamassable(string nomJoueur)
     {
-        if (collision.gameObject.layer == this.gameObject.layer)
+        GestionnaireItem.declancherEvenement("Rammasable", id, nomJoueur);
+    }
+    public void attacherAuParent(GameObject objet)
+    {
+        if (objet.layer == this.gameObject.layer)
         {
-            if (collision.gameObject.GetComponent<ManagerJoueur>().objetEnMain == null)
+            if (objet.GetComponent<ManagerJoueur>().objetEnMain == null)
             {
-                GameObject Joueur = collision.gameObject;
                 this.GetComponent<CapsuleCollider2D>().enabled = false;
                 this.GetComponent<PolygonCollider2D>().enabled = false;
-                this.transform.parent = Joueur.transform;
+                this.transform.parent = objet.transform;
                 this.GetComponent<Rigidbody2D>().isKinematic = true;
                 this.gameObject.transform.localPosition = position;
                 this.gameObject.transform.rotation = this.transform.parent.transform.rotation;
@@ -41,7 +44,7 @@ public abstract class ObjetRamasable : MonoBehaviour
                 if (!this.transform.parent.GetComponent<ManagerJoueur>().getDirectionVerDroite())
                     changerDirection();
 
-                if (collision.gameObject.GetComponent<mouvement>() != null)
+                if (objet.GetComponent<mouvement>() != null)
                     apartienAuJoueur1 = true;
             }
         }
@@ -62,13 +65,13 @@ public abstract class ObjetRamasable : MonoBehaviour
             
     }
     
-    private void setIdServeur(int id)
+    public void setId(int id)
     {
-        idServeur = id;
+        id = id;
     }
-    private int getIdServeur()
+    public int getId()
     {
-        return idServeur;
+        return id;
     }
     public abstract void changerDirection();
 }
