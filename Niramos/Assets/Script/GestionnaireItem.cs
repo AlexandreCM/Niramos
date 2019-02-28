@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 public class ItemEvent : UnityEvent<int, string>
 {
+    
 }
 public class GestionnaireItem : MonoBehaviour
 {

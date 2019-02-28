@@ -11,17 +11,20 @@ public abstract class ObjetRamasable : MonoBehaviour
     private bool estEnDrop = false;
     private int delaisDrop = 0;
     private int delaiDropBase = 50;
-    private int id;
+    private int id = 1;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("collision" + collision.gameObject.name);
         mouvement joueur = null;
         joueur = collision.gameObject.GetComponent<mouvement>();
+        Debug.Log("hit");
         if (joueur != null && estEnMain != true) demanderSiRamassable(collision.gameObject.name);
     }
     private void demanderSiRamassable(string nomJoueur)
     {
+        Debug.Log("trigger");
+        estEnMain = true;
         GestionnaireItem.declancherEvenement("Ramassable", id, nomJoueur);
     }
     public void attacherAuParent(GameObject objet)

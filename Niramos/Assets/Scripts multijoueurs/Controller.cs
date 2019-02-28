@@ -39,9 +39,10 @@ public class Controller : MonoBehaviour
         socket.Emit("MOVE", new JSONObject(data));
     }
 
-    void onUserPickupItem(int idObjet, string a){
+    void onUserPickupItem(int idObjet, string nom){
+        Debug.Log("send");
         Dictionary<string, string> data = new Dictionary<string, string>();
-        data["nom"] = JoueurGameObject.JoueurName;
+        data["nom"] = nom;
         data["idObjet"] = idObjet+"";
 
         socket.Emit("ITEM_PICKUP", new JSONObject(data));
@@ -49,7 +50,7 @@ public class Controller : MonoBehaviour
 
     void onUserMove(SocketIOEvent obj)
     {
-        Debug.Log(JsonToString(obj.data.GetField("nom").ToString(), "\"") + " se déplace vers "+JsonToVector3(obj.data.GetField("position").ToString()));
+        //Debug.Log(JsonToString(obj.data.GetField("nom").ToString(), "\"") + " se déplace vers "+JsonToVector3(obj.data.GetField("position").ToString()));
         Vector3 position = JsonToVector3(obj.data.GetField("position").ToString());
 
         

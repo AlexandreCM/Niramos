@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-require('./Objet.js');
+var Objet = require('./Objet.js');
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
@@ -16,8 +16,7 @@ var session3 = [];
 var session4 = [];
 
 const MAX_JOUEURS_PAR_SESSION = 4;
-
-var listeObjets = [];
+var listeObjets = [new Objet(1, 1, 2, 3), new Objet(2, 1, 2, 3), new Objet(3, 1, 2, 3)];
 
 //io est une variable de socket.io regroupant des évènements
 io.on("connection", function (socket) {
@@ -70,8 +69,8 @@ io.on("connection", function (socket) {
 
     socket.on("ITEM_PICKUP", function (data) {
         for (var i = 0; i < listeObjets.length; i++) {
-            if (listeObjets[i].idObjet == data.idObjet)
-                if (liseObjet[i].dispo) {
+            if (listeObjets[i].id == data.idObjet)
+                if (listeObjets[i].dispo) {
                     console.log("L'objet est disponible");
                 }
                 else
