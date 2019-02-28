@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-require("Objet.js");
+require('./Objet.js');
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
@@ -65,10 +65,10 @@ io.on("connection", function (socket) {
 
         socket.emit("MOVE", joueurCourant);
         socket.broadcast.emit("MOVE", joueurCourant);
-        console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);
+        //console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);
     });
 
-    socket.on("ITEM_PICKUP"), function (data) {
+    socket.on("ITEM_PICKUP", function (data) {
         for (var i = 0; i < listeObjets.length; i++) {
             if (listeObjets[i].idObjet == data.idObjet)
                 if (liseObjet[i].dispo) {
@@ -78,8 +78,7 @@ io.on("connection", function (socket) {
                     console.log("L'objet n'est pas disponible");
         }
 
-
-    }
+    });
 
     //Sert à afficher les sessions disponibles au joueur
     // socket.on("SHOW_SESSIONS", function (data) {

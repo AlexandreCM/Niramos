@@ -8,4 +8,6 @@ class Objet {
 
     this.dispo = true;
   }
-}
+};
+
+module.exports = Objet;

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 public class Controller : MonoBehaviour
 {
     public LoginController loginPanel;
-    public JoystickController joystick;
+    // public JoystickController joystick;
     public SocketIOComponent socket;
     private Joueur JoueurGameObject;
     public GameObject prefabJoueur;
@@ -24,7 +24,8 @@ public class Controller : MonoBehaviour
         socket.On("MOVE", onUserMove);
         socket.On("USER_DISCONNECTED", onUserDisconnected);
         socket.On("AUCUNE_SESSION_DISPO", onAucuneSessionDispo);
-        joystick.gameObject.SetActive(false);
+        GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
+        //joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
         //joystick.OnCommandMove += OnCommandMove;
     }
@@ -36,6 +37,14 @@ public class Controller : MonoBehaviour
         data["nom"] = JoueurGameObject.JoueurName;
         data["position"] = position.x + "/" + position.y + "/" + position.z;
         socket.Emit("MOVE", new JSONObject(data));
+    }
+
+    void onUserPickupItem(int idObjet, string a){
+        Dictionary<string, string> data = new Dictionary<string, string>();
+        data["nom"] = JoueurGameObject.JoueurName;
+        data["idObjet"] = idObjet+"";
+
+        socket.Emit("ITEM_PICKUP", new JSONObject(data));
     }
 
     void onUserMove(SocketIOEvent obj)
@@ -143,7 +152,7 @@ public class Controller : MonoBehaviour
         joueur.name = loginPanel.inputField.text;
         JoueurGameObject.transform.position = JsonToVector3(JsonToString(evt.data.GetField("position").ToString(), "\""));
         JoueurGameObject.id = JsonToString(evt.data.GetField("id").ToString(), "\"");
-        joystick.JoueurObject = joueur;
+        //joystick.JoueurObject = joueur;
     }
 
     void onAucuneSessionDispo(SocketIOEvent obj){
