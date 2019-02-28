@@ -42,7 +42,7 @@ public class mouvement : MonoBehaviour
             else if(auSol && stickDownLast)
             {
                 stickDownLast = false; 
-                superAttaque.attaqueLancer(GetComponent<Rigidbody2D>());
+                superAttaque.attaqueLancer();
             }
             else if (Input.GetAxis("Vertical") < 0 && Input.GetButtonDown("Jump"))
             {
