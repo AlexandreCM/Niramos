@@ -24,6 +24,7 @@ public class Controller : MonoBehaviour
         socket.On("MOVE", onUserMove);
         socket.On("USER_DISCONNECTED", onUserDisconnected);
         socket.On("AUCUNE_SESSION_DISPO", onAucuneSessionDispo);
+        GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         //joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
         //joystick.OnCommandMove += OnCommandMove;
@@ -36,6 +37,14 @@ public class Controller : MonoBehaviour
         data["nom"] = JoueurGameObject.JoueurName;
         data["position"] = position.x + "/" + position.y + "/" + position.z;
         socket.Emit("MOVE", new JSONObject(data));
+    }
+
+    void onUserPickupItem(int idObjet, string a){
+        Dictionary<string, string> data = new Dictionary<string, string>();
+        data["nom"] = JoueurGameObject.JoueurName;
+        data["idObjet"] = idObjet+"";
+
+        socket.Emit("ITEM_PICKUP", new JSONObject(data));
     }
 
     void onUserMove(SocketIOEvent obj)

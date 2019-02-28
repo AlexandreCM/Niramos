@@ -22,7 +22,7 @@ public abstract class ObjetRamasable : MonoBehaviour
     }
     private void demanderSiRamassable(string nomJoueur)
     {
-        GestionnaireItem.declancherEvenement("Rammasable", id, nomJoueur);
+        GestionnaireItem.declancherEvenement("Ramassable", id, nomJoueur);
     }
     public void attacherAuParent(GameObject objet)
     {

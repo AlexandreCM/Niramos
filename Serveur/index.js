@@ -65,7 +65,7 @@ io.on("connection", function (socket) {
 
         socket.emit("MOVE", joueurCourant);
         socket.broadcast.emit("MOVE", joueurCourant);
-        console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);
+        //console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);
     });
 
     socket.on("ITEM_PICKUP", function (data) {
@@ -77,7 +77,6 @@ io.on("connection", function (socket) {
                 else
                     console.log("L'objet n'est pas disponible");
         }
-
 
     });
 
