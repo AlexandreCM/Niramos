@@ -68,7 +68,7 @@ io.on("connection", function (socket) {
         console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);
     });
 
-    socket.on("ITEM_PICKUP"), function (data) {
+    socket.on("ITEM_PICKUP", function (data) {
         for (var i = 0; i < listeObjets.length; i++) {
             if (listeObjets[i].idObjet == data.idObjet)
                 if (liseObjet[i].dispo) {
@@ -79,7 +79,7 @@ io.on("connection", function (socket) {
         }
 
 
-    }
+    });
 
     //Sert à afficher les sessions disponibles au joueur
     // socket.on("SHOW_SESSIONS", function (data) {
