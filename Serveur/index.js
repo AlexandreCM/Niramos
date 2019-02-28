@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-require("Objet.js");
+require('./Objet.js');
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
