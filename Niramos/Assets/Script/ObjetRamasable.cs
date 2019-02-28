@@ -67,7 +67,13 @@ public abstract class ObjetRamasable : MonoBehaviour
         }
             
     }
-    
+    public void setEstEnMain(bool enMain)
+    {
+        if(!enMain && this.transform.parent == null)
+            estEnMain = enMain;
+        else if(enMain)
+            estEnMain = enMain;
+    }
     public void setId(int id)
     {
         this.id = id;

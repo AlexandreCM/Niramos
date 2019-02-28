@@ -13,6 +13,7 @@ public class Controller : MonoBehaviour
     public SocketIOComponent socket;
     private Joueur JoueurGameObject;
     public GameObject prefabJoueur;
+    private string tagRammasable = "rammasable";
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class Controller : MonoBehaviour
         socket.On("MOVE", onUserMove);
         socket.On("USER_DISCONNECTED", onUserDisconnected);
         socket.On("AUCUNE_SESSION_DISPO", onAucuneSessionDispo);
+        socket.On("ITEM_PICKUP_RESPONSE", onItemPickupResponce);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         //joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
@@ -38,7 +40,38 @@ public class Controller : MonoBehaviour
         data["position"] = position.x + "/" + position.y + "/" + position.z;
         socket.Emit("MOVE", new JSONObject(data));
     }
+    void onItemPickupResponce(SocketIOEvent evt)
+    {
+        Debug.Log(evt);
+        int idObjet = int.Parse(JsonToString(evt.data.GetField("idObjet").ToString(), "\""));
+        Debug.Log(JsonToBool(evt.data.GetField("disponible").ToString(), "\""));
+        if (JsonToBool(evt.data.GetField("disponible").ToString(), "\"")) onCanPickup(idObjet);
+        else onCantPickup(idObjet);
+        
+    }
+    void onCanPickup(int idObjet)
+    {
+        Debug.Log("rammase");
+        JoueurGameObject.gameObject.GetComponent<ManagerJoueur>().ramasserObjet(idObjet);
+    }
+    
+    void onCantPickup(int idObjet)
+    {
+        Debug.Log("rammase pas");
+        GameObject[] liseRammasable = GameObject.FindGameObjectsWithTag(tagRammasable);
 
+        foreach (GameObject objet in liseRammasable)
+        {
+            ObjetRamasable rammasable = objet.GetComponent<ObjetRamasable>();
+            if (rammasable != null)
+            {
+                if (rammasable.getId() == idObjet)
+                {
+                    rammasable.setEstEnMain(false);
+                }
+            }
+        }
+    }
     void onUserPickupItem(int idObjet, string nom){
         Debug.Log("send");
         Dictionary<string, string> data = new Dictionary<string, string>();
@@ -61,7 +94,14 @@ public class Controller : MonoBehaviour
             joueur.GetComponent<ManagerJoueur>().setPosition(position);
         }
     }
-
+    bool JsonToBool(string target, string s)
+    {
+        string[] newString = Regex.Split(target, s);
+        Debug.Log(newString[1] + 1);
+        Debug.Log(newString[0] + 0);
+        if (newString[1] == "true") return true;
+        return false;
+    }
     string JsonToString(string target, string s)
     {
         string[] newString = Regex.Split(target, s);

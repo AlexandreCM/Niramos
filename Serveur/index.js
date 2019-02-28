@@ -73,11 +73,11 @@ io.on("connection", function (socket) {
             if (listeObjets[i].id == data.idObjet)
                 if (listeObjets[i].dispo) {
                     console.log("L'objet est disponible");
-                    reponse = { idObjet: data.idObjet, disponible: true }
+                    reponse = { idObjet: data.idObjet, disponible: "true" }
                 }
                 else {
                     console.log("L'objet n'est pas disponible");
-                    reponse = { idObjet: data.idObjet, disponible: false }
+                    reponse = { idObjet: data.idObjet, disponible: "false" }
                 }
         }
         socket.emit("ITEM_PICKUP_RESPONSE", reponse);
