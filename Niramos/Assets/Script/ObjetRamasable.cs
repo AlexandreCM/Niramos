@@ -67,7 +67,7 @@ public abstract class ObjetRamasable : MonoBehaviour
     
     public void setId(int id)
     {
-        id = id;
+        this.id = id;
     }
     public int getId()
     {
