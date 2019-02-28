@@ -74,7 +74,7 @@ io.on("connection", function (socket) {
                 if (listeObjets[i].dispo) {
                     console.log("L'objet est disponible");
                     listeObjets[i].dispo = false;
-                    reponse = { idObjet: data.idObjet, disponible: "true" }
+                    listeObjets[i].dispo = false;
                 }
                 else {
                     console.log("L'objet n'est pas disponible");
