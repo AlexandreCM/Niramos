@@ -69,6 +69,7 @@ io.on("connection", function (socket) {
 
     socket.on("ITEM_PICKUP", function (data) {
         var reponse;
+        var reponseBroadcast;
         for (var i = 0; i < listeObjets.length; i++) {
             if (listeObjets[i].id != data.idObjet)
                 break;
@@ -76,6 +77,7 @@ io.on("connection", function (socket) {
             if (listeObjets[i].dispo) {
                 console.log("L'objet est disponible");
                 reponse = { idObjet: data.idObjet, disponible: true }
+                reponseBroadcast = { nomJoueur: data.nom, message: "Le joueur a ramassé un objet"}
                 listeObjets[i].dispo = false;
             } else {
                 console.log("L'objet n'est pas disponible");
@@ -83,6 +85,7 @@ io.on("connection", function (socket) {
             }
         }
         socket.emit("ITEM_PICKUP_RESPONSE", reponse);
+        socket.broadcast.emit("PLAYER_PICKUP_ITEM", reponseBroadcast);
     });
 
     //Sert à afficher les sessions disponibles au joueur
@@ -125,5 +128,5 @@ function attributionSessionAJoueur(joueurCourant) {
 
 // Démarrage du serveur
 server.listen(app.get('port'), function () {
-    console.log("=====SERVEUR EN COURS D'EXECUTION=====");
+    console.log("=====SERVEUR EN COURS D'EXECUTION SUR LE PORT D'ECOUTE " + app.get('port') + " =====");
 });

@@ -236,5 +236,10 @@ public class Controller : MonoBehaviour
         Debug.Log("Aucune session dispo");
     }
 
+    void onPlayerPickupItem(SocketIOEvent obj){
+        // Cette méthode va servire à gérer la situaton où un autre joueur ramasse un objet.
+        Debug.Log(obj.data);
+    }
+
 
 }
