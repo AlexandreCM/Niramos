@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Collections;
 using System.Linq;
 
-public class Test_Joueur : MonoBehaviour {
+public class DegatsJoueur : MonoBehaviour {
 
     private Rigidbody2D phys; // The RigidBody2D of our GameObject.
     private VieJoueur vie;
@@ -15,7 +15,7 @@ public class Test_Joueur : MonoBehaviour {
         this.phys = this.gameObject.GetComponent<Rigidbody2D>();
         this.vie = this.gameObject.GetComponent<VieJoueur>();
         if (!(this.phys && this.vie)) {
-            Debug.LogError("ERRR    Test_Joueur:Start(): Test_Joueur attached on invalid player entity.");
+            Debug.LogError("ERRR    DegatsJoueur:Start(): DegatsJoueur attached on invalid player entity.");
         }
         else {
             GestionnaireEvenement.ajouterEvenement("vieChanger", affichageDegats);
@@ -58,7 +58,7 @@ public class Test_Joueur : MonoBehaviour {
             playerMovement.setStatut(false);
         }
         else {
-            Debug.LogWarning("WARN    Test_Joueur:playerDeath(vie, respawnPoints): Failed to freeze player movement (missing 'movement' component).");
+            Debug.LogWarning("WARN    DegatsJoueur:playerDeath(vie, respawnPoints): Failed to freeze player movement (missing 'movement' component).");
         }
         this.changeSpriteColor(Color.red);
         yield return new WaitForSeconds(2);
@@ -91,7 +91,10 @@ public class Test_Joueur : MonoBehaviour {
     }
 
     private void changeSpriteColor(Color color) {
-        this.gameObject.GetComponent<SpriteRenderer>().material.color = color;
+        SpriteRenderer[] sprites = this.gameObject.GetComponentsInChildren<SpriteRenderer>();
+        foreach(SpriteRenderer sprite in sprites) {
+            sprite.material.color = color;
+        }
     }
 
     private Vector3 selectSpawnPoint(List<GameObject> respawnPoints) {
@@ -101,7 +104,7 @@ public class Test_Joueur : MonoBehaviour {
             return respawnPoints[select].transform.position;
         }
         else {
-            Debug.LogWarning("WARN    Test_Joueur:selectSpawnPoint(): No spawn point configured. Respawning at origin (0, 0, 0).");
+            Debug.LogWarning("WARN    DegatsJoueur:selectSpawnPoint(): No spawn point configured. Respawning at origin (0, 0, 0).");
             return new Vector3(0.0f, 0.0f, 0.0f);
         }
     }

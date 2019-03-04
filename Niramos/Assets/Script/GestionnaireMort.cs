@@ -40,7 +40,7 @@ public class GestionnaireMort : MonoBehaviour
 
     private static void killPlayer(VieJoueur joueur) {
         
-        Test_Joueur test_joueur = joueur.gameObject.GetComponent<Test_Joueur>();
+        DegatsJoueur test_joueur = joueur.gameObject.GetComponent<DegatsJoueur>();
         if (test_joueur) {
             if (joueur.getIfAlive()) {
                 Debug.Log("INFO    Player " + joueur.gameObject.name + " died.");

@@ -22,7 +22,7 @@ public class ObstacleEnvironnemental : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) {
         Debug.Log("INFO    ObstacleEnvironnemental:OnCollisionEnter2D(Collision2D collision) triggered for " + this.gameObject.name);
         VieJoueur vieJ = collision.gameObject.GetComponent<VieJoueur>();
-        Test_Joueur testJ = collision.gameObject.GetComponent<Test_Joueur>();
+        DegatsJoueur testJ = collision.gameObject.GetComponent<DegatsJoueur>();
         if (vieJ && testJ) {
             Vector3 force3d = collision.gameObject.transform.position - this.gameObject.transform.position;
             Vector2 force2d = new Vector2(force3d.x, force3d.y);
