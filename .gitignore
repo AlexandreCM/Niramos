@@ -50,3 +50,5 @@ crashlytics-build.properties
 Niramos/ProjectSettings/
 
 Niramos/\.vscode/settings\.json
+
+*.meta
