@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Text.RegularExpressions;
 using SocketIO;
 using System.Collections.Generic;
+using System;
 
 public class Controller : MonoBehaviour
 {
@@ -26,10 +27,16 @@ public class Controller : MonoBehaviour
         socket.On("USER_DISCONNECTED", onUserDisconnected);
         socket.On("AUCUNE_SESSION_DISPO", onAucuneSessionDispo);
         socket.On("ITEM_PICKUP_RESPONSE", onItemPickupResponce);
+        socket.On("", onOtherPlayerPickup);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         //joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
         //joystick.OnCommandMove += OnCommandMove;
+    }
+
+    private void onOtherPlayerPickup(SocketIOEvent obj)
+    {
+        
     }
 
     void OnCommandMove(Vector3 vec3) // Cette méthod va servir à envoyer au serveur les nouvelles coordonnées du joueur.
@@ -44,7 +51,8 @@ public class Controller : MonoBehaviour
     {
         Debug.Log(evt);
         int idObjet = int.Parse(JsonToString(evt.data.GetField("idObjet").ToString(), "\""));
-        Debug.Log(JsonToBool(evt.data.GetField("disponible").ToString(), "\""));
+        bool rammasable = JsonToBool(evt.data.GetField("disponible").ToString(), "\"");
+        Debug.Log(idObjet);
         if (JsonToBool(evt.data.GetField("disponible").ToString(), "\"")) onCanPickup(idObjet);
         else onCantPickup(idObjet);
         
@@ -96,10 +104,11 @@ public class Controller : MonoBehaviour
     }
     bool JsonToBool(string target, string s)
     {
+        /*Debug.Log(target);
         string[] newString = Regex.Split(target, s);
         Debug.Log(newString[1] + 1);
-        Debug.Log(newString[0] + 0);
-        if (newString[1] == "true") return true;
+        Debug.Log(newString[0] + 0);*/
+        if (target == "true") return true;
         return false;
     }
     string JsonToString(string target, string s)
