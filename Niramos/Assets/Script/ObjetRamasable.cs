@@ -54,6 +54,7 @@ public abstract class ObjetRamasable : MonoBehaviour
     }
     public void lancer()
     {
+        GestionnaireEvenement.declancherEvenement("ObjetLancer");
         delaisDrop = delaiDropBase;
         estEnDrop = true;
     }

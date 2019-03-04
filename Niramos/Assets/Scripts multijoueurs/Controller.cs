@@ -27,7 +27,7 @@ public class Controller : MonoBehaviour
         socket.On("USER_DISCONNECTED", onUserDisconnected);
         socket.On("AUCUNE_SESSION_DISPO", onAucuneSessionDispo);
         socket.On("ITEM_PICKUP_RESPONSE", onItemPickupResponce);
-        socket.On("PLAYER_PICKUP_ITEM", onPlayerPickupItem);
+        socket.On("PLAYER_PICKUP_ITEM", onOtherPlayerPickup);
         socket.On("", onPlayerTakingDamage);
         socket.On("", onUserDropItem);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
@@ -37,10 +37,19 @@ public class Controller : MonoBehaviour
         //joystick.OnCommandMove += OnCommandMove;
     }
 
+    void onHitPlayer(string nom, float degat)
+    {
+        Dictionary<string, string> data = new Dictionary<string, string>();
+        data["nom"] = JoueurGameObject.JoueurName;
+        data["degat"] = degat.ToString();
+        socket.Emit("HIT", new JSONObject(data));
+    }
+
     void onPlayerDropItem()
     {
-
+        socket.Emit("DROP");
     }
+
 
     void onPlayerTakingDamage(SocketIOEvent obj)
     {
@@ -61,7 +70,7 @@ public class Controller : MonoBehaviour
     {
         Debug.Log(obj);
         int idObjet = int.Parse(JsonToString(obj.data.GetField("idObjet").ToString(), "\""));
-        string nomJoueur = JsonToString(obj.data.GetField("nom").ToString(), "\"");
+        string nomJoueur = JsonToString(obj.data.GetField("nomJoueur").ToString(), "\"");
         GameObject joueur = GameObject.Find(nomJoueur);
         joueur.GetComponent<ManagerJoueur>().ramasserObjet(idObjet);
     }
@@ -125,7 +134,7 @@ public class Controller : MonoBehaviour
         GameObject joueur = GameObject.Find(JsonToString(obj.data.GetField("nom").ToString(), "\"")) as GameObject;
         if (joueur.GetComponent<mouvement>() == null)
         {
-            Debug.Log(joueur.transform.position);
+            //Debug.Log(joueur.transform.position);
             joueur.GetComponent<ManagerJoueur>().setPosition(position);
         }
     }
@@ -235,11 +244,4 @@ public class Controller : MonoBehaviour
     void onAucuneSessionDispo(SocketIOEvent obj){
         Debug.Log("Aucune session dispo");
     }
-
-    void onPlayerPickupItem(SocketIOEvent obj){
-        // Cette méthode va servire à gérer la situaton où un autre joueur ramasse un objet.
-        Debug.Log(obj.data);
-    }
-
-
 }
