@@ -77,15 +77,15 @@ io.on("connection", function (socket) {
             if (listeObjets[i].dispo) {
                 console.log("L'objet est disponible");
                 reponse = { idObjet: data.idObjet, disponible: true }
-                reponseBroadcast = { nomJoueur: data.nom, message: "Le joueur a ramassé un objet"}
+                reponseBroadcast = { nomJoueur: data.nom, idObjet: data.idObjet}
                 listeObjets[i].dispo = false;
+                socket.broadcast.emit("PLAYER_PICKUP_ITEM", reponseBroadcast);
             } else {
                 console.log("L'objet n'est pas disponible");
                 reponse = { idObjet: data.idObjet, disponible: false }
             }
         }
         socket.emit("ITEM_PICKUP_RESPONSE", reponse);
-        socket.broadcast.emit("PLAYER_PICKUP_ITEM", reponseBroadcast);
     });
 
     //Sert à afficher les sessions disponibles au joueur
