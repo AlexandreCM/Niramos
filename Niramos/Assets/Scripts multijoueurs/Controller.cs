@@ -27,16 +27,43 @@ public class Controller : MonoBehaviour
         socket.On("USER_DISCONNECTED", onUserDisconnected);
         socket.On("AUCUNE_SESSION_DISPO", onAucuneSessionDispo);
         socket.On("ITEM_PICKUP_RESPONSE", onItemPickupResponce);
-        socket.On("", onOtherPlayerPickup);
+        socket.On("PLAYER_PICKUP_ITEM", onOtherPlayerPickup);
+        socket.On("", onPlayerTakingDamage);
+        socket.On("", onUserDropItem);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
+        GestionnaireEvenement.ajouterEvenement("ObjetLancer", onPlayerDropItem);
         //joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
         //joystick.OnCommandMove += OnCommandMove;
     }
 
-    private void onOtherPlayerPickup(SocketIOEvent obj)
+    void onPlayerDropItem()
     {
-        
+
+    }
+
+    void onPlayerTakingDamage(SocketIOEvent obj)
+    {
+        int degat = int.Parse(JsonToString(obj.data.GetField("degat").ToString(), "\""));
+        string nomJoueur = JsonToString(obj.data.GetField("nom").ToString(), "\"");
+        GameObject joueur = GameObject.Find(nomJoueur);
+        joueur.GetComponent<VieJoueur>().faireDegat(degat);
+    }
+
+    void onUserDropItem(SocketIOEvent obj)
+    {
+        string nomJoueur = JsonToString(obj.data.GetField("nom").ToString(), "\"");
+        GameObject joueur = GameObject.Find(nomJoueur);
+        joueur.GetComponent<ManagerJoueur>().lancerObjet();
+    }
+
+    void onOtherPlayerPickup(SocketIOEvent obj)
+    {
+        Debug.Log(obj);
+        int idObjet = int.Parse(JsonToString(obj.data.GetField("idObjet").ToString(), "\""));
+        string nomJoueur = JsonToString(obj.data.GetField("nom").ToString(), "\"");
+        GameObject joueur = GameObject.Find(nomJoueur);
+        joueur.GetComponent<ManagerJoueur>().ramasserObjet(idObjet);
     }
 
     void OnCommandMove(Vector3 vec3) // Cette méthod va servir à envoyer au serveur les nouvelles coordonnées du joueur.
@@ -52,20 +79,20 @@ public class Controller : MonoBehaviour
         Debug.Log(evt);
         int idObjet = int.Parse(JsonToString(evt.data.GetField("idObjet").ToString(), "\""));
         bool rammasable = JsonToBool(evt.data.GetField("disponible").ToString(), "\"");
-        Debug.Log(idObjet);
+        //Debug.Log(idObjet);
         if (JsonToBool(evt.data.GetField("disponible").ToString(), "\"")) onCanPickup(idObjet);
         else onCantPickup(idObjet);
         
     }
     void onCanPickup(int idObjet)
     {
-        Debug.Log("rammase");
+        //Debug.Log("rammase");
         JoueurGameObject.gameObject.GetComponent<ManagerJoueur>().ramasserObjet(idObjet);
     }
     
     void onCantPickup(int idObjet)
     {
-        Debug.Log("rammase pas");
+        //Debug.Log("rammase pas");
         GameObject[] liseRammasable = GameObject.FindGameObjectsWithTag(tagRammasable);
 
         foreach (GameObject objet in liseRammasable)
@@ -81,7 +108,7 @@ public class Controller : MonoBehaviour
         }
     }
     void onUserPickupItem(int idObjet, string nom){
-        Debug.Log("send");
+        //Debug.Log("send");
         Dictionary<string, string> data = new Dictionary<string, string>();
         data["nom"] = nom;
         data["idObjet"] = idObjet+"";
