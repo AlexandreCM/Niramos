@@ -27,7 +27,7 @@ public class Controller : MonoBehaviour
         socket.On("USER_DISCONNECTED", onUserDisconnected);
         socket.On("AUCUNE_SESSION_DISPO", onAucuneSessionDispo);
         socket.On("ITEM_PICKUP_RESPONSE", onItemPickupResponce);
-        socket.On("PLAYER_PICKUP_ITEM", onOtherPlayerPickup);
+        socket.On("PLAYER_PICKUP_ITEM", onPlayerPickupItem);
         socket.On("", onPlayerTakingDamage);
         socket.On("", onUserDropItem);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
