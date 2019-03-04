@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SuperAttaque : MonoBehaviour
 {
-    public int forceFracasse = -10;
+    public int forceFracasse = 10;
+    public int degat = 5;
     public ZoneDetectionSuperAttaque listeJoueurZone;
 
     public int knockbackHaut = 3;
@@ -23,14 +24,31 @@ public class SuperAttaque : MonoBehaviour
 
     public void elan(Rigidbody2D joueur)
     {
-        joueur.AddForce(new Vector2(0, forceFracasse), ForceMode2D.Impulse);
+        joueur.AddForce(new Vector2(0, -forceFracasse), ForceMode2D.Impulse);
     }
 
     public void attaqueLancer()
     {
         foreach (GameObject joueur in listeJoueurZone.getListeJoueur())
         {
-            joueur.GetComponent<Rigidbody2D>().AddForce(new Vector2(knockbackDirection, knockbackHaut), ForceMode2D.Impulse);
+
+            // Debug.Log(joueur.GetComponent<Rigidbody2D>().name);
+
+            if(joueur.GetComponent<VieJoueur>() != null)
+            {
+                joueur.GetComponent<VieJoueur>().faireDegat(degat);
+
+                if (this.transform.position.x > joueur.transform.position.x && knockbackDirection > 0)
+                {
+                    knockbackDirection *= -1;
+                }
+                else if (this.transform.position.x < joueur.transform.position.x && knockbackDirection < 0)
+                {
+                    knockbackDirection *= -1;
+                }
+                    joueur.GetComponent<Rigidbody2D>().AddForce(new Vector2(knockbackDirection, knockbackHaut), ForceMode2D.Impulse);
+            }
+
         }
     }
     
