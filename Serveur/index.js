@@ -59,7 +59,8 @@ io.on("connection", function (socket) {
 
         joueurCourant = {
             nom: data.nom,
-            position: data.position
+            position: data.position,
+            direction: data.direction
         }
 
         socket.emit("MOVE", joueurCourant);
