@@ -39,8 +39,8 @@ public class ManagerJoueur : MonoBehaviour
     }
 
     public void setDirectionVerDroite(bool direction)
-    {
-        if(directionVerDroite != direction)
+    { 
+        if (directionVerDroite != direction)
         {
             changerDirection();
         }
@@ -50,6 +50,7 @@ public class ManagerJoueur : MonoBehaviour
     {
         directionVerDroite = !directionVerDroite;
         changerDirectionArme();
+        Debug.Log(directionVerDroite);
         if (directionVerDroite)
             this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
         else

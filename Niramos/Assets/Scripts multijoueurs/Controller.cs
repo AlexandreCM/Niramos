@@ -28,8 +28,9 @@ public class Controller : MonoBehaviour
         socket.On("AUCUNE_SESSION_DISPO", onAucuneSessionDispo);
         socket.On("ITEM_PICKUP_RESPONSE", onItemPickupResponce);
         socket.On("PLAYER_PICKUP_ITEM", onOtherPlayerPickup);
-        socket.On("", onPlayerTakingDamage);
+        socket.On("PLAYER_LOSE_HEALTH", onPlayerTakingDamage);
         socket.On("DROP_RESPONSE", onUserDropItem);
+        GestionnaireAttaque.ajouterEvenement("VieJ1Changer", onHitPlayer);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         GestionnaireEvenement.ajouterEvenement("ObjetLancer", onPlayerDropItem);
 
@@ -52,7 +53,7 @@ public class Controller : MonoBehaviour
         socket.Emit("DROP", new JSONObject(data));
     }
 
-    void onHitPlayer(string nom, float degat)
+    void onHitPlayer(float degat, string nom)
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
         data["nomJoueur"] = JoueurGameObject.JoueurName;
@@ -139,15 +140,17 @@ public class Controller : MonoBehaviour
             //Debug.Log(joueur.transform.position);
             joueur.GetComponent<ManagerJoueur>().setPosition(position);
         }
+        //Debug.Log(JsonToBool(obj.data.GetField("direction").ToString(), "\"").ToString());
         joueur.GetComponent<ManagerJoueur>().setDirectionVerDroite(JsonToBool(obj.data.GetField("direction").ToString(), "\""));
     }
     bool JsonToBool(string target, string s)
     {
-        /*Debug.Log(target);
-        string[] newString = Regex.Split(target, s);
+        //Debug.Log(target);
+        /*string[] newString = Regex.Split(target, s);
         Debug.Log(newString[1] + 1);
         Debug.Log(newString[0] + 0);*/
-        if (target == "true") return true;
+        
+        if (target.Equals("\"True\"")) return true;
         return false;
     }
     string JsonToString(string target, string s)
