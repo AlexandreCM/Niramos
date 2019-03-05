@@ -88,6 +88,11 @@ io.on("connection", function (socket) {
         socket.emit("ITEM_PICKUP_RESPONSE", reponse);
     });
 
+    socket.on("DROP", function(data){
+        var reponseBroadcast = { nomJoueur: data.nomJoueur}
+        socket.broadcast.emit("DROP_RESPONSE", reponseBroadcast);
+    });
+
     //Sert à afficher les sessions disponibles au joueur
     // socket.on("SHOW_SESSIONS", function (data) {
 
