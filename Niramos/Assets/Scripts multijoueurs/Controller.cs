@@ -29,12 +29,24 @@ public class Controller : MonoBehaviour
         socket.On("ITEM_PICKUP_RESPONSE", onItemPickupResponce);
         socket.On("PLAYER_PICKUP_ITEM", onOtherPlayerPickup);
         socket.On("", onPlayerTakingDamage);
-        socket.On("", onUserDropItem);
+        socket.On("DROP_RESPONCE", onUserDropItem);
+        socket.On("FLIP_RESPONCE", onUserFlip);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         GestionnaireEvenement.ajouterEvenement("ObjetLancer", onPlayerDropItem);
+        GestionnaireEvenement.ajouterEvenement("changerDirection", onPlayerFlip);
         //joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
         //joystick.OnCommandMove += OnCommandMove;
+    }
+
+    void onUserFlip(SocketIOEvent obj)
+    {
+
+    }
+    
+    void onPlayerFlip()
+    {
+        socket.Emit("FLIP");
     }
 
     void onHitPlayer(string nom, float degat)
@@ -43,6 +55,13 @@ public class Controller : MonoBehaviour
         data["nom"] = JoueurGameObject.JoueurName;
         data["degat"] = degat.ToString();
         socket.Emit("HIT", new JSONObject(data));
+    }
+
+    void onUserDropItem(SocketIOEvent obj)
+    {
+        string nomJoueur = JsonToString(obj.data.GetField("nom").ToString(), "\"");
+        GameObject joueur = GameObject.Find(nomJoueur);
+        joueur.GetComponent<ManagerJoueur>().lancerObjet();
     }
 
     void onPlayerDropItem()
@@ -57,13 +76,6 @@ public class Controller : MonoBehaviour
         string nomJoueur = JsonToString(obj.data.GetField("nom").ToString(), "\"");
         GameObject joueur = GameObject.Find(nomJoueur);
         joueur.GetComponent<VieJoueur>().faireDegat(degat);
-    }
-
-    void onUserDropItem(SocketIOEvent obj)
-    {
-        string nomJoueur = JsonToString(obj.data.GetField("nom").ToString(), "\"");
-        GameObject joueur = GameObject.Find(nomJoueur);
-        joueur.GetComponent<ManagerJoueur>().lancerObjet();
     }
 
     void onOtherPlayerPickup(SocketIOEvent obj)
