@@ -93,6 +93,11 @@ io.on("connection", function (socket) {
         socket.broadcast.emit("DROP_RESPONSE", reponseBroadcast);
     });
 
+    socket.on("FLIP", function(data){
+        var reponseBroadcast = { nomJoueur: data.nomJoueur}
+        socket.broadcast.emit("FLIP_RESPONSE", reponseBroadcast);
+    });
+
     //Sert à afficher les sessions disponibles au joueur
     // socket.on("SHOW_SESSIONS", function (data) {
 
