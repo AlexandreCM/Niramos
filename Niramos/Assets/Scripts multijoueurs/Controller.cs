@@ -33,7 +33,7 @@ public class Controller : MonoBehaviour
         socket.On("FLIP_RESPONCE", onUserFlip);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         GestionnaireEvenement.ajouterEvenement("ObjetLancer", onPlayerDropItem);
-        GestionnaireEvenement.ajouterEvenement("changerDirection", onPlayerFlip);
+        GestionnaireEvenement.ajouterEvenement("directionChanger", onPlayerFlip);
         //joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
         //joystick.OnCommandMove += OnCommandMove;
@@ -41,7 +41,9 @@ public class Controller : MonoBehaviour
 
     void onUserFlip(SocketIOEvent obj)
     {
-
+        string nomJoueur = JsonToString(obj.data.GetField("nomJoueur").ToString(), "\"");
+        GameObject joueur = GameObject.Find(nomJoueur);
+        joueur.GetComponent<ManagerJoueur>().changerDirection();
     }
     
     void onPlayerFlip()
@@ -49,17 +51,9 @@ public class Controller : MonoBehaviour
         socket.Emit("FLIP");
     }
 
-    void onHitPlayer(string nom, float degat)
-    {
-        Dictionary<string, string> data = new Dictionary<string, string>();
-        data["nom"] = JoueurGameObject.JoueurName;
-        data["degat"] = degat.ToString();
-        socket.Emit("HIT", new JSONObject(data));
-    }
-
     void onUserDropItem(SocketIOEvent obj)
     {
-        string nomJoueur = JsonToString(obj.data.GetField("nom").ToString(), "\"");
+        string nomJoueur = JsonToString(obj.data.GetField("nomJoueur").ToString(), "\"");
         GameObject joueur = GameObject.Find(nomJoueur);
         joueur.GetComponent<ManagerJoueur>().lancerObjet();
     }
@@ -69,6 +63,13 @@ public class Controller : MonoBehaviour
         socket.Emit("DROP");
     }
 
+    void onHitPlayer(string nom, float degat)
+    {
+        Dictionary<string, string> data = new Dictionary<string, string>();
+        data["nom"] = JoueurGameObject.JoueurName;
+        data["degat"] = degat.ToString();
+        socket.Emit("HIT", new JSONObject(data));
+    }
 
     void onPlayerTakingDamage(SocketIOEvent obj)
     {

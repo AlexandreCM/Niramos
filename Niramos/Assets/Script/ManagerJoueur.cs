@@ -45,10 +45,14 @@ public class ManagerJoueur : MonoBehaviour
         }
     }
 
-    private void changerDirection()
+    public void changerDirection()
     {
         directionVerDroite = !directionVerDroite;
         changerDirectionArme();
+        if (directionVerDroite)
+            this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+        else
+            this.gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
     }
 
     private void changerDirectionArme()
