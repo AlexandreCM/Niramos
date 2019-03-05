@@ -42,7 +42,6 @@ public class mouvement : MonoBehaviour
     {
         // deplacerGauche ?
         if(Input.GetAxis("Horizontal") < 0) {
-            transform.eulerAngles = new Vector3(0, 180, 0);
 
             if(etatCourant != Direction.Gauche) {
                 etatCourant = Direction.Gauche;
@@ -51,7 +50,6 @@ public class mouvement : MonoBehaviour
         }
         // deplacerDroite ?
         else if(Input.GetAxis("Horizontal") > 0) {
-            transform.eulerAngles = new Vector3(0, 0, 0);
             if(etatCourant != Direction.Droite) {
                 etatCourant = Direction.Droite;
                 GestionnaireEvenement.declancherEvenement("directionChanger");
