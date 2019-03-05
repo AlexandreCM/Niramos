@@ -77,7 +77,7 @@ io.on("connection", function (socket) {
             if (listeObjets[i].dispo) {
                 console.log("L'objet est disponible");
                 reponse = { idObjet: data.idObjet, disponible: true }
-                reponseBroadcast = { nomJoueur: data.nom, idObjet: data.idObjet}
+                reponseBroadcast = { nomJoueur: data.nom, idObjet: data.idObjet }
                 listeObjets[i].dispo = false;
                 socket.broadcast.emit("PLAYER_PICKUP_ITEM", reponseBroadcast);
             } else {
@@ -88,13 +88,13 @@ io.on("connection", function (socket) {
         socket.emit("ITEM_PICKUP_RESPONSE", reponse);
     });
 
-    socket.on("DROP", function(data){
-        var reponseBroadcast = { nomJoueur: data.nomJoueur}
+    socket.on("DROP", function (data) {
+        var reponseBroadcast = { nomJoueur: data.nomJoueur }
         socket.broadcast.emit("DROP_RESPONSE", reponseBroadcast);
     });
 
-    socket.on("FLIP", function(data){
-        var reponseBroadcast = { nomJoueur: data.nomJoueur}
+    socket.on("FLIP", function (data) {
+        var reponseBroadcast = { nomJoueur: data.nomJoueur }
         socket.broadcast.emit("FLIP_RESPONSE", reponseBroadcast);
     });
 
