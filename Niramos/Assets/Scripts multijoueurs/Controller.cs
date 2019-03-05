@@ -92,7 +92,7 @@ public class Controller : MonoBehaviour
         Debug.Log(evt);
         int idObjet = int.Parse(JsonToString(evt.data.GetField("idObjet").ToString(), "\""));
         bool rammasable = JsonToBool(evt.data.GetField("disponible").ToString(), "\"");
-        //Debug.Log(idObjet);
+        //Debug.Log(rammasable);
         if (JsonToBool(evt.data.GetField("disponible").ToString(), "\"")) onCanPickup(idObjet);
         else onCantPickup(idObjet);
         
