@@ -77,13 +77,13 @@ io.on("connection", function (socket) {
 
             if (listeObjets[i].dispo) {
                 console.log("L'objet est disponible");
-                reponse = { idObjet: data.idObjet, disponible: true }
+                reponse = { idObjet: data.idObjet, disponible: "\"True\"" }
                 reponseBroadcast = { nomJoueur: data.nom, idObjet: data.idObjet }
                 listeObjets[i].dispo = false;
                 socket.broadcast.emit("PLAYER_PICKUP_ITEM", reponseBroadcast);
             } else {
                 console.log("L'objet n'est pas disponible");
-                reponse = { idObjet: data.idObjet, disponible: false }
+                reponse = { idObjet: data.idObjet, disponible: "\"False\"" }
             }
         }
         socket.emit("ITEM_PICKUP_RESPONSE", reponse);
