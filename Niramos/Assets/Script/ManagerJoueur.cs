@@ -40,8 +40,7 @@ public class ManagerJoueur : MonoBehaviour
     {
         if(directionVerDroite != direction)
         {
-            directionVerDroite = direction;
-            changerDirectionArme();
+            changerDirection();
         }
     }
 

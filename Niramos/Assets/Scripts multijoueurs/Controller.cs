@@ -29,28 +29,14 @@ public class Controller : MonoBehaviour
         socket.On("ITEM_PICKUP_RESPONSE", onItemPickupResponce);
         socket.On("PLAYER_PICKUP_ITEM", onOtherPlayerPickup);
         socket.On("", onPlayerTakingDamage);
-        socket.On("DROP_RESPONCE", onUserDropItem);
-        socket.On("FLIP_RESPONCE", onUserFlip);
+        socket.On("DROP_RESPONSE", onUserDropItem);
+        socket.On("FLIP_RESPONSE", onUserFlip);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         GestionnaireEvenement.ajouterEvenement("ObjetLancer", onPlayerDropItem);
-        GestionnaireEvenement.ajouterEvenement("directionChanger", onPlayerFlip);
+
         //joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
         //joystick.OnCommandMove += OnCommandMove;
-    }
-
-    void onUserFlip(SocketIOEvent obj)
-    {
-        string nomJoueur = JsonToString(obj.data.GetField("nomJoueur").ToString(), "\"");
-        GameObject joueur = GameObject.Find(nomJoueur);
-        joueur.GetComponent<ManagerJoueur>().changerDirection();
-    }
-    
-    void onPlayerFlip()
-    {
-        Dictionary<string, string> data = new Dictionary<string, string>();
-        data["nomJoueur"] = JoueurGameObject.JoueurName;
-        socket.Emit("FLIP", new JSONObject(data));
     }
 
     void onUserDropItem(SocketIOEvent obj)
@@ -98,6 +84,7 @@ public class Controller : MonoBehaviour
         Vector3 position = new Vector3(vec3.x, vec3.y, vec3.z);
         data["nom"] = JoueurGameObject.JoueurName;
         data["position"] = position.x + "/" + position.y + "/" + position.z;
+        data["direction"] = JoueurGameObject.gameObject.GetComponent<ManagerJoueur>().getDirectionVerDroite().ToString();
         socket.Emit("MOVE", new JSONObject(data));
     }
     void onItemPickupResponce(SocketIOEvent evt)
@@ -147,13 +134,13 @@ public class Controller : MonoBehaviour
         //Debug.Log(JsonToString(obj.data.GetField("nom").ToString(), "\"") + " se déplace vers "+JsonToVector3(obj.data.GetField("position").ToString()));
         Vector3 position = JsonToVector3(obj.data.GetField("position").ToString());
 
-        
         GameObject joueur = GameObject.Find(JsonToString(obj.data.GetField("nom").ToString(), "\"")) as GameObject;
         if (joueur.GetComponent<mouvement>() == null)
         {
             //Debug.Log(joueur.transform.position);
             joueur.GetComponent<ManagerJoueur>().setPosition(position);
         }
+        joueur.GetComponent<ManagerJoueur>().setDirectionVerDroite(JsonToBool(obj.data.GetField("direction").ToString(), "\""));
     }
     bool JsonToBool(string target, string s)
     {
