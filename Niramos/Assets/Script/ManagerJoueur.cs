@@ -8,11 +8,13 @@ public class ManagerJoueur : MonoBehaviour
     private bool directionVerDroite = true;
     private float forceLancer = 300;
     private string tagRammasable = "rammasable";
+    private Vector3 prevPos;
 
     private void OnEnable()
     {
         if (this.gameObject.GetComponent<mouvement>() != null)
             GestionnaireEvenement.ajouterEvenement("directionChanger", changerDirection);
+        this.prevPos = this.transform.position;
     }
     public void ramasserObjet(int idObjet)
     {
@@ -69,7 +71,8 @@ public class ManagerJoueur : MonoBehaviour
     }
     public void setPosition(Vector3 position)
     {
-        this.transform.position = Vector3.Lerp(this.transform.position, position, Time.deltaTime * 5);
+        this.transform.position = Vector3.Lerp(this.prevPos, position, 0.5f);
+        this.prevPos = position;
     }
     private void Update()
     {

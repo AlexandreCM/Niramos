@@ -28,8 +28,9 @@ public class Controller : MonoBehaviour
         socket.On("AUCUNE_SESSION_DISPO", onAucuneSessionDispo);
         socket.On("ITEM_PICKUP_RESPONSE", onItemPickupResponce);
         socket.On("PLAYER_PICKUP_ITEM", onOtherPlayerPickup);
-        socket.On("", onPlayerTakingDamage);
+        socket.On("PLAYER_LOSE_HEALTH", onPlayerTakingDamage);
         socket.On("DROP_RESPONSE", onUserDropItem);
+        GestionnaireAttaque.ajouterEvenement("VieJ1Changer", onHitPlayer);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         GestionnaireEvenement.ajouterEvenement("ObjetLancer", onPlayerDropItem);
 
@@ -52,7 +53,7 @@ public class Controller : MonoBehaviour
         socket.Emit("DROP", new JSONObject(data));
     }
 
-    void onHitPlayer(string nom, float degat)
+    void onHitPlayer(float degat, string nom)
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
         data["nomJoueur"] = JoueurGameObject.JoueurName;
