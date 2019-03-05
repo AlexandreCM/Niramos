@@ -89,6 +89,10 @@ io.on("connection", function (socket) {
         socket.emit("ITEM_PICKUP_RESPONSE", reponse);
     });
 
+    socket.on("HIT", function(data){
+        socket.broadcast.emit("PLAYER_LOSE_HEALTH", data);
+    });
+
     socket.on("DROP", function (data) {
         
         var reponseBroadcast = { nomJoueur: data.nomJoueur }
