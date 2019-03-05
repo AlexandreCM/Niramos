@@ -139,15 +139,17 @@ public class Controller : MonoBehaviour
             //Debug.Log(joueur.transform.position);
             joueur.GetComponent<ManagerJoueur>().setPosition(position);
         }
+        //Debug.Log(JsonToBool(obj.data.GetField("direction").ToString(), "\"").ToString());
         joueur.GetComponent<ManagerJoueur>().setDirectionVerDroite(JsonToBool(obj.data.GetField("direction").ToString(), "\""));
     }
     bool JsonToBool(string target, string s)
     {
-        /*Debug.Log(target);
-        string[] newString = Regex.Split(target, s);
+        //Debug.Log(target);
+        /*string[] newString = Regex.Split(target, s);
         Debug.Log(newString[1] + 1);
         Debug.Log(newString[0] + 0);*/
-        if (target == "true") return true;
+        
+        if (target.Equals("\"True\"")) return true;
         return false;
     }
     string JsonToString(string target, string s)
