@@ -63,7 +63,7 @@ io.on("connection", function (socket) {
             direction: data.direction
         }
 
-        socket.emit("MOVE", joueurCourant);
+        //socket.emit("MOVE", joueurCourant);
         socket.broadcast.emit("MOVE", joueurCourant);
         //console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);
     });
