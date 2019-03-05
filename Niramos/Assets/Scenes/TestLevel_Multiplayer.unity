@@ -2128,7 +2128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 010d39cbd03ee4c99a746c1f8ecdc0d8, type: 3}
       propertyPath: url
-      value: ws://hireme.fr:3000/socket.io/?EIO=4&transport=websocket
+      value: ws://127.0.0.1:3000/socket.io/?EIO=4&transport=websocket
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 010d39cbd03ee4c99a746c1f8ecdc0d8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2476,9 +2476,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceFracasse: -10
   degat: 5
-  listeJoueurZone: {fileID: 0}
   knockbackHaut: 3
   knockbackDirection: 3
+  delaiBase: 500
+  delai: 0
 --- !u!114 &384622778207467625
 MonoBehaviour:
   m_ObjectHideFlags: 0
