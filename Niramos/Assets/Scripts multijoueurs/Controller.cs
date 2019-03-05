@@ -29,8 +29,8 @@ public class Controller : MonoBehaviour
         socket.On("ITEM_PICKUP_RESPONSE", onItemPickupResponce);
         socket.On("PLAYER_PICKUP_ITEM", onOtherPlayerPickup);
         socket.On("", onPlayerTakingDamage);
-        socket.On("DROP_RESPONCE", onUserDropItem);
-        socket.On("FLIP_RESPONCE", onUserFlip);
+        socket.On("DROP_RESPONSE", onUserDropItem);
+        socket.On("FLIP_RESPONSE", onUserFlip);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         GestionnaireEvenement.ajouterEvenement("ObjetLancer", onPlayerDropItem);
         GestionnaireEvenement.ajouterEvenement("directionChanger", onPlayerFlip);
