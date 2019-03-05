@@ -9,7 +9,7 @@ public class mouvement : MonoBehaviour
     IsAuSol auSol;
     public int forceSaut = 5;
 
-    bool stickDownLast;
+    bool toucheDuBas;
     SuperAttaque superAttaque;
 
     enum Direction {Droite, Gauche};
@@ -29,26 +29,8 @@ public class mouvement : MonoBehaviour
             Deplacer();
         
             Saut();
-
-            // SuperAttaque
-            if(Input.GetAxis("Vertical") < 0 && !auSol.isAuSol())
-            {
-                if(!stickDownLast)
-                {
-                    superAttaque.elan(GetComponent<Rigidbody2D>());
-                }
-                stickDownLast = true;
-            }
-            else if(auSol && stickDownLast)
-            {
-                stickDownLast = false; 
-                superAttaque.attaqueLancer();
-            }
-            else if (Input.GetAxis("Vertical") < 0 && Input.GetButtonDown("Jump"))
-            {
-                stickDownLast = true; 
-            }
-
+            
+            ActionSuperAttaque(); 
         }
     }
 
@@ -86,6 +68,36 @@ public class mouvement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && auSol.isAuSol()) {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, forceSaut), ForceMode2D.Impulse);
             return;
+        }
+    }
+
+    private void ActionSuperAttaque()
+    {
+        if (Input.GetAxis("Vertical") < 0 && !auSol.isAuSol())
+        {
+            // check si toucheDuBas est appuye touche lorsqu'on est pas au sol
+            if (!toucheDuBas && superAttaque.delai < 0)
+            {
+                // envoie 1 seul signal une fois dans les airs lorsque l'on appuye sur la toucheDuBas
+
+                superAttaque.elan(GetComponent<Rigidbody2D>());
+                toucheDuBas = true;
+            }
+        }
+        else if (auSol.isAuSol() && toucheDuBas)
+        {
+            // lorsqu'on est dans les airs et que l'on appuye sur la toucheDuBas, 
+            // on envoi un signal a l'impact du sol
+            // puis desactive la toucheDuBas
+
+            superAttaque.attaqueLancer();
+            superAttaque.delai = superAttaque.delaiBase;
+            toucheDuBas = false;
+        }
+        else if (Input.GetAxis("Vertical") < 0 && Input.GetButtonDown("Jump"))
+        {
+            //Debug.Log("ello");
+            // toucheDuBas = true;
         }
     }
 

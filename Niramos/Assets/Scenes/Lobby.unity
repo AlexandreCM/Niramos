@@ -1254,10 +1254,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed87272dcbea23045909ccc2372e8c51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceFracasse: -10
-  listeJoueurZone: {fileID: 0}
-  knockbackHaut: 10
+  forceFracasse: 10
+  degat: 5
+  knockbackHaut: 3
   knockbackDirection: 3
+  delaiBase: 500
+  delai: 0
 --- !u!114 &1015463845
 MonoBehaviour:
   m_ObjectHideFlags: 0

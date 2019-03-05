@@ -6,14 +6,13 @@ public class SuperAttaque : MonoBehaviour
 {
     public int forceFracasse = 10;
     public int degat = 5;
-    public ZoneDetectionSuperAttaque listeJoueurZone;
+    private ZoneDetectionSuperAttaque listeJoueurZone;
 
     public int knockbackHaut = 3;
     public int knockbackDirection = 3;
 
-
-    // public int delaiBase = 500;
-    // public int delai;
+    public int delaiBase = 500;
+    public int delai;
 
 
 
@@ -24,7 +23,7 @@ public class SuperAttaque : MonoBehaviour
 
     public void elan(Rigidbody2D joueur)
     {
-        joueur.AddForce(new Vector2(0, -forceFracasse), ForceMode2D.Impulse);
+        if(delai < 0) joueur.AddForce(new Vector2(0, -forceFracasse), ForceMode2D.Impulse);
     }
 
     public void attaqueLancer()
@@ -34,7 +33,7 @@ public class SuperAttaque : MonoBehaviour
 
             // Debug.Log(joueur.GetComponent<Rigidbody2D>().name);
 
-            if(joueur.GetComponent<VieJoueur>() != null)
+            if(joueur.GetComponent<VieJoueur>() != null && delai < 0)
             {
                 joueur.GetComponent<VieJoueur>().faireDegat(degat);
 
@@ -46,16 +45,16 @@ public class SuperAttaque : MonoBehaviour
                 {
                     knockbackDirection *= -1;
                 }
-                    joueur.GetComponent<Rigidbody2D>().AddForce(new Vector2(knockbackDirection, knockbackHaut), ForceMode2D.Impulse);
+
+                joueur.GetComponent<Rigidbody2D>().AddForce(new Vector2(knockbackDirection, knockbackHaut), ForceMode2D.Impulse);
             }
 
         }
     }
     
-    
     private void FixedUpdate()
     {
-        // delai --;
+        delai --;
     }
     
 }
