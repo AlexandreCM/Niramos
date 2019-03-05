@@ -95,7 +95,7 @@ io.on("connection", function (socket) {
     });
 
     socket.on("FLIP", function (data) {
-        var reponseBroadcast = { nomJoueur: data.nomJoueur }
+        var reponseBroadcast = { nomJoueur: data.nomJoueur, position: data.position }
         socket.broadcast.emit("FLIP_RESPONSE", reponseBroadcast);
     });
 
@@ -111,12 +111,12 @@ io.on("connection", function (socket) {
     // Quand un joueur se déconnecte
     socket.on("disconnect", function (data) {
         socket.broadcast.emit("USER_DISCONNECTED", joueurCourant);
-        for (var i = 0; i < clients.length; i++) {
-            if (clients[i].nom == joueurCourant.nom) {
-                console.log("Joueur " + clients[i].nom + " s'est déconnecté.");
-                clients.splice(i, 1);
-            }
-        }
+        // for (var i = 0; i < clients.length; i++) {
+        //     if (clients[i].nom == joueurCourant.nom) {
+        //         console.log("Joueur " + clients[i].nom + " s'est déconnecté.");
+        //         clients.splice(i, 1);
+        //     }
+        // }
     });
 });
 
