@@ -95,7 +95,7 @@ io.on("connection", function (socket) {
     });
 
     socket.on("FLIP", function (data) {
-        var reponseBroadcast = { nomJoueur: data.nomJoueur, position: data.position }
+        var reponseBroadcast = { nomJoueur: data.nomJoueur, direction: data.direction }
         socket.broadcast.emit("FLIP_RESPONSE", reponseBroadcast);
     });
 
