@@ -89,6 +89,7 @@ io.on("connection", function (socket) {
     });
 
     socket.on("DROP", function (data) {
+        
         var reponseBroadcast = { nomJoueur: data.nomJoueur }
         socket.broadcast.emit("DROP_RESPONSE", reponseBroadcast);
     });
