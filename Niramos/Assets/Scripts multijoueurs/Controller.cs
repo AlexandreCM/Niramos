@@ -48,7 +48,9 @@ public class Controller : MonoBehaviour
     
     void onPlayerFlip()
     {
-        socket.Emit("FLIP");
+        Dictionary<string, string> data = new Dictionary<string, string>();
+        data["nomJoueur"] = JoueurGameObject.JoueurName;
+        socket.Emit("FLIP", new JSONObject(data));
     }
 
     void onUserDropItem(SocketIOEvent obj)
@@ -60,13 +62,15 @@ public class Controller : MonoBehaviour
 
     void onPlayerDropItem()
     {
-        socket.Emit("DROP");
+        Dictionary<string, string> data = new Dictionary<string, string>();
+        data["nomJoueur"] = JoueurGameObject.JoueurName;
+        socket.Emit("DROP", new JSONObject(data));
     }
 
     void onHitPlayer(string nom, float degat)
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
-        data["nom"] = JoueurGameObject.JoueurName;
+        data["nomJoueur"] = JoueurGameObject.JoueurName;
         data["degat"] = degat.ToString();
         socket.Emit("HIT", new JSONObject(data));
     }
