@@ -36,11 +36,7 @@ io.on("connection", function (socket) {
     // Quand un joueur veut jouer
     socket.on("PLAY", function (data) {
 
-        joueurCourant = {
-            nom: data.nom,
-            position: data.position,
-            vie: 100
-        }
+        joueurCourant = { nom: data.nom, position: data.position, vie: 100 }
 
         // On attribu le joueur à une session, si aucun session n'est disponible on lui indique.
         if (!attributionSessionAJoueur(joueurCourant)) {
@@ -94,17 +90,20 @@ io.on("connection", function (socket) {
     });
 
     socket.on("SUPER_ATTAQUE", function (data) {
-        var reponseBroadcast = { joueurEmiteur=data.nomJoueur, posistion_x: data.x, position_y: data.y, position_z: data.z }
+        console.log(data.nomJoueur + " a lancé une super-attaque à la position (" + data.x + "," + data.y + "," + data.z + ")");
+        var reponseBroadcast = { joueurEmiteur: data.nomJoueur, posistion_x: data.x, position_y: data.y, position_z: data.z }
         socket.broadcast.emit("SUPER_ATTAQUE_LANCE", reponseBroadcast);
     });
 
     socket.on("DROP", function (data) {
-
+        console.log(data.nomJoueur + " a drop un item");
         var reponseBroadcast = { nomJoueur: data.nomJoueur }
         socket.broadcast.emit("DROP_RESPONSE", reponseBroadcast);
     });
 
     socket.on("FLIP", function (data) {
+        console.log(data.nomJoueur + " a flip");
+
         var reponseBroadcast = { nomJoueur: data.nomJoueur, direction: data.direction }
         socket.broadcast.emit("FLIP_RESPONSE", reponseBroadcast);
     });
