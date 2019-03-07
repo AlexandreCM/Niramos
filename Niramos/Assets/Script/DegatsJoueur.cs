@@ -17,14 +17,6 @@ public class DegatsJoueur : MonoBehaviour {
         if (!(this.phys && this.vie)) {
             Debug.LogError("ERRR    DegatsJoueur:Start(): DegatsJoueur attached on invalid player entity.");
         }
-        else {
-            GestionnaireEvenement.ajouterEvenement("vieChanger", affichageDegats);
-        }
-    }
-
-    //FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
-    void FixedUpdate()
-    {
     }
 
     public void clignoterJoueur() {

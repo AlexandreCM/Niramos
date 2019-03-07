@@ -7,6 +7,7 @@ public class GestionnaireJeu : MonoBehaviour
     // onEnable is called when the object is initialized.
     void OnEnable()
     {
+        GestionnaireDegats.init();
         GestionnaireMort.init();
         GestionnaireMort.ajouterPointsReapparition(GameObject.Find("Respawn1"),
                                                    GameObject.Find("Respawn2"),
