@@ -86,6 +86,7 @@ io.on("connection", function (socket) {
     });
 
     socket.on("HIT", function (data) {
+        console.log("Le joueur " + data.nomJoueur + " a prit " + data.degat + " points de dégats");
         socket.broadcast.emit("PLAYER_LOSE_HEALTH", data);
     });
 
