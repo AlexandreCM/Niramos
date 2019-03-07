@@ -90,6 +90,12 @@ io.on("connection", function (socket) {
     socket.on("MORT", function (data) {
         console.log("Le joueur " + data.nomJoueur + " est mort");
         socket.broadcast.emit("UN_JOUEUR_EST_MORT", data);
+
+        // On attend 5 secondes avant de faire respawn le joueur
+        setTimeout(function(){
+            var reponseBroadcast = data.nomJoueur;
+            socket.broadcast.emit("RESPAWN", reponseBroadcast)
+        }, 5000);
     });
 
     socket.on("SUPER_ATTAQUE", function (data) {
