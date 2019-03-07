@@ -9,6 +9,8 @@ public class ManagerJoueur : MonoBehaviour
     private float forceLancer = 300;
     private string tagRammasable = "rammasable";
     private Vector3 prevPos;
+    [SerializeField]
+    private bool interpolation = false;
 
     private void OnEnable()
     {
@@ -71,8 +73,14 @@ public class ManagerJoueur : MonoBehaviour
     }
     public void setPosition(Vector3 position)
     {
-        this.transform.position = Vector3.Lerp(this.prevPos, position, 0.5f);
-        this.prevPos = position;
+        if(this.interpolation) {
+            this.transform.position = Vector3.Lerp(this.prevPos, position, 0.5f);
+            this.prevPos = position;
+        }
+        else {
+            this.transform.position = position;
+        }
+        
     }
     private void Update()
     {

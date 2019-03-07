@@ -312,6 +312,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8628404028364826017, guid: 02f31cee734d8754aad5a2d7251ea42a,
+        type: 3}
+      propertyPath: interpolation
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02f31cee734d8754aad5a2d7251ea42a, type: 3}
 --- !u!114 &667773869 stripped
