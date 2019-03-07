@@ -30,13 +30,28 @@ public class Controller : MonoBehaviour
         socket.On("PLAYER_PICKUP_ITEM", onOtherPlayerPickup);
         socket.On("PLAYER_LOSE_HEALTH", onPlayerTakingDamage);
         socket.On("DROP_RESPONSE", onUserDropItem);
+        socket.On("UN_JOUEUR_EST_MORT", onUserDeath);
         GestionnaireAttaque.ajouterEvenement("VieJ1Changer", onHitPlayer);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         GestionnaireEvenement.ajouterEvenement("ObjetLancer", onPlayerDropItem);
-
+        GestionnaireEvenement.ajouterEvenement("JoueurMort", onPlayerDeath);
         //joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
         //joystick.OnCommandMove += OnCommandMove;
+    }
+
+    void onUserDeath(SocketIOEvent obj)
+    {
+        string nomJoueur = JsonToString(obj.data.GetField("nomJoueur").ToString(), "\"");
+        GameObject joueur = GameObject.Find(nomJoueur);
+        GestionnaireMort.getEvent().Invoke(joueur.GetComponent<VieJoueur>());
+    }
+
+    void onPlayerDeath()
+    {
+        Dictionary<string, string> data = new Dictionary<string, string>();
+        data["nomJoueur"] = JoueurGameObject.JoueurName;
+        socket.Emit("MORT", new JSONObject(data));
     }
 
     void onUserDropItem(SocketIOEvent obj)
@@ -191,6 +206,9 @@ public class Controller : MonoBehaviour
 
     private void OnUserConnected(SocketIOEvent evt)
     {
+        if(JsonToString(evt.data.GetField("nom").ToString(), "\"") == loginPanel.inputField.text)
+            return;
+
         Debug.Log("Get the message from server is: " + evt.data + " - onUserConnected");
         GameObject otherJoueur = (GameObject)Instantiate(prefabJoueur);
         //SceneManager.MoveGameObjectToScene(m_MyGameObject, SceneManager.GetSceneByName(m_Scene));
