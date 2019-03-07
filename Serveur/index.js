@@ -90,6 +90,11 @@ io.on("connection", function (socket) {
         socket.broadcast.emit("PLAYER_LOSE_HEALTH", data);
     });
 
+    socket.on("MORT", function (data) {
+        console.log("Le joueur "+data.nomJoueur+" est mort");
+        socket.broadcast.emit("UN_JOUEUR_EST_MORT", data);
+    });
+
     socket.on("SUPER_ATTAQUE", function (data) {
         console.log(data.nomJoueur + " a lancé une super-attaque à la position (" + data.x + "," + data.y + "," + data.z + ")");
         var reponseBroadcast = { joueurEmiteur: data.nomJoueur, posistion_x: data.x, position_y: data.y, position_z: data.z }
@@ -145,7 +150,6 @@ function attributionSessionAJoueur(joueurCourant) {
     }
     return true;
 }
-
 
 // Démarrage du serveur
 server.listen(app.get('port'), function () {
