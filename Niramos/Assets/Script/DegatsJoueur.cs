@@ -8,6 +8,7 @@ public class DegatsJoueur : MonoBehaviour {
 
     private Rigidbody2D phys; // The RigidBody2D of our GameObject.
     private VieJoueur vie;
+    private bool estLocal = false;
 
     // Use this for initialization
     void Start()
@@ -15,7 +16,7 @@ public class DegatsJoueur : MonoBehaviour {
         this.phys = this.gameObject.GetComponent<Rigidbody2D>();
         this.vie = this.gameObject.GetComponent<VieJoueur>();
         if (!(this.phys && this.vie)) {
-            Debug.LogError("ERRR    DegatsJoueur:Start(): DegatsJoueur attached on invalid player entity.");
+            Debug.LogError("ERRR    DegatsJoueur::Start: DegatsJoueur attached on invalid player entity.");
         }
     }
 
@@ -39,30 +40,39 @@ public class DegatsJoueur : MonoBehaviour {
         this.phys.angularVelocity = 0.0f;
     }
 
-    public void tuerJoueur(List<GameObject> respawnPoints) {
-        StartCoroutine(this.playerDeath(respawnPoints));
+    public void tuerJoueur() {
+        this.vie.setIfAlive(false);
+        this.changeSpriteColor(Color.red);
+
+        if (this.estLocal) {
+            mouvement playerMovement = this.gameObject.GetComponent<mouvement>();
+            if (playerMovement) {
+                playerMovement.setStatut(false);
+            }
+            else {
+                Debug.LogWarning("WARN    DegatsJoueur:playerDeath(vie, respawnPoints): Failed to freeze player movement (missing 'mouvement' component).");
+            }
+        }
+        
     }
 
-    private IEnumerator playerDeath(List<GameObject> respawnPoints) {
-        this.vie.setIfAlive(false);
-        mouvement playerMovement = this.gameObject.GetComponent<mouvement>();
-        if (playerMovement) {
-            playerMovement.setStatut(false);
-        }
-        else {
-            Debug.LogWarning("WARN    DegatsJoueur:playerDeath(vie, respawnPoints): Failed to freeze player movement (missing 'movement' component).");
-        }
-        this.changeSpriteColor(Color.red);
-        yield return new WaitForSeconds(2);
-        this.gameObject.transform.position = this.selectSpawnPoint(respawnPoints);
+    public void reapparaitreJoueur(int number) {
         vie.setVieAuMaximum();
         GestionnaireEvenement.declancherEvenement("vieChanger");
         this.clignoterJoueur();
-        this.reinitialiserMouvement();
-        if (playerMovement) {
-            playerMovement.setStatut(true);
+        if (this.estLocal) {
+            mouvement playerMovement = this.gameObject.GetComponent<mouvement>();
+            this.gameObject.transform.position = this.selectSpawnPoint(number);
+            this.reinitialiserMouvement();
+            if (playerMovement) {
+                playerMovement.setStatut(true);
+            }
+            else {
+                Debug.LogWarning("WARN    DegatsJoueur::respawnPlayer: Failed to resume player movement (missing 'mouvement' component).");
+            }
+            this.vie.setIfAlive(true);
         }
-        this.vie.setIfAlive(true);
+        
     }
 
     private void afficherSpriteMort() {
@@ -89,15 +99,21 @@ public class DegatsJoueur : MonoBehaviour {
         }
     }
 
-    private Vector3 selectSpawnPoint(List<GameObject> respawnPoints) {
-        if (respawnPoints.Any()) {
-            var random = new System.Random();
-            int select = random.Next(respawnPoints.Count);
-            return respawnPoints[select].transform.position;
-        }
-        else {
-            Debug.LogWarning("WARN    DegatsJoueur:selectSpawnPoint(): No spawn point configured. Respawning at origin (0, 0, 0).");
-            return new Vector3(0.0f, 0.0f, 0.0f);
-        }
+    private Vector3 selectSpawnPoint(int number) {
+        // var random = new System.Random();
+        // int select = random.Next(GestionnaireReapparition.respawnPoints.Count);
+        return GestionnaireReapparition.getRespawnPoints()[number].transform.position;
+    }
+
+    public bool getSiJoueurLocal() {
+        return this.estLocal;
+    }
+
+    public void setSiJoueurLocal(bool statut) {
+        this.estLocal = statut;
+    }
+
+    public bool getSiJoueurEstEnVie() {
+        return this.vie.getIfAlive();
     }
 }

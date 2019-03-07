@@ -10,6 +10,7 @@ public class VieJoueur : MonoBehaviour
     private float vieMax = 100;
     [SerializeField]
     private bool isAlive;
+    private bool estLocal;
 
     private void OnEnable()
     {
@@ -24,9 +25,10 @@ public class VieJoueur : MonoBehaviour
         if (this.getIfAlive()) {
             vie -= quantiter;
             this.playDamageSound();
-            if (vie <= 0) {
+            if (vie <= 0 && this.estLocal) {
                 GestionnaireMort.getEvent().Invoke(this);
-                Debug.Log(this.gameObject.name + " est mort");
+                Debug.Log(this.gameObject.name + " est mort ; transmission au serveur.");
+                GestionnaireEvenement.declancherEvenement("JoueurMort");
             }
         }
         GestionnaireEvenement.declancherEvenement("vieChanger");
@@ -76,5 +78,9 @@ public class VieJoueur : MonoBehaviour
         else {
             Debug.LogWarning("WARN    VieJoueur:playDamageSound(): No AudioScript found for this player.");
         }
+    }
+
+    public void setEstLocal(bool statut) {
+        this.estLocal = statut;
     }
 }

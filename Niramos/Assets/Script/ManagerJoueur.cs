@@ -10,13 +10,31 @@ public class ManagerJoueur : MonoBehaviour
     private string tagRammasable = "rammasable";
     private Vector3 prevPos;
     [SerializeField]
-    private bool interpolation = false;
+    private bool interpolation = true;
+    [SerializeField]
+    private bool estLocal = false;
 
     private void OnEnable()
     {
         if (this.gameObject.GetComponent<mouvement>() != null)
             GestionnaireEvenement.ajouterEvenement("directionChanger", changerDirection);
         this.prevPos = this.transform.position;
+
+        VieJoueur vie = this.GetComponent<VieJoueur>();
+        if(vie != null) {
+            vie.setEstLocal(this.estLocal);
+        }
+        else {
+            Debug.LogWarning("WARN    ManagerJoueur::OnEnable: Missing VieJoueur component.");
+        }
+
+        DegatsJoueur dgJ = this.GetComponent<DegatsJoueur>();
+        if(dgJ != null) {
+            dgJ.setSiJoueurLocal(this.estLocal);
+        }
+        else {
+            Debug.LogWarning("WARN    ManagerJoueur::OnEnable: Missing DegatsJoueur component.");
+        }
     }
     public void ramasserObjet(int idObjet)
     {

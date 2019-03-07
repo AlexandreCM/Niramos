@@ -11,7 +11,6 @@ public class DeathEvent : UnityEvent<VieJoueur>
 public class GestionnaireMort : MonoBehaviour
 {
     private static DeathEvent death = new DeathEvent();
-    private static List<GameObject> respawnPoints = new List<GameObject>();
 
     // OnEnable enables the event.
     public static void init()
@@ -21,21 +20,10 @@ public class GestionnaireMort : MonoBehaviour
 
     public static void remove() {
         death.RemoveListener(killPlayer);
-        ecraserPointsReapparition();
     }
     
     public static DeathEvent getEvent() {
         return death;
-    }
-
-    public static void ajouterPointsReapparition(params GameObject[] entites) {
-        foreach (GameObject entity in entites) {
-            respawnPoints.Add(entity);
-        }
-    }
-
-    public static void ecraserPointsReapparition() {
-        respawnPoints.Clear();
     }
 
     private static void killPlayer(VieJoueur joueur) {
@@ -44,7 +32,7 @@ public class GestionnaireMort : MonoBehaviour
         if (test_joueur) {
             if (joueur.getIfAlive()) {
                 Debug.Log("INFO    Player " + joueur.gameObject.name + " died.");
-                test_joueur.tuerJoueur(respawnPoints);
+                test_joueur.tuerJoueur();
             }
             else {
                 Debug.LogWarning("WARN    GestionnaireMort:killPlayer(" + joueur.gameObject.name + "): Death event called on a dead player!!!");
