@@ -89,12 +89,17 @@ io.on("connection", function (socket) {
         socket.emit("ITEM_PICKUP_RESPONSE", reponse);
     });
 
-    socket.on("HIT", function(data){
+    socket.on("HIT", function (data) {
         socket.broadcast.emit("PLAYER_LOSE_HEALTH", data);
     });
 
+    socket.on("SUPER_ATTAQUE", function (data) {
+        var reponseBroadcast = { joueurEmiteur=data.nomJoueur, posistion_x: data.x, position_y: data.y, position_z: data.z }
+        socket.broadcast.emit("SUPER_ATTAQUE_LANCE", reponseBroadcast);
+    });
+
     socket.on("DROP", function (data) {
-        
+
         var reponseBroadcast = { nomJoueur: data.nomJoueur }
         socket.broadcast.emit("DROP_RESPONSE", reponseBroadcast);
     });
