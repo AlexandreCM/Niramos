@@ -31,7 +31,7 @@ public class Controller : MonoBehaviour
         socket.On("PLAYER_LOSE_HEALTH", onPlayerTakingDamage);
         socket.On("DROP_RESPONSE", onUserDropItem);
         socket.On("UN_JOUEUR_EST_MORT", onUserDeath);
-        socket.On("RESPAWN", onUserDeath);
+        socket.On("RESPAWN", onUserRespawn);
         GestionnaireAttaque.ajouterEvenement("VieJ1Changer", onHitPlayer);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         GestionnaireEvenement.ajouterEvenement("ObjetLancer", onPlayerDropItem);
