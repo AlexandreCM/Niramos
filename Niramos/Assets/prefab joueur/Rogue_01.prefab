@@ -236,6 +236,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objetEnMain: {fileID: 0}
+  interpolation: 1
+  estLocal: 1
 --- !u!114 &7055453534118102959
 MonoBehaviour:
   m_ObjectHideFlags: 0

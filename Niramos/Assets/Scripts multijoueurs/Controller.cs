@@ -31,6 +31,7 @@ public class Controller : MonoBehaviour
         socket.On("PLAYER_LOSE_HEALTH", onPlayerTakingDamage);
         socket.On("DROP_RESPONSE", onUserDropItem);
         socket.On("UN_JOUEUR_EST_MORT", onUserDeath);
+        socket.On("RESPAWN", onUserRespawn);
         GestionnaireAttaque.ajouterEvenement("VieJ1Changer", onHitPlayer);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         GestionnaireEvenement.ajouterEvenement("ObjetLancer", onPlayerDropItem);
@@ -38,6 +39,15 @@ public class Controller : MonoBehaviour
         //joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
         //joystick.OnCommandMove += OnCommandMove;
+    }
+
+    void onUserRespawn(SocketIOEvent obj)
+    {
+        int point = int.Parse(JsonToString(obj.data.GetField("pointRespawn").ToString(), "\""));
+        string nomJoueur = JsonToString(obj.data.GetField("nomJoueur").ToString(), "\"");
+        GameObject joueur = GameObject.Find(nomJoueur);
+        DegatsJoueur degatsJoueur = joueur.GetComponent<DegatsJoueur>();
+        GestionnaireReapparition.getEvent().Invoke(degatsJoueur, point);
     }
 
     void onUserDeath(SocketIOEvent obj)
