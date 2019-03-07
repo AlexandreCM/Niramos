@@ -50,8 +50,8 @@ public class ArmeCQC : ObjetRamasable
                         quantitierKnockBackx *= -1;
                     else if (this.gameObject.transform.parent.transform.position.x < hit.rigidbody.gameObject.transform.position.x && quantitierKnockBackx < 0)
                         quantitierKnockBackx *= -1;
-                    hit.rigidbody.AddForce(new Vector2(quantitierKnockBackx, quantitierKnockBacky));
-                    GestionnaireAttaque.declancherEvenement("VieJ1Changer", degats, joueur.name);
+                    //hit.rigidbody.AddForce(new Vector2(quantitierKnockBackx, quantitierKnockBacky));
+                    GestionnaireAttaque.declancherEvenement("VieJ1Changer", degats, joueur.name, quantitierKnockBackx);
                 }
             }
         }

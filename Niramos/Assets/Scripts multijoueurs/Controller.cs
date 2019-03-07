@@ -53,11 +53,12 @@ public class Controller : MonoBehaviour
         socket.Emit("DROP", new JSONObject(data));
     }
 
-    void onHitPlayer(float degat, string nom)
+    void onHitPlayer(float degat, string nom, float knockback)
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
         data["nomJoueur"] = nom;
         data["degat"] = degat.ToString();
+        data["knockback"] = knockback.ToString();
         socket.Emit("HIT", new JSONObject(data));
     }
 
@@ -65,9 +66,11 @@ public class Controller : MonoBehaviour
     {
         int degat = int.Parse(JsonToString(obj.data.GetField("degat").ToString(), "\""));
         string nomJoueur = JsonToString(obj.data.GetField("nomJoueur").ToString(), "\"");
+        float knockback = float.Parse(JsonToString(obj.data.GetField("knockback").ToString(), "\""));
         Debug.Log(nomJoueur + " hit");
         GameObject joueur = GameObject.Find(nomJoueur);
         joueur.GetComponent<VieJoueur>().faireDegat(degat);
+        joueur.GetComponent<Rigidbody2D>().AddForce(new Vector2(knockback, Mathf.Abs(knockback)));
     }
 
     void onOtherPlayerPickup(SocketIOEvent obj)
