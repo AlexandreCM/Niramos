@@ -35,16 +35,26 @@ public class UI_Health : MonoBehaviour
     }
 
     private void vieJoueur(){
-        if (joueur1.getVie() > 0) vie_1.text = joueur1.getVie().ToString();
-        else vie_1.text = "X";
 
-        if (joueur2.getVie() > 0) vie_2.text = joueur2.getVie().ToString();
-        else vie_2.text = "X";
+        if (this.joueur1) {
+            if (this.joueur1.getVie() > 0) this.vie_1.text = this.joueur1.getVie().ToString();
+            else this.vie_1.text = "X";
+        }
+        
+        if (this.joueur2) {
+            if (this.joueur2.getVie() > 0) this.vie_2.text = this.joueur2.getVie().ToString();
+            else this.vie_2.text = "X";
+        }
 
-        if (joueur3.getVie() > 0) vie_3.text = joueur3.getVie().ToString();
-        else vie_3.text = "X";
+        if (this.joueur3) {
+            if (this.joueur3.getVie() > 0) this.vie_3.text = this.joueur3.getVie().ToString();
+            else this.vie_3.text = "X";
+        }
 
-        if (joueur4.getVie() > 0) vie_4.text = joueur4.getVie().ToString();
-        else vie_4.text = "X";
+        if (this.joueur4) {
+            if (this.joueur4.getVie() > 0) this.vie_4.text = this.joueur4.getVie().ToString();
+            else this.vie_4.text = "X";
+        }
+
     }
 }
