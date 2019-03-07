@@ -56,7 +56,7 @@ public class Controller : MonoBehaviour
     void onHitPlayer(float degat, string nom)
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
-        data["nomJoueur"] = JoueurGameObject.JoueurName;
+        data["nomJoueur"] = nom;
         data["degat"] = degat.ToString();
         socket.Emit("HIT", new JSONObject(data));
     }
@@ -64,7 +64,7 @@ public class Controller : MonoBehaviour
     void onPlayerTakingDamage(SocketIOEvent obj)
     {
         int degat = int.Parse(JsonToString(obj.data.GetField("degat").ToString(), "\""));
-        string nomJoueur = JsonToString(obj.data.GetField("nom").ToString(), "\"");
+        string nomJoueur = JsonToString(obj.data.GetField("nomJoueur").ToString(), "\"");
         Debug.Log(nomJoueur + " hit");
         GameObject joueur = GameObject.Find(nomJoueur);
         joueur.GetComponent<VieJoueur>().faireDegat(degat);

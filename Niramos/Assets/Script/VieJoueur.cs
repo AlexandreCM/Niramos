@@ -30,8 +30,7 @@ public class VieJoueur : MonoBehaviour
             }
         }
         GestionnaireEvenement.declancherEvenement("vieChanger");
-        if (this.gameObject.GetComponent<mouvement>() == null)
-            GestionnaireAttaque.declancherEvenement("VieJ1Changer", quantiter, this.gameObject.name);
+            
         //Debug.Log(this.gameObject.name + " " + vie);
     }
 
