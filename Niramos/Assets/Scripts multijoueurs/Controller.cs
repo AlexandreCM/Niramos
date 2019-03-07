@@ -65,6 +65,7 @@ public class Controller : MonoBehaviour
     {
         int degat = int.Parse(JsonToString(obj.data.GetField("degat").ToString(), "\""));
         string nomJoueur = JsonToString(obj.data.GetField("nom").ToString(), "\"");
+        Debug.Log(nomJoueur + " hit");
         GameObject joueur = GameObject.Find(nomJoueur);
         joueur.GetComponent<VieJoueur>().faireDegat(degat);
     }
