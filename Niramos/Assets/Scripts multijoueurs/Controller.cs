@@ -191,6 +191,9 @@ public class Controller : MonoBehaviour
 
     private void OnUserConnected(SocketIOEvent evt)
     {
+        if(JsonToString(evt.data.GetField("nom").ToString(), "\"") == loginPanel.inputField.text)
+            return;
+
         Debug.Log("Get the message from server is: " + evt.data + " - onUserConnected");
         GameObject otherJoueur = (GameObject)Instantiate(prefabJoueur);
         //SceneManager.MoveGameObjectToScene(m_MyGameObject, SceneManager.GetSceneByName(m_Scene));

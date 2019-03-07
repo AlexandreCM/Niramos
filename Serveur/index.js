@@ -26,11 +26,6 @@ io.on("connection", function (socket) {
     // Quand un joueur se connecte
     socket.on("USER_CONNECT", function () {
         console.log('Un joueur vient de se connecter au serveur mais n\'est pas encore identifié.');
-        for (var i = 0; i < clients.length; i++) {
-            socket.emit("USER_CONNECTED", { nom: clients[i].nom, position: clients[i].position });
-
-            console.log("Joueur : " + clients[i].nom + " est connecté.");
-        }
     });
 
     // Quand un joueur veut jouer
@@ -48,18 +43,19 @@ io.on("connection", function (socket) {
         clients.push(joueurCourant);
         socket.emit("PLAY", joueurCourant);
         socket.broadcast.emit("USER_CONNECTED", joueurCourant);
+
+        console.log("Joueurs connectés : ");
+        for (var i = 0; i < clients.length; i++) {
+            socket.emit("USER_CONNECTED", { nom: clients[i].nom, position: clients[i].position });
+            console.log(clients[i].nom + " est connecté.");
+        }
     });
 
     // Quand un joueur se déplace
     socket.on("MOVE", function (data) {
 
-        joueurCourant = {
-            nom: data.nom,
-            position: data.position,
-            direction: data.direction
-        }
+        joueurCourant = { nom: data.nom, position: data.position, direction: data.direction }
 
-        //socket.emit("MOVE", joueurCourant);
         socket.broadcast.emit("MOVE", joueurCourant);
         //console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);
     });
@@ -86,12 +82,13 @@ io.on("connection", function (socket) {
     });
 
     socket.on("HIT", function (data) {
+        // Appelée quand un joueur reçoit des dégas pour metre les autres au courant
         console.log("Le joueur " + data.nomJoueur + " a prit " + data.degat + " points de dégats");
         socket.broadcast.emit("PLAYER_LOSE_HEALTH", data);
     });
 
     socket.on("MORT", function (data) {
-        console.log("Le joueur "+data.nomJoueur+" est mort");
+        console.log("Le joueur " + data.nomJoueur + " est mort");
         socket.broadcast.emit("UN_JOUEUR_EST_MORT", data);
     });
 
