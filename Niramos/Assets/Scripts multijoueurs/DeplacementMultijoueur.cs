@@ -8,21 +8,14 @@ public class DeplacementMultijoueur : MonoBehaviour
     public event OnMove OnCommandMove;
 
     private Rigidbody2D rigidbodyJoueur = null;
-    private Vector3 positionPrecdante;
     private void OnEnable()
     {
         rigidbodyJoueur = this.gameObject.GetComponent<Rigidbody2D>();
     }
-    void Update()
+    void FixedUpdate()
     {
         if(rigidbodyJoueur != null)
-        {
-            if(positionPrecdante != this.gameObject.transform.position)
-            {
-                if(OnCommandMove != null)
-                    OnCommandMove(this.gameObject.transform.position);
-            }
-            positionPrecdante = this.gameObject.transform.position;
-        }
+            if(OnCommandMove != null)
+                OnCommandMove(this.gameObject.transform.position);
     }
 }
