@@ -26,6 +26,13 @@ public class Arc : ObjetRamasable
             Vector3 position = new Vector3(this.gameObject.transform.position.x + positionxFleche, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
             GameObject lancer = Instantiate(fleche, position, this.gameObject.transform.rotation);
             lancer.GetComponent<Fleche>().lancer(directionDroite);
+            GestionnaireEvenement.declancherEvenement("arcTirer");
+        }
+        else
+        {
+            Vector3 position = new Vector3(this.gameObject.transform.position.x + positionxFleche, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+            GameObject lancer = Instantiate(fleche, position, this.gameObject.transform.rotation);
+            lancer.GetComponent<Fleche>().lancer(directionDroite);
         }
     }
 

@@ -37,6 +37,7 @@ public class Controller : MonoBehaviour
         socket.On("UN_JOUEUR_EST_MORT", onUserDeath);
         socket.On("RESPAWN", onUserRespawn);
         socket.On("SPAWN_ARME", onWeaponSpawn);
+        socket.On("FIRE_BOW", onUserFireBow);
         GestionnaireAttaque.ajouterEvenement("VieJ1Changer", onHitPlayer);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         GestionnaireEvenement.ajouterEvenement("ObjetLancer", onPlayerDropItem);
@@ -58,7 +59,14 @@ public class Controller : MonoBehaviour
         GameObject arme = (GameObject)Instantiate(listeArmePossible[typeArme], listeSpawnPoint[point].transform.position, listeSpawnPoint[point].transform.rotation);
         //arme.GetComponent<ObjetRamasable>().setId(idArme);
     }
-
+    void onUserFireBow(SocketIOEvent obj)
+    {
+        string nomJoueur = JsonToString(obj.data.GetField("nomJoueur").ToString(), "\"");
+        GameObject joueur = GameObject.Find(nomJoueur);
+        Arc arc = joueur.GetComponent<ManagerJoueur>().objetEnMain.GetComponent<Arc>();
+        if (arc != null)
+            arc.tirer(false);
+    }
     void onArcTirer()
     {
         Dictionary<string, string> data = new Dictionary<string, string>();

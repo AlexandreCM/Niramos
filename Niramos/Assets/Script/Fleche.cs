@@ -42,9 +42,9 @@ public class Fleche : MonoBehaviour
             Debug.Log("collision" + collision.gameObject.name);
             VieJoueur joueur = null;
             joueur = collision.gameObject.GetComponent<VieJoueur>();
-            if (joueur != null)
+            if (joueur != null && collision.gameObject.GetComponent<mouvement>() != null)
             {
-                joueur.faireDegat(degat);
+                GestionnaireAttaque.declancherEvenement("VieJ1Changer", degat, collision.gameObject.name, 0);
                 areterFleche(collision);
             }
             else if(collision.gameObject.GetComponent<ObjetRamasable>() == null)
