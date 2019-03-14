@@ -42,9 +42,11 @@ public class Controller : MonoBehaviour
     }
 
     void onUserRespawn(SocketIOEvent obj)
-    {
-        int point = int.Parse(JsonToString(obj.data.GetField("pointRespawn").ToString(), "\""));
+    { 
+        Debug.Log(obj);
+        int point =JsonToInt(obj.data.GetField("pointRespawn").ToString());
         string nomJoueur = JsonToString(obj.data.GetField("nomJoueur").ToString(), "\"");
+        //Debug.Log(point + " " + nomJoueur);
         GameObject joueur = GameObject.Find(nomJoueur);
         DegatsJoueur degatsJoueur = joueur.GetComponent<DegatsJoueur>();
         GestionnaireReapparition.getEvent().Invoke(degatsJoueur, point);
@@ -184,10 +186,14 @@ public class Controller : MonoBehaviour
     }
     string JsonToString(string target, string s)
     {
+        //Debug.Log(target);
         string[] newString = Regex.Split(target, s);
         return newString[1];
     }
-
+    int JsonToInt(string target)
+    {
+        return int.Parse(target);
+    }
     Vector3 JsonToVector3(string target)
     {
         StringBuilder sb = new StringBuilder(target);
