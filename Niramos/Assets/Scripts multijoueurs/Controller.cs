@@ -189,7 +189,7 @@ public class Controller : MonoBehaviour
         //Debug.Log("send");
         Dictionary<string, string> data = new Dictionary<string, string>();
         data["nom"] = nom;
-        data["idObjet"] = idObjet+"";
+        data["idObjet"] = idObjet.ToString();
 
         socket.Emit("ITEM_PICKUP", new JSONObject(data));
     }
