@@ -52,9 +52,9 @@ public abstract class ObjetRamasable : MonoBehaviour
             }
         }
     }
-    public void lancer()
+    public void lancer(bool declancherEvent)
     {
-        GestionnaireEvenement.declancherEvenement("ObjetLancer");
+        if(declancherEvent)GestionnaireEvenement.declancherEvenement("ObjetLancer");
         delaisDrop = delaiDropBase;
         estEnDrop = true;
     }
