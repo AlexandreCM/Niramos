@@ -73,18 +73,18 @@ io.on("connection", function (socket) {
         var reponse;
         var reponseBroadcast;
         for (var i = 0; i < listeObjets.length; i++) {
-            if (listeObjets[i].idObjet != data.idObjet)
-                break;
+            if (listeObjets[i].idObjet == data.idObjet) {
 
-            if (listeObjets[i].dispo) {
-                console.log("L'objet est disponible");
-                reponse = { idObjet: data.idObjet, disponible: "True" }
-                reponseBroadcast = { nomJoueur: data.nom, idObjet: data.idObjet }
-                listeObjets[i].dispo = false;
-                socket.broadcast.emit("PLAYER_PICKUP_ITEM", reponseBroadcast);
-            } else {
-                console.log("L'objet n'est pas disponible");
-                reponse = { idObjet: data.idObjet, disponible: "False" }
+                if (listeObjets[i].dispo) {
+                    console.log("L'objet est disponible");
+                    reponse = { idObjet: data.idObjet, disponible: "True" }
+                    reponseBroadcast = { nomJoueur: data.nom, idObjet: data.idObjet }
+                    listeObjets[i].dispo = false;
+                    socket.broadcast.emit("PLAYER_PICKUP_ITEM", reponseBroadcast);
+                } else {
+                    console.log("L'objet n'est pas disponible");
+                    reponse = { idObjet: data.idObjet, disponible: "False" }
+                }
             }
         }
         socket.emit("ITEM_PICKUP_RESPONSE", reponse);
@@ -146,6 +146,7 @@ io.on("connection", function (socket) {
         listeObjets.push(new Objet(idObjet, pointSpawn, typeArme));
 
         socket.broadcast.emit("SPAWN_ARME", responseBroadcast);
+        socket.emit("SPAWN_ARME", responseBroadcast);
         console.log("Une arme vient de spawner au point " + responseBroadcast.pointSpawn);
     }
 
