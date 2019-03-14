@@ -68,7 +68,7 @@ public class VieJoueur : MonoBehaviour
     /// Joue le son de dégâts de l'objet.
     /// </summary>
     private void playDamageSound() {
-        AudioSource dmgSound = AudioScript2.getFirstSound(this.gameObject);
+        AudioSource dmgSound = AudioScript.getFirstSound(this.gameObject);
         if(dmgSound) {
             dmgSound.Play();
         }

@@ -2,33 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-   La classe AudioScript stocke la liste des AudioSource attachés à une entité (GameObject).
-   Il est possible de récupérer les données de ce dictionnaire pour jouer un son.
-   Les sons sont stockés dans le même ordre qu'ils sont organisés dans l'inspecteur.
-*/
+/// <summary>
+///   La classe AudioScript stocke la liste des AudioSource attachés à une entité (GameObject).
+///   Il est possible de récupérer les données de ce dictionnaire pour jouer un son.
+///   Les sons sont stockés dans le même ordre qu'ils sont organisés dans l'inspecteur.
+/// </summary>
+public static class AudioScript {
+    
+    /// <summary>
+    /// Retourne tous les composants AudioSource d'un objet dans le monde.
+    /// </summary>
+    /// <param name="g">L'objet contenant les AudioSource à récupérer.</param>
+    /// <returns>Tableau des AudioSource trouvés ; null si aucun.</returns>
 
-public class AudioScript : MonoBehaviour
-{
-
-    private AudioSource[] listePistes;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        this.listePistes = this.gameObject.GetComponents<AudioSource>();
+    public static AudioSource[] getSoundsOf(GameObject g) {
+        return g.GetComponents<AudioSource>();
     }
 
-    public AudioSource[] getSoundList() {
-        return this.listePistes;
-    }
-
-    public AudioSource getFirstSound() {
-        if (this.listePistes != null) {
-            return this.listePistes[0];
+    /// <summary>
+    /// Retourne le premier composant AudioSource d'un objet dans le monde.
+    /// </summary>
+    /// <param name="g">L'objet contenant l'AudioSource à récupérer.</param>
+    /// <returns>Le premier AudioSource de l'objet ; null si aucun.</returns>
+    public static AudioSource getFirstSound(GameObject g) {
+        AudioSource[] listePistes = getSoundsOf(g);
+        if(listePistes.Length >= 1) {
+            return listePistes[0];
         }
         else {
-            Debug.LogWarning("WARN    AudioScript:getFirstSound(): No AudioSource found for this GameObject.");
+            Debug.LogWarning("WARN    AudioScript:getFirstSound(): No AudioSource found for GameObject " + g.name);
             return null;
         }
         
