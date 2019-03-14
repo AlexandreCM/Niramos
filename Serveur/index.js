@@ -73,7 +73,7 @@ io.on("connection", function (socket) {
         var reponse;
         var reponseBroadcast;
         for (var i = 0; i < listeObjets.length; i++) {
-            if (listeObjets[i].id != data.idObjet)
+            if (listeObjets[i].idObjet != data.idObjet)
                 break;
 
             if (listeObjets[i].dispo) {
@@ -117,6 +117,10 @@ io.on("connection", function (socket) {
 
     socket.on("DROP", function (data) {
         console.log(data.nomJoueur + " a drop un item");
+        listeObjets.forEach(function (current) {
+            if (current.idObjet == data.idObjet)
+                current.dispo = true;
+        });
         var reponseBroadcast = { nomJoueur: data.nomJoueur }
         socket.broadcast.emit("DROP_RESPONSE", reponseBroadcast);
     });
@@ -128,13 +132,8 @@ io.on("connection", function (socket) {
         socket.broadcast.emit("FLIP_RESPONSE", reponseBroadcast);
     });
 
-    socket.on("SPAWN_ARME", function () {
-        console.log("SOCKET ON SPAWN ARME");
-    });
-
     function spawnArme() {
-        if(plusDeQuatreDispo()){
-            console.log("Déjà 4 armes sont présentes dans le jeu.")
+        if (plusDeQuatreDispo()) {
             return;
         }
 
