@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class ActionCommencer : MonoBehaviour
 {
     Button myButton;
+    private Transform pointVue;
 
     void Awake()
     {
@@ -13,13 +14,14 @@ public class ActionCommencer : MonoBehaviour
             myFunctionForOnClickEvent();
 
         });
-
     }
 
     void myFunctionForOnClickEvent()
     {
-        print("Bonsoir");
+        print("C'est parti");
         myButton.enabled = false;
         myButton.gameObject.SetActive(false);
+        pointVue = GameObject.FindGameObjectWithTag("pointVueCamera").transform;
+        pointVue.position = new Vector3(0.0f, 3.0f, 0.0f);
     }
 }

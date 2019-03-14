@@ -687,9 +687,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a172fd2ee11c75a49887ac2c5bb17b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myButton: {fileID: 0}
 --- !u!114 &266787874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1608,7 +1605,7 @@ GameObject:
   - component: {fileID: 1530616114}
   m_Layer: 0
   m_Name: PointVueCamera
-  m_TagString: Untagged
+  m_TagString: pointVueCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

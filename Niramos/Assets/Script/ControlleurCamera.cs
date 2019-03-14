@@ -8,8 +8,8 @@ public class ControlleurCamera : MonoBehaviour
     void FixedUpdate()
     {
         positionCamera = new Vector3(
-            Mathf.SmoothStep(transform.position.x, pointVue.transform.position.x, 0.3f),
-            Mathf.SmoothStep(transform.position.y, pointVue.transform.position.y, 0.3f));
+            Mathf.SmoothStep(transform.position.x, pointVue.transform.position.x, 0.15f),
+            Mathf.SmoothStep(transform.position.y, pointVue.transform.position.y, 0.15f));
     }
 
     private void LateUpdate()
