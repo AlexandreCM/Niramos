@@ -55,9 +55,9 @@ public class Controller : MonoBehaviour
         Debug.Log(typeArme);
         int point = JsonToInt(obj.data.GetField("pointSpawn").ToString());
         Debug.Log(point);
-        //int idArme = JsonToInt(obj.data.GetField("idArme").ToString());
+        int idArme = JsonToInt(obj.data.GetField("idObjet").ToString());
         GameObject arme = (GameObject)Instantiate(listeArmePossible[typeArme], listeSpawnPoint[point].transform.position, listeSpawnPoint[point].transform.rotation);
-        //arme.GetComponent<ObjetRamasable>().setId(idArme);
+        arme.GetComponent<ObjetRamasable>().setId(idArme);
     }
     void onUserFireBow(SocketIOEvent obj)
     {
