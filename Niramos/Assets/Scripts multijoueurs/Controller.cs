@@ -51,10 +51,12 @@ public class Controller : MonoBehaviour
     {
         Debug.Log(obj);
         int typeArme = JsonToInt(obj.data.GetField("typeArme").ToString());
-        int point = JsonToInt(obj.data.GetField("pointRespawn").ToString());
-        int idArme = JsonToInt(obj.data.GetField("idArme").ToString());
-        GameObject arme = GameObject.Instantiate(listeArmePossible[typeArme], listeSpawnPoint[point].transform);
-        arme.GetComponent<ObjetRamasable>().setId(idArme);
+        Debug.Log(typeArme);
+        int point = JsonToInt(obj.data.GetField("pointSpawn").ToString());
+        Debug.Log(point);
+        //int idArme = JsonToInt(obj.data.GetField("idArme").ToString());
+        GameObject arme = (GameObject)Instantiate(listeArmePossible[typeArme], listeSpawnPoint[point].transform.position, listeSpawnPoint[point].transform.rotation);
+        //arme.GetComponent<ObjetRamasable>().setId(idArme);
     }
 
     void onArcTirer()

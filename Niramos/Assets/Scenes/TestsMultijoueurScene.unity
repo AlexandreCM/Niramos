@@ -889,6 +889,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
         type: 3}
+      propertyPath: listeArmePossible.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
+        type: 3}
+      propertyPath: listeSpawnPoint.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
+        type: 3}
       propertyPath: loginPanel
       value: 
       objectReference: {fileID: 7547396921380954283}
@@ -913,6 +923,56 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 976854832, guid: 672323f9eb6c07b43b6ca21930ba4fc9,
         type: 3}
+    - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
+        type: 3}
+      propertyPath: listeArmePossible.Array.data[0]
+      value: 
+      objectReference: {fileID: 2749834606925694269, guid: 142faa38f254f0449acd42852634a2d5,
+        type: 3}
+    - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
+        type: 3}
+      propertyPath: listeArmePossible.Array.data[1]
+      value: 
+      objectReference: {fileID: 624040906, guid: 73c7a787b39aed84781f6dff23e47a50,
+        type: 3}
+    - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
+        type: 3}
+      propertyPath: listeArmePossible.Array.data[2]
+      value: 
+      objectReference: {fileID: 702760110132618831, guid: f94be008a3e294f4695e939e8dc66a91,
+        type: 3}
+    - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
+        type: 3}
+      propertyPath: listeArmePossible.Array.data[3]
+      value: 
+      objectReference: {fileID: 3706034356934030786, guid: cfa786cd82edbdc40ac566b173184134,
+        type: 3}
+    - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
+        type: 3}
+      propertyPath: listeArmePossible.Array.data[4]
+      value: 
+      objectReference: {fileID: 4556959967043914006, guid: cc63b8c6101d65345b20e2ed2a860e30,
+        type: 3}
+    - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
+        type: 3}
+      propertyPath: listeSpawnPoint.Array.data[0]
+      value: 
+      objectReference: {fileID: 9097394713130868180}
+    - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
+        type: 3}
+      propertyPath: listeSpawnPoint.Array.data[1]
+      value: 
+      objectReference: {fileID: 9097394713247835819}
+    - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
+        type: 3}
+      propertyPath: listeSpawnPoint.Array.data[2]
+      value: 
+      objectReference: {fileID: 9097394713721504082}
+    - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
+        type: 3}
+      propertyPath: listeSpawnPoint.Array.data[3]
+      value: 
+      objectReference: {fileID: 9097394712768186183}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8fa2653fa91bbe4eae0edd6affc903a, type: 3}
 --- !u!114 &7547396921380954283 stripped
