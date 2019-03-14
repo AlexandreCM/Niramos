@@ -64,19 +64,16 @@ public class VieJoueur : MonoBehaviour
         this.isAlive = isLiving;
     }
 
+    /// <summary>
+    /// Joue le son de dégâts de l'objet.
+    /// </summary>
     private void playDamageSound() {
-        AudioScript aScript = this.gameObject.GetComponent<AudioScript>();
-        if(aScript) {
-            AudioSource dmgSound = aScript.getFirstSound();
-            if (dmgSound) {
-                dmgSound.Play();
-            }
-            else {
-                Debug.LogWarning("WARN    VieJoueur:playDamageSound(): Sound not found.");
-            }
+        AudioSource dmgSound = AudioScript2.getFirstSound(this.gameObject);
+        if(dmgSound) {
+            dmgSound.Play();
         }
         else {
-            Debug.LogWarning("WARN    VieJoueur:playDamageSound(): No AudioScript found for this player.");
+            Debug.LogWarning("WARN    " + this.gameObject.name + ":VieJoueur::playDamageSound(): Failed to play damage sound.");
         }
     }
 

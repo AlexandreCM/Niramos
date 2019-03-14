@@ -24,9 +24,9 @@ public static class AudioScript2 {
     /// </summary>
     /// <param name="g">L'objet contenant l'AudioSource à récupérer.</param>
     /// <returns>Le premier AudioSource de l'objet ; null si aucun.</returns>
-    public static AudioSource getFirstSound() {
-        AudioSource[] listePistes = this.getSoundsOf(g);
-        if (listePistes != null) {
+    public static AudioSource getFirstSound(GameObject g) {
+        AudioSource[] listePistes = getSoundsOf(g);
+        if(listePistes.Length >= 1) {
             return listePistes[0];
         }
         else {
