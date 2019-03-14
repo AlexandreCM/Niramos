@@ -22,6 +22,7 @@ var listeObjets = [new Objet(1, 1, 2, 3), new Objet(2, 1, 2, 3), new Objet(3, 1,
 io.on("connection", function (socket) {
     var joueurCourant;
     var objetCourant;
+    setInterval(spawnArme, 10 * 1000);
 
     // Quand un joueur se connecte
     socket.on("USER_CONNECT", function () {
@@ -118,6 +119,17 @@ io.on("connection", function (socket) {
         var reponseBroadcast = { nomJoueur: data.nomJoueur, direction: data.direction }
         socket.broadcast.emit("FLIP_RESPONSE", reponseBroadcast);
     });
+
+    socket.on("SPAWN_ARME", function () {
+        //spawnArme();
+        console.log("SOCKET ON SPAWN ARME");
+    });
+
+    function spawnArme() {
+        var responseBroadcast = { pointSpawn: Math.floor(Math.random() * 4), typeArme: Math.floor(Math.random() * 5) }
+        socket.broadcast.emit("SPAWN_ARME", responseBroadcast);
+        console.log("Une arme vient de spawner au point " + responseBroadcast.pointSpawn);
+    }
 
     //Sert à afficher les sessions disponibles au joueur
     // socket.on("SHOW_SESSIONS", function (data) {
