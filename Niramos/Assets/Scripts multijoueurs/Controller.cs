@@ -110,6 +110,7 @@ public class Controller : MonoBehaviour
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
         data["nomJoueur"] = JoueurGameObject.JoueurName;
+        data["idObjet"] = JoueurGameObject.GetComponent<ManagerJoueur>().objetEnMain.GetComponent<ObjetRamasable>().getId().ToString();
         socket.Emit("DROP", new JSONObject(data));
     }
 
