@@ -94,8 +94,9 @@ io.on("connection", function (socket) {
         // On attend 5 secondes avant de faire respawn le joueur
         setTimeout(function () {
             var reponseBroadcast = { nomJoueur: data.nomJoueur, pointRespawn: Math.floor(Math.random() * 4) };
-            socket.broadcast.emit("RESPAWN", reponseBroadcast)
-            console.log(data.nomJoueur+" vient de respawn");
+            socket.emit("RESPAWN", reponseBroadcast);
+            socket.broadcast.emit("RESPAWN", reponseBroadcast);
+            console.log(data.nomJoueur + " vient de respawn");
         }, 5000);
     });
 
