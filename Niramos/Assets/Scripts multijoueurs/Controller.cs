@@ -15,6 +15,10 @@ public class Controller : MonoBehaviour
     private Joueur JoueurGameObject;
     public GameObject prefabJoueur;
     private string tagRammasable = "rammasable";
+    [SerializeField]
+    private GameObject[] listeArmePossible;
+    [SerializeField]
+    private GameObject[] listeSpawnPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -32,13 +36,32 @@ public class Controller : MonoBehaviour
         socket.On("DROP_RESPONSE", onUserDropItem);
         socket.On("UN_JOUEUR_EST_MORT", onUserDeath);
         socket.On("RESPAWN", onUserRespawn);
+        socket.On("SPAWN_ARME", onWeaponSpawn);
         GestionnaireAttaque.ajouterEvenement("VieJ1Changer", onHitPlayer);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         GestionnaireEvenement.ajouterEvenement("ObjetLancer", onPlayerDropItem);
         GestionnaireEvenement.ajouterEvenement("JoueurMort", onPlayerDeath);
+        GestionnaireEvenement.ajouterEvenement("arcTirer", onArcTirer);
         //joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
         //joystick.OnCommandMove += OnCommandMove;
+    }
+
+    void onWeaponSpawn(SocketIOEvent obj)
+    {
+        Debug.Log(obj);
+        int typeArme = JsonToInt(obj.data.GetField("typeArme").ToString());
+        int point = JsonToInt(obj.data.GetField("pointRespawn").ToString());
+        int idArme = JsonToInt(obj.data.GetField("idArme").ToString());
+        GameObject arme = GameObject.Instantiate(listeArmePossible[typeArme], listeSpawnPoint[point].transform);
+        arme.GetComponent<ObjetRamasable>().setId(idArme);
+    }
+
+    void onArcTirer()
+    {
+        Dictionary<string, string> data = new Dictionary<string, string>();
+        data["nomJoueur"] = JoueurGameObject.JoueurName;
+        socket.Emit("ArcTirer", new JSONObject(data));
     }
 
     void onUserRespawn(SocketIOEvent obj)
