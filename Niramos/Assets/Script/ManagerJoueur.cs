@@ -120,7 +120,8 @@ public class ManagerJoueur : MonoBehaviour
         objetEnMain.transform.parent = null;
         objetEnMain.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceLancer, 0));
 
-        objetEnMain.GetComponent<ObjetRamasable>().lancer();
+        if (this.gameObject.GetComponent<mouvement>() != null) objetEnMain.GetComponent<ObjetRamasable>().lancer(true);
+        else objetEnMain.GetComponent<ObjetRamasable>().lancer(false);
 
         objetEnMain = null;
     }
