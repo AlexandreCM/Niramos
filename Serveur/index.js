@@ -15,14 +15,22 @@ var session2 = [];
 var session3 = [];
 var session4 = [];
 
+var lancerSpawnItem = true;
+
 const MAX_JOUEURS_PAR_SESSION = 4;
-var listeObjets = [new Objet(1, 1, 2, 3), new Objet(2, 1, 2, 3), new Objet(3, 1, 2, 3)];
+var listeObjets = [];
+var dernierId = 0;
 
 //io est une variable de socket.io regroupant des évènements
 io.on("connection", function (socket) {
     var joueurCourant;
     var objetCourant;
-    setInterval(spawnArme, 10 * 1000);
+
+    if (lancerSpawnItem) {
+        setInterval(spawnArme, 10 * 1000);
+        lancerSpawnItem = false;
+    }
+
 
     // Quand un joueur se connecte
     socket.on("USER_CONNECT", function () {
@@ -121,14 +129,34 @@ io.on("connection", function (socket) {
     });
 
     socket.on("SPAWN_ARME", function () {
-        //spawnArme();
         console.log("SOCKET ON SPAWN ARME");
     });
 
     function spawnArme() {
-        var responseBroadcast = { pointSpawn: Math.floor(Math.random() * 4), typeArme: Math.floor(Math.random() * 5) }
+        if(plusDeQuatreDispo()){
+            console.log("Déjà 4 armes sont présentes dans le jeu.")
+            return;
+        }
+
+        dernierId++;
+        var idObjet = dernierId;
+        var pointSpawn = Math.floor(Math.random() * 4);
+        var typeArme = Math.floor(Math.random() * 5);
+
+        var responseBroadcast = { idObjet: idObjet, pointSpawn: pointSpawn, typeArme: typeArme }
+        listeObjets.push(new Objet(idObjet, pointSpawn, typeArme));
+
         socket.broadcast.emit("SPAWN_ARME", responseBroadcast);
         console.log("Une arme vient de spawner au point " + responseBroadcast.pointSpawn);
+    }
+
+    function plusDeQuatreDispo() {
+        var nb = 0;
+        listeObjets.forEach(function (current) {
+            if (current.dispo)
+                nb++;
+        });
+        return nb > 3;
     }
 
     //Sert à afficher les sessions disponibles au joueur

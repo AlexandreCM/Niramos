@@ -1,11 +1,10 @@
 class Objet {
-  constructor(idObjet, x, y, z) {
-    this.id = idObjet;
+  constructor(idObjet, pointSpawn, typeArme) {
+    this.idObjet = idObjet;
 
-    this.x = x;
-    this.y = y;
-    this.z = z;
-
+    this.pointSpawn = pointSpawn;
+    this.typeArme = typeArme;
+    
     this.dispo = true;
   }
 };
