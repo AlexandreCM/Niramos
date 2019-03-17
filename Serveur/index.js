@@ -15,7 +15,7 @@ var session2 = [];
 var session3 = [];
 var session4 = [];
 
-var lancerSpawnItem = true;
+var lancerTimerJeu = true;
 
 const MAX_JOUEURS_PAR_SESSION = 4;
 var listeObjets = [];
@@ -26,9 +26,10 @@ io.on("connection", function (socket) {
     var joueurCourant;
     var objetCourant;
 
-    if (lancerSpawnItem) {
+    if (lancerTimerJeu) {
         setInterval(spawnArme, 10 * 1000);
-        lancerSpawnItem = false;
+        setTimeout(terminerPartie, 90000);
+        lancerTimerJeu = false;
     }
 
 
@@ -131,6 +132,12 @@ io.on("connection", function (socket) {
         var reponseBroadcast = { nomJoueur: data.nomJoueur, direction: data.direction }
         socket.broadcast.emit("FLIP_RESPONSE", reponseBroadcast);
     });
+
+    function terminerPartie(){
+      socket.broadcast.emit("GAME_OVER");
+      socket.emit("GAME_OVER");
+      console.log("GAME_OVER");
+    }
 
     function spawnArme() {
         if (plusDeQuatreDispo()) {

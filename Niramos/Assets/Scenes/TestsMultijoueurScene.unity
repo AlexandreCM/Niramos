@@ -303,22 +303,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 58290401, guid: 02f31cee734d8754aad5a2d7251ea42a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7635632498186740582, guid: 02f31cee734d8754aad5a2d7251ea42a,
         type: 3}
       propertyPath: terrain.m_Bits
       value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 58290401, guid: 02f31cee734d8754aad5a2d7251ea42a, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8628404028364826017, guid: 02f31cee734d8754aad5a2d7251ea42a,
         type: 3}
       propertyPath: interpolation
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7055453534118102959, guid: 02f31cee734d8754aad5a2d7251ea42a, type: 3}
+    - {fileID: 7635632498186740582, guid: 02f31cee734d8754aad5a2d7251ea42a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 02f31cee734d8754aad5a2d7251ea42a, type: 3}
+--- !u!114 &354979239 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1577045059342281079, guid: e5bad42176bccd04eb2c133194246228,
+    type: 3}
+  m_PrefabInstance: {fileID: 1577045058657428712}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &667773869 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11400000, guid: 010d39cbd03ee4c99a746c1f8ecdc0d8,
@@ -329,6 +343,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 961346d7e16a445ff93777573e78efd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1439528540 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1577045059698305592, guid: e5bad42176bccd04eb2c133194246228,
+    type: 3}
+  m_PrefabInstance: {fileID: 1577045058657428712}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 575553740, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1591130908
@@ -401,7 +427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 010d39cbd03ee4c99a746c1f8ecdc0d8, type: 3}
       propertyPath: url
-      value: ws://hireme.fr:3000/socket.io/?EIO=4&transport=websocket
+      value: ws://localhost:3000/socket.io/?EIO=4&transport=websocket
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 010d39cbd03ee4c99a746c1f8ecdc0d8, type: 3}
       propertyPath: pingInterval
@@ -751,6 +777,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7547396921380954283, guid: e5bad42176bccd04eb2c133194246228,
+        type: 3}
+      propertyPath: playBtn
+      value: 
+      objectReference: {fileID: 354979239}
+    - target: {fileID: 7547396921380954283, guid: e5bad42176bccd04eb2c133194246228,
+        type: 3}
+      propertyPath: inputField
+      value: 
+      objectReference: {fileID: 1439528540}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5bad42176bccd04eb2c133194246228, type: 3}
 --- !u!224 &2166074763216887896 stripped

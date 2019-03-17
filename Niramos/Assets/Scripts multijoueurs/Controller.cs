@@ -38,6 +38,7 @@ public class Controller : MonoBehaviour
         socket.On("RESPAWN", onUserRespawn);
         socket.On("SPAWN_ARME", onWeaponSpawn);
         socket.On("FIRE_BOW", onUserFireBow);
+        socket.On("GAME_OVER", onGameOver);
         GestionnaireAttaque.ajouterEvenement("VieJ1Changer", onHitPlayer);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         GestionnaireEvenement.ajouterEvenement("ObjetLancer", onPlayerDropItem);
@@ -46,6 +47,12 @@ public class Controller : MonoBehaviour
         //joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
         //joystick.OnCommandMove += OnCommandMove;
+    }
+
+    void onGameOver(SocketIOEvent obj)
+    {
+        JoueurGameObject.gameObject.GetComponent<mouvement>().enabled = false;
+
     }
 
     void onWeaponSpawn(SocketIOEvent obj)
