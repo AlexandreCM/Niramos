@@ -19,7 +19,7 @@ public abstract class ObjetRamasable : MonoBehaviour
         mouvement joueur = null;
         joueur = collision.gameObject.GetComponent<mouvement>();
         //Debug.Log("hit");
-        if (joueur != null && estEnMain != true) demanderSiRamassable(collision.gameObject.name);
+        if (joueur != null && estEnMain != true && collision.gameObject.GetComponent<ManagerJoueur>().objetEnMain == null) demanderSiRamassable(collision.gameObject.name);
     }
     private void demanderSiRamassable(string nomJoueur)
     {
