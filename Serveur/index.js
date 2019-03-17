@@ -70,6 +70,11 @@ io.on("connection", function (socket) {
         //console.log(joueurCourant.nom + " se déplace vers " + joueurCourant.position);
     });
 
+    socket.on("BOW_FIRED", function(data){
+      socket.broadcast.emit("FIRE_BOW", data);
+    });
+
+
     socket.on("ITEM_PICKUP", function (data) {
         var reponse;
         var reponseBroadcast;
@@ -147,7 +152,7 @@ io.on("connection", function (socket) {
         dernierId++;
         var idObjet = dernierId;
         var pointSpawn = Math.floor(Math.random() * 4);
-        var typeArme = Math.floor(Math.random() * 5);
+        var typeArme = Math.floor(Math.random() * 6);
 
         var responseBroadcast = { idObjet: idObjet, pointSpawn: pointSpawn, typeArme: typeArme }
         listeObjets.push(new Objet(idObjet, pointSpawn, typeArme));

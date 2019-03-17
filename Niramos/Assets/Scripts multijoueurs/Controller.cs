@@ -63,7 +63,7 @@ public class Controller : MonoBehaviour
         int point = JsonToInt(obj.data.GetField("pointSpawn").ToString());
         Debug.Log(point);
         int idArme = JsonToInt(obj.data.GetField("idObjet").ToString());
-        GameObject arme = (GameObject)Instantiate(listeArmePossible[typeArme], listeSpawnPoint[point].transform.position, listeSpawnPoint[point].transform.rotation);
+        GameObject arme = (GameObject)Instantiate(listeArmePossible[5], listeSpawnPoint[point].transform.position, listeSpawnPoint[point].transform.rotation);
         arme.GetComponent<ObjetRamasable>().setId(idArme);
     }
     void onUserFireBow(SocketIOEvent obj)
@@ -78,7 +78,7 @@ public class Controller : MonoBehaviour
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
         data["nomJoueur"] = JoueurGameObject.JoueurName;
-        socket.Emit("ArcTirer", new JSONObject(data));
+        socket.Emit("BOW_FIRED", new JSONObject(data));
     }
 
     void onUserRespawn(SocketIOEvent obj)

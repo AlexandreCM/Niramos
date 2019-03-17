@@ -908,7 +908,7 @@ PrefabInstance:
     - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
         type: 3}
       propertyPath: listeArmePossible.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
         type: 3}
@@ -991,6 +991,12 @@ PrefabInstance:
       propertyPath: listeSpawnPoint.Array.data[3]
       value: 
       objectReference: {fileID: 9097394712768186183}
+    - target: {fileID: 8104279885854031212, guid: b8fa2653fa91bbe4eae0edd6affc903a,
+        type: 3}
+      propertyPath: listeArmePossible.Array.data[5]
+      value: 
+      objectReference: {fileID: 6454929171900237854, guid: ca82d07524e8fcd41ace1c97e821f670,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8fa2653fa91bbe4eae0edd6affc903a, type: 3}
 --- !u!114 &7547396921380954283 stripped
