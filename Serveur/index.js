@@ -1,4 +1,4 @@
-var express = require('express');
+﻿var express = require('express');
 var app = express();
 var Objet = require('./Objet.js');
 
@@ -61,7 +61,7 @@ io.on("connection", function (socket) {
         }
     });
     function peutDemarer(){
-      if(clients.length == 1){
+      if(clients.length == 4){
         clearInterval(intervalDemarer);
         setInterval(spawnArme, 10 * 1000);
         setTimeout(terminerPartie, 90000);
