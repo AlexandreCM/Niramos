@@ -21,15 +21,15 @@ const MAX_JOUEURS_PAR_SESSION = 4;
 var listeObjets = [];
 var dernierId = 0;
 
+var intervalDemarer;
 //io est une variable de socket.io regroupant des évènements
 io.on("connection", function (socket) {
     var joueurCourant;
     var objetCourant;
 
     if (lancerTimerJeu) {
-        setInterval(spawnArme, 10 * 1000);
-        setTimeout(terminerPartie, 90000);
-        lancerTimerJeu = false;
+      intervalDemarer = setInterval(peutDemarer, 50);
+      lancerTimerJeu = false;
     }
 
 
@@ -60,7 +60,18 @@ io.on("connection", function (socket) {
             console.log(clients[i].nom + " est connecté.");
         }
     });
+    function peutDemarer(){
+      if(clients.length == 4){
+        clearInterval(intervalDemarer);
+        setInterval(spawnArme, 10 * 1000);
+        setTimeout(terminerPartie, 90000);
 
+        socket.broadcast.emit("BEGIN_GAME");
+        socket.emit("BEGIN_GAME");
+
+        console.log("BEGIN_GAME");
+      }
+    }
     // Quand un joueur se déplace
     socket.on("MOVE", function (data) {
 
@@ -91,9 +102,10 @@ io.on("connection", function (socket) {
                     console.log("L'objet n'est pas disponible");
                     reponse = { idObjet: data.idObjet, disponible: "False" }
                 }
+                socket.emit("ITEM_PICKUP_RESPONSE", reponse);
             }
         }
-        socket.emit("ITEM_PICKUP_RESPONSE", reponse);
+
     });
 
     socket.on("HIT", function (data) {
@@ -163,12 +175,9 @@ io.on("connection", function (socket) {
     }
 
     function plusDeQuatreDispo() {
-        var nb = 0;
-        listeObjets.forEach(function (current) {
-            if (current.dispo)
-                nb++;
-        });
-        return nb > 3;
+        if(listeObjets.length>4)
+            return true;
+        return false;
     }
 
     //Sert à afficher les sessions disponibles au joueur

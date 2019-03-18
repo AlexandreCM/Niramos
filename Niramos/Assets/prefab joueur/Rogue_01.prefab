@@ -48,8 +48,9 @@ GameObject:
   - component: {fileID: 58290400}
   - component: {fileID: 58290402}
   - component: {fileID: 58290403}
-  - component: {fileID: 2225314176304443294}
+  - component: {fileID: 795364361439550848}
   - component: {fileID: 8628404028364826017}
+  - component: {fileID: 4145787170951704138}
   m_Layer: 9
   m_Name: Rogue_01
   m_TagString: Player
@@ -179,6 +180,7 @@ MonoBehaviour:
   vie: 100
   vieMax: 100
   isAlive: 0
+  gfxManager: {fileID: 0}
 --- !u!114 &58290402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quantiterPousse: 20
---- !u!114 &2225314176304443294
+--- !u!114 &795364361439550848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,7 +217,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 58290395}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb8c22b7b00652843bf090ec36669f15, type: 3}
+  m_Script: {fileID: 11500000, guid: 1cc65b2f2ac6a544f9c2797dc87d989d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   distCalc: 0.5
@@ -237,6 +239,18 @@ MonoBehaviour:
   objetEnMain: {fileID: 0}
   interpolation: 1
   estLocal: 1
+--- !u!114 &4145787170951704138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58290395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26ef80b40a77c8b4aa5b0b14a51f46df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &158582826
 GameObject:
   m_ObjectHideFlags: 0
