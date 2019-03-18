@@ -290,11 +290,11 @@ public class Controller : MonoBehaviour
         GameObject otherJoueur = (GameObject)Instantiate(prefabJoueur);
         //SceneManager.MoveGameObjectToScene(m_MyGameObject, SceneManager.GetSceneByName(m_Scene));
         Joueur otherJoueurCom = otherJoueur.AddComponent<Joueur>();
+        GameObject.Find("CanvasHUDJeu").GetComponent<UI_Health>().ajouterJoueur(otherJoueur.GetComponent<VieJoueur>());
         otherJoueurCom.JoueurName = JsonToString(evt.data.GetField("nom").ToString(), "\"");
         otherJoueur.gameObject.name = JsonToString(evt.data.GetField("nom").ToString(), "\"");
         otherJoueur.transform.position = JsonToVector3(JsonToString(evt.data.GetField("position").ToString(), "\""));
         otherJoueurCom.id = JsonToString(evt.data.GetField("id").ToString(), "\"");
-        GameObject.Find("CanvasHUDJeu").GetComponent<UI_Health>().ajouterJoueur(otherJoueur.GetComponent<VieJoueur>());
     }
 
     void OnClickPlayBtn()
