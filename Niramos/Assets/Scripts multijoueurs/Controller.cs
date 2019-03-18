@@ -340,6 +340,7 @@ public class Controller : MonoBehaviour
         joueur.GetComponent<DeplacementMultijoueur>().OnCommandMove += OnCommandMove;
         //joystick.ActionJoystick();
         JoueurGameObject =  joueur.AddComponent<Joueur>();
+        GameObject.Find("CanvasHUDJeu").GetComponent<UI_Health>().ajouterJoueur(JoueurGameObject.GetComponent<VieJoueur>());
         JoueurGameObject.JoueurName = loginPanel.inputField.text;
         Vector3 spawnJoueur = new Vector3(UnityEngine.Random.Range(-8, 8), -3, 0);
         JoueurGameObject.transform.position = spawnJoueur;
@@ -347,7 +348,6 @@ public class Controller : MonoBehaviour
         JoueurGameObject.transform.position = JsonToVector3(JsonToString(evt.data.GetField("position").ToString(), "\""));
         JoueurGameObject.id = JsonToString(evt.data.GetField("id").ToString(), "\"");
         //joystick.JoueurObject = joueur;
-        GameObject.Find("CanvasHUDJeu").GetComponent<UI_Health>().ajouterJoueur(JoueurGameObject.GetComponent<VieJoueur>());
     }
 
     void onAucuneSessionDispo(SocketIOEvent obj){

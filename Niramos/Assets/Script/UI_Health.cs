@@ -71,6 +71,7 @@ public class UI_Health : MonoBehaviour
         else {
             this.joueurs[this.nombreJoueurs] = v;
             this.nombreJoueurs++;
+            Debug.Log("INFO     Ajout OK.");
         }
     }
 
