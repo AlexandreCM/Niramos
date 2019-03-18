@@ -294,6 +294,7 @@ public class Controller : MonoBehaviour
         otherJoueur.gameObject.name = JsonToString(evt.data.GetField("nom").ToString(), "\"");
         otherJoueur.transform.position = JsonToVector3(JsonToString(evt.data.GetField("position").ToString(), "\""));
         otherJoueurCom.id = JsonToString(evt.data.GetField("id").ToString(), "\"");
+        GameObject.Find("CanvasHUDJeu").GetComponent<UI_Health>().ajouterJoueur(otherJoueur.GetComponent<VieJoueur>());
     }
 
     void OnClickPlayBtn()
@@ -346,6 +347,7 @@ public class Controller : MonoBehaviour
         JoueurGameObject.transform.position = JsonToVector3(JsonToString(evt.data.GetField("position").ToString(), "\""));
         JoueurGameObject.id = JsonToString(evt.data.GetField("id").ToString(), "\"");
         //joystick.JoueurObject = joueur;
+        GameObject.Find("CanvasHUDJeu").GetComponent<UI_Health>().ajouterJoueur(JoueurGameObject.GetComponent<VieJoueur>());
     }
 
     void onAucuneSessionDispo(SocketIOEvent obj){
