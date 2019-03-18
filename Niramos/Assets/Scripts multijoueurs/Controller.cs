@@ -340,6 +340,8 @@ public class Controller : MonoBehaviour
         //joystick.ActionJoystick();
         JoueurGameObject =  joueur.AddComponent<Joueur>();
         JoueurGameObject.JoueurName = loginPanel.inputField.text;
+        Vector3 spawnJoueur = new Vector3(UnityEngine.Random.Range(-8, 8), -3, 0);
+        JoueurGameObject.transform.position = spawnJoueur;
         joueur.name = loginPanel.inputField.text;
         JoueurGameObject.transform.position = JsonToVector3(JsonToString(evt.data.GetField("position").ToString(), "\""));
         JoueurGameObject.id = JsonToString(evt.data.GetField("id").ToString(), "\"");
