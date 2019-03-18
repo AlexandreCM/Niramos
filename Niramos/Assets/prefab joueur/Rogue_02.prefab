@@ -914,7 +914,8 @@ MonoBehaviour:
   vie: 100
   vieMax: 100
   isAlive: 0
-  gfxManager: {fileID: 0}
+  gfxManager: {fileID: 4186189835235703194, guid: 7ac23899acb282b49bbdc59d5019a2a8,
+    type: 3}
 --- !u!114 &976854839
 MonoBehaviour:
   m_ObjectHideFlags: 0
