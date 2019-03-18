@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vitesse: 5
-  forceSaut: 5
+  forceSaut: 3
 --- !u!114 &58290403
 MonoBehaviour:
   m_ObjectHideFlags: 0
