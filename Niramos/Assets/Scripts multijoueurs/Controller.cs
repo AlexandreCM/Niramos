@@ -20,6 +20,12 @@ public class Controller : MonoBehaviour
     [SerializeField]
     private GameObject[] listeSpawnPoint;
 
+    /// <summary>
+    /// L'objet contenant le script UI_Time.
+    /// </summary>
+    [SerializeField]
+    private GameObject UITime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +45,7 @@ public class Controller : MonoBehaviour
         socket.On("SPAWN_ARME", onWeaponSpawn);
         socket.On("FIRE_BOW", onUserFireBow);
         socket.On("GAME_OVER", onGameOver);
+        socket.On("BEGIN_GAME", onGameBegin);
         GestionnaireAttaque.ajouterEvenement("VieJ1Changer", onHitPlayer);
         GestionnaireItem.ajouterEvenement("Ramassable", onUserPickupItem);
         GestionnaireEvenement.ajouterEvenement("ObjetLancer", onPlayerDropItem);
@@ -47,12 +54,24 @@ public class Controller : MonoBehaviour
         //joystick.gameObject.SetActive(false);
         loginPanel.playBtn.onClick.AddListener(OnClickPlayBtn);
         //joystick.OnCommandMove += OnCommandMove;
+
+        if(this.UITime == null) {
+            Debug.LogWarning("WARN    " + this.gameObject.name + ":Controller::start(): No GameObject set for countdown display; timer will not work.");
+        }
+        else if(this.UITime.GetComponent<UI_Time>() == null) {
+            Debug.LogWarning("WARN    " + this.gameObject.name + ":Controller::start(): No GameObject set for countdown display; timer will not work.");
+        }
+    }
+
+    private void onGameBegin(SocketIOEvent obj) {
+        JoueurGameObject.gameObject.GetComponent<mouvement>().enabled = true;
+        this.UITime.GetComponent<UI_Time>().start();
     }
 
     void onGameOver(SocketIOEvent obj)
     {
         JoueurGameObject.gameObject.GetComponent<mouvement>().enabled = false;
-
+        this.UITime.GetComponent<UI_Time>().stop();
     }
 
     void onWeaponSpawn(SocketIOEvent obj)

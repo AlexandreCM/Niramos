@@ -10,6 +10,9 @@ public class UI_Time : MonoBehaviour
     [SerializeField]
     private Text timeLabel;
 
+    [SerializeField]
+    private bool isRunning = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,15 +21,18 @@ public class UI_Time : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        temps -= Time.deltaTime;
+        if(this.isRunning) {
+            this.temps -= Time.deltaTime;
 
-        if (temps <= 0.0f) {
-            temps = 0.00f;
-            this.updateTimer();
-            this.disableTimer();
-        }
+            if (temps <= 0.0f) {
+                this.temps = 0.00f;
+                this.updateTimer();
+                this.disableTimer();
+            }
 
         this.updateTimer();
+        }
+        
     }
 
     void disableTimer() {
@@ -35,5 +41,13 @@ public class UI_Time : MonoBehaviour
 
     void updateTimer() {
         this.timeLabel.text = (Mathf.Round(temps * 100.0f) / 100.0f).ToString();
+    }
+
+    public void start() {
+        this.isRunning = true;
+    }
+
+    public void stop() {
+        this.isRunning = false;
     }
 }
