@@ -61,7 +61,7 @@ io.on("connection", function (socket) {
         }
     });
     function peutDemarer(){
-      if(clients.length == 4){
+      if(clients.length == 1){
         clearInterval(intervalDemarer);
         setInterval(spawnArme, 10 * 1000);
         setTimeout(terminerPartie, 90000);
