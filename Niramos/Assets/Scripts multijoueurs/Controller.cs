@@ -59,13 +59,14 @@ public class Controller : MonoBehaviour
             Debug.LogWarning("WARN    " + this.gameObject.name + ":Controller::start(): No GameObject set for countdown display; timer will not work.");
         }
         else if(this.UITime.GetComponent<UI_Time>() == null) {
-            Debug.LogWarning("WARN    " + this.gameObject.name + ":Controller::start(): No GameObject set for countdown display; timer will not work.");
+            Debug.LogWarning("WARN    " + this.gameObject.name + ":Controller::start(): No UI_Time script set for countdown display; timer will not work.");
         }
     }
 
     private void onGameBegin(SocketIOEvent obj) {
         JoueurGameObject.gameObject.GetComponent<mouvement>().enabled = true;
         this.UITime.GetComponent<UI_Time>().start();
+
     }
 
     void onGameOver(SocketIOEvent obj)
