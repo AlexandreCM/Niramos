@@ -8,13 +8,20 @@ public class VieJoueur : MonoBehaviour
     private float vie = 100;
     [SerializeField]
     private float vieMax = 100;
+
     [SerializeField]
     private bool isAlive;
     private bool estLocal;
 
+    [SerializeField]
+    private GameObject gfxManager;
+
     private void OnEnable()
     {
         this.setIfAlive(true);
+        if(this.gfxManager == null) {
+            Debug.LogWarning("WARN    " + this.gameObject.name + ":VieJoueur::OnEnable(): GFXManager GameObject not set; damage effects will not show for this player.");
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -25,6 +32,11 @@ public class VieJoueur : MonoBehaviour
         if (this.getIfAlive()) {
             vie -= quantiter;
             this.playDamageSound();
+            if(this.gfxManager) SpriteManager.creerEffetDegat(this.gfxManager, 
+            
+                                                              new Vector3(this.gameObject.transform.position.x,
+                                                                          this.gameObject.transform.position.y + 1,
+                                                                          this.gameObject.transform.position.z));
             if (vie <= 0 && this.estLocal) {
                 GestionnaireMort.getEvent().Invoke(this);
                 Debug.Log(this.gameObject.name + " est mort ; transmission au serveur.");
