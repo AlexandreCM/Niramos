@@ -24,7 +24,7 @@ public class DamageSprite : MonoBehaviour
             Debug.LogError("ERRR    " + this.gameObject.name + ":DamageSprite::Start(): No sprite found; destroying object.");
             Destroy(this.gameObject);
         }
-        Destroy(this.gameObject, 0.25f);
+        Destroy(this.gameObject, 0.10f);
     }
     
 }
