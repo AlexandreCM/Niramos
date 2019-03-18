@@ -649,6 +649,26 @@ PrefabInstance:
       propertyPath: temps
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 4757770519657564601, guid: a8af525daa3446f489bcfcf7d9ecb2f8,
+        type: 3}
+      propertyPath: vie1
+      value: 
+      objectReference: {fileID: 620389626}
+    - target: {fileID: 4757770519657564601, guid: a8af525daa3446f489bcfcf7d9ecb2f8,
+        type: 3}
+      propertyPath: vie2
+      value: 
+      objectReference: {fileID: 620389625}
+    - target: {fileID: 4757770519657564601, guid: a8af525daa3446f489bcfcf7d9ecb2f8,
+        type: 3}
+      propertyPath: vie3
+      value: 
+      objectReference: {fileID: 620389624}
+    - target: {fileID: 4757770519657564601, guid: a8af525daa3446f489bcfcf7d9ecb2f8,
+        type: 3}
+      propertyPath: vie4
+      value: 
+      objectReference: {fileID: 620389623}
     - target: {fileID: 187250831378125236, guid: a8af525daa3446f489bcfcf7d9ecb2f8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -751,6 +771,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8af525daa3446f489bcfcf7d9ecb2f8, type: 3}
+--- !u!114 &620389623 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 187250831345787650, guid: a8af525daa3446f489bcfcf7d9ecb2f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 620389622}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &620389624 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 187250831165531813, guid: a8af525daa3446f489bcfcf7d9ecb2f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 620389622}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &620389625 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 187250832405369343, guid: a8af525daa3446f489bcfcf7d9ecb2f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 620389622}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &620389626 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 187250831718758723, guid: a8af525daa3446f489bcfcf7d9ecb2f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 620389622}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &667773869 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11400000, guid: 010d39cbd03ee4c99a746c1f8ecdc0d8,
@@ -1400,7 +1468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 010d39cbd03ee4c99a746c1f8ecdc0d8, type: 3}
       propertyPath: url
-      value: ws://localhost:3000/socket.io/?EIO=4&transport=websocket
+      value: ws://hireme.fr:3000/socket.io/?EIO=4&transport=websocket
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 010d39cbd03ee4c99a746c1f8ecdc0d8, type: 3}
       propertyPath: pingInterval
