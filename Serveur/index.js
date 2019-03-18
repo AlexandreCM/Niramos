@@ -91,9 +91,10 @@ io.on("connection", function (socket) {
                     console.log("L'objet n'est pas disponible");
                     reponse = { idObjet: data.idObjet, disponible: "False" }
                 }
+                socket.emit("ITEM_PICKUP_RESPONSE", reponse);
             }
         }
-        socket.emit("ITEM_PICKUP_RESPONSE", reponse);
+        
     });
 
     socket.on("HIT", function (data) {
@@ -163,12 +164,9 @@ io.on("connection", function (socket) {
     }
 
     function plusDeQuatreDispo() {
-        var nb = 0;
-        listeObjets.forEach(function (current) {
-            if (current.dispo)
-                nb++;
-        });
-        return nb > 3;
+        if(listeObjets.length>4)
+            return true;
+        return false;
     }
 
     //Sert à afficher les sessions disponibles au joueur
